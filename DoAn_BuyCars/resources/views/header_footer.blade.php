@@ -20,7 +20,7 @@
                 <img src="banner1.jpg" alt="LOGO"> <!-- Replace with your logo URL -->
             </div>
             <nav>
-                <a href="#">Trang Chủ</a>
+                <a href="{{ route('index') }}">Trang Chủ</a>
                 <a href="#">Sản Phẩm</a>
                 <a href="#">Thương Hiệu <i class="fas fa-caret-down"></i></a>
                 <a href="#">Sản Phẩm Mới</a>
