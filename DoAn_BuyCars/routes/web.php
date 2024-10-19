@@ -19,3 +19,6 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => ''], function () {
     Route::get('/', [Controller::class, 'index'])->name('index');
 });
+Route::get('/favorite', function () {
+    return view('favorite');
+})->name('favorite');

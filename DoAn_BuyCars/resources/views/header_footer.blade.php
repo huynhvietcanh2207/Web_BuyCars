@@ -25,7 +25,7 @@
                 <a href="#">Thương Hiệu <i class="fas fa-caret-down"></i></a>
                 <a href="#">Sản Phẩm Mới</a>
                 <a href="#">Giới Thiệu</a>
-                <a href="#">Yêu Thích</a>
+                <a href="{{ route('favorite') }}">Yêu Thích</a>
             </nav>
             <div class="icons">
                 <a href="#"><i class="fas fa-search"></i></a>
