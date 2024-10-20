@@ -17,20 +17,21 @@
 <body>
 @section('main')
     <!-- header -->
-  
+
     <main class="main-banner">
         <img src="banner2.jpg" alt="Supercar Banner">
     </main>
     <!-- sản phẩm -->
     <section class="products">
-        <h1>Sản <span>Phẩm</span></h1>
-        <div class="container">
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 section-products">
+    <h1>Sản <span>Phẩm</span></h1>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 section-products">
+            @foreach($products as $product)
                 <div class="col">
                     <div class="product-card">
-                        <img class="image-products" src="banner2.jpg" alt="hình ảnh">
-                        <div class="product-title">Tên Sản Phẩm 1</div>
-                        <div class="product-price">Giá 1</div>
+                        <img class="image-products" src="{{ $product->image_url }}" alt="hình ảnh">
+                        <div class="product-title">{{ $product->name }}</div>
+                        <div class="product-price">{{ number_format($product->price, 0, ',', '.') }} VND</div>
                         <div class="icon-btn">
                             <div class="icon-products">
                                 <i class="fas fa-heart"></i>
@@ -39,227 +40,75 @@
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="product-card">
-                        <img class="image-products" src="banner2.jpg" alt="hình ảnh">
-                        <div class="product-title">Tên Sản Phẩm 2</div>
-                        <div class="product-price">Giá 2</div>
-                        <div class="icon-btn">
-                            <div class="icon-products">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                            <button class="btn-add-to-cart">Thêm vào giỏ hàng</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="product-card">
-                        <img class="image-products" src="banner2.jpg" alt="hình ảnh">
-                        <div class="product-title">Tên Sản Phẩm 3</div>
-                        <div class="product-price">Giá 3</div>
-                        <div class="icon-btn">
-                            <div class="icon-products">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                            <button class="btn-add-to-cart">Thêm vào giỏ hàng</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="product-card">
-                        <img class="image-products" src="banner2.jpg" alt="hình ảnh">
-                        <div class="product-title">Tên Sản Phẩm 4</div>
-                        <div class="product-price">Giá 4</div>
-                        <div class="icon-btn">
-                            <div class="icon-products">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                            <button class="btn-add-to-cart">Thêm vào giỏ hàng</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="product-card">
-                        <img class="image-products" src="banner2.jpg" alt="hình ảnh">
-                        <div class="product-title">Tên Sản Phẩm 1</div>
-                        <div class="product-price">Giá 1</div>
-                        <div class="icon-btn">
-                            <div class="icon-products">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                            <button class="btn-add-to-cart">Thêm vào giỏ hàng</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="product-card">
-                        <img class="image-products" src="banner2.jpg" alt="hình ảnh">
-                        <div class="product-title">Tên Sản Phẩm 2</div>
-                        <div class="product-price">Giá 2</div>
-                        <div class="icon-btn">
-                            <div class="icon-products">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                            <button class="btn-add-to-cart">Thêm vào giỏ hàng</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="product-card">
-                        <img class="image-products" src="banner2.jpg" alt="hình ảnh">
-                        <div class="product-title">Tên Sản Phẩm 3</div>
-                        <div class="product-price">Giá 3</div>
-                        <div class="icon-btn">
-                            <div class="icon-products">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                            <button class="btn-add-to-cart">Thêm vào giỏ hàng</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="product-card">
-                        <img class="image-products" src="banner2.jpg" alt="hình ảnh">
-                        <div class="product-title">Tên Sản Phẩm 4</div>
-                        <div class="product-price">Giá 4</div>
-                        <div class="icon-btn">
-                            <div class="icon-products">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                            <button class="btn-add-to-cart">Thêm vào giỏ hàng</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- phân trang -->
-        <div class="pagination">
-            <button class="pagination-button">
-                << </button>
-                    <button class="pagination-button">1</button>
-                    <button class="pagination-button">2</button>
-                    <button class="pagination-button active">3</button>
-                    <button class="pagination-button">4</button>
-                    <button class="pagination-button"> >> </button>
-        </div>
-    </section>
-    <!-- sản phẩm mới -->
-    <div class="section-newProducts">
-        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-            <h1>Sản Phẩm <span>Mới</span></h1>
-            <div class="carousel-inner">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="row item-products">
-                            <div class="col-lg-7 col-md-6 col-sm-12">
-                                <img src="56.jpg" class="d-block w-100 img-fluid" alt="Slide 1">
-                            </div>
-                            <div class="col-lg-5 col-md-6 col-sm-12 d-flex  flex-column justify-content-center">
-                                <h3>Product 1</h3>
-                                <p>Giới thiệu sương sương</p>
-                                <div class="name-newProducts">
-                                    Name: <a href="#">ABC</a>
-                                </div>
-                                <div class="about">
-                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis, eos!</p>
-                                </div>
-                                <button class="btn btn-silder btn-primary mt-auto">Thêm vào giỏ hàng</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-inner">
-                        <div class="carousel-item">
-                            <div class="row item-products">
-                                <div class="col-lg-7 col-md-6 col-sm-12">
-                                    <img src="56.jpg" class="d-block w-100 img-fluid" alt="Slide 1">
-                                </div>
-                                <div class="col-lg-5 col-md-6 col-sm-12 d-flex  flex-column justify-content-center">
-                                    <h3>Product 1</h3>
-                                    <p>Giới thiệu sương sương</p>
-                                    <div class="name-newProducts">
-                                        Name: <a href="#">ABC</a>
-                                    </div>
-                                    <div class="about">
-                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis, eos!</p>
-                                    </div>
-                                    <button class="btn btn-silder btn-primary mt-auto">Thêm vào giỏ hàng</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="row item-products">
-                                <div class="col-lg-7 col-md-6 col-sm-12">
-                                    <img src="56.jpg" class="d-block w-100 img-fluid" alt="Slide 1">
-                                </div>
-                                <div class="col-lg-5 col-md-6 col-sm-12 d-flex  flex-column justify-content-center">
-                                    <h3>Product 1</h3>
-                                    <p>Giới thiệu sương sương</p>
-                                    <div class="name-newProducts">
-                                        Name: <a href="#">ABC</a>
-                                    </div>
-                                    <div class="about">
-                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis, eos!</p>
-                                    </div>
-                                    <button class="btn btn-silder btn-primary mt-auto">Thêm vào giỏ hàng</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="row item-products">
-                                <div class="col-lg-7 col-md-6 col-sm-12">
-                                    <img src="56.jpg" class="d-block w-100 img-fluid" alt="Slide 1">
-                                </div>
-                                <div class="col-lg-5 col-md-6 col-sm-12 d-flex  flex-column justify-content-center">
-                                    <h3>Product 1</h3>
-                                    <p>Giới thiệu sương sương</p>
-                                    <div class="name-newProducts">
-                                        Name: <a href="#">ABC</a>
-                                    </div>
-                                    <div class="about">
-                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis, eos!</p>
-                                    </div>
-                                    <button class="btn btn-silder btn-primary mt-auto">Thêm vào giỏ hàng</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="row item-products">
-                                <div class="col-lg-7 col-md-6 col-sm-12">
-                                    <img src="56.jpg" class="d-block w-100 img-fluid" alt="Slide 1">
-                                </div>
-                                <div class="col-lg-5 col-md-6 col-sm-12 d-flex  flex-column justify-content-center">
-                                    <h3>Product 1</h3>
-                                    <p>Giới thiệu sương sương</p>
-                                    <div class="name-newProducts">
-                                        Name: <a href="#">ABC</a>
-                                    </div>
-                                    <div class="about">
-                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis, eos!</p>
-                                    </div>
-                                    <button class="btn btn-silder btn-primary mt-auto">Thêm vào giỏ hàng</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- boostrap Carousel controls -->
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
-                        data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
-                        data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-
-            </div>
-
-
+            @endforeach
         </div>
     </div>
+
+      <!-- Phân trang -->
+      <div class="pagination">
+        <!-- đầu << -->
+        @if ($products->onFirstPage())
+            <button class="pagination-button" disabled><<</button>
+        @else
+            <a href="{{ $products->url(1) }}" class="pagination-button"><<</a>
+        @endif
+
+        <!-- giữa -->
+        @for ($i = 1; $i <= $products->lastPage(); $i++)
+            <a href="{{ $products->url($i) }}" class="pagination-button {{ ($products->currentPage() == $i) ? 'active' : '' }}">
+                {{ $i }}
+            </a>
+        @endfor
+
+        <!-- cuối >> -->
+        @if ($products->hasMorePages())
+            <a href="{{ $products->url($products->lastPage()) }}" class="pagination-button">>></a>
+        @else
+            <button class="pagination-button" disabled>>></button>
+        @endif
+        </div>
+</section>
+</section>
+
+ <!-- Sản phẩm mới -->
+<div class="section-newProducts">
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+        <h1>Sản Phẩm <span>Mới</span></h1>
+        <div class="carousel-inner">
+            @foreach($newProducts as $index => $products)
+                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                    <div class="row item-products">
+                        <div class="col-lg-7 col-md-6 col-sm-12">
+                            <img src="{{ $products->image_url }}" class="d-block w-100 img-fluid" alt="Slide {{ $index + 1 }}">
+                        </div>
+                        <div class="col-lg-5 col-md-6 col-sm-12 d-flex flex-column justify-content-center">
+                            <h3>{{ $products->name }}</h3>
+                            <p>Giới thiệu sương sương</p>
+                            <div class="name-newProducts">
+                                Name: <a href="#">{{ $products->name }}</a>
+                            </div>
+                            <div class="about">
+                                <p>{{ $products->description }}</p>
+                            </div>
+                            <button class="btn btn-silder btn-primary mt-auto">Thêm vào giỏ hàng</button>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        <!-- Bootstrap Carousel controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
     <!-- about -->
     <div class="about" id="About">
 
