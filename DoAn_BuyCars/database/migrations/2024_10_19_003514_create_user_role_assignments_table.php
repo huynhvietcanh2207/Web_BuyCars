@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('user_role_assignments', function (Blueprint $table) {
             $table->id('AssignmentId');
-            $table->unsignedBigInteger('UserId');
+            $table->unsignedBigInteger('id');
             $table->unsignedBigInteger('RoleId');
             $table->timestamp('AssignedAt')->useCurrent();
         
             // Khóa ngoại
-            $table->foreign('UserId')->references('UserId')->on('users')->onDelete('cascade');
+            $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('RoleId')->references('RoleId')->on('user_roles')->onDelete('cascade');
         });
         

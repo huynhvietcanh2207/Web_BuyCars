@@ -8,7 +8,35 @@
     <link rel="stylesheet" href="/css/style.css">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <style>
+        .dropdown-user {
+            position: relative;
+            display: inline-block;
+        }
 
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            z-index: 1000;
+        }
+
+        .dropdown-user:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f0f0f0;
+        }
     </style>
 </head>
 
@@ -30,14 +58,33 @@
             <div class="icons">
                 <a href="#"><i class="fas fa-search"></i></a>
                 <a href="#"><i class="fas fa-shopping-cart"></i></a>
-                <a href="#"><i class="fas fa-user"></i></a>
+                <div class="dropdown-user">
+                    <a href="#" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></a>
+                    <div class="dropdown-menu">
+                        @auth
+                        <a href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng Xuất</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                        @else
+                        <a href="{{ route('login') }}">Đăng Nhập</a>
+                        @endauth
+                    </div>
+                </div>
+
+
+
+
+
+
             </div>
         </div>
     </header>
 
-    
-        @yield('main')
-   
+
+    @yield('main')
+
 
 
 
