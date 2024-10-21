@@ -43,15 +43,24 @@ class Login_registerController extends Controller
             'email' => 'required|email',
             'password' => 'required|string',
         ]);
-
+    
         // Đăng nhập
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            // Đăng nhập thành công
-            return redirect()->route('index')->with('success', 'Đăng nhập thành công!');
+            $user = Auth::user();
+    
+            // Kiểm tra vai trò của người dùng
+            if ($user->roles->contains('RoleName', 'admin')) {
+                // Chuyển hướng đến trang admin nếu là admin
+                return redirect()->route('admin.dashboard')->with('success', 'Đăng nhập thành công với quyền Admin!');
+            } else {
+                // Chuyển hướng đến trang người dùng nếu là user
+                return redirect()->route('index')->with('success', 'Đăng nhập thành công!');
+            }
         }
-
+    
         return redirect()->back()->withErrors(['email' => 'Email hoặc mật khẩu không chính xác.']);
     }
+    
 
     public function logout(Request $request)
     {

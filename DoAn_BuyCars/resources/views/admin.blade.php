@@ -77,19 +77,19 @@
               </div>
             </li>
             <li class="nav-item">
-              <a data-bs-toggle="collapse" href="#submenu">
+              <a data-bs-toggle="collapse" href="#">
                 <i class="fas fa-bars"></i>
                 <p>Danh thu và báo cáo</p>
               </a>
             </li>
             <li class="nav-item">
-              <a data-bs-toggle="collapse" href="#submenu">
+              <a data-bs-toggle="collapse" href="#">
                 <i class="fas fa-bars"></i>
                 <p>Phân quyền</p>
               </a>
             </li>
             <li class="nav-item">
-              <a data-bs-toggle="collapse" href="#submenu">
+              <a data-bs-toggle="collapse" href="#">
                 <i class="fas fa-bars"></i>
                 <p>Xuất</p>
               </a>
