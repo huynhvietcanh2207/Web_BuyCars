@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('CartId');
             $table->unsignedBigInteger('ProductId');
             $table->integer('quantity');
+            $table->decimal('price', 18, 2);
         
             // Khóa ngoại
             $table->foreign('CartId')->references('CartId')->on('cart')->onDelete('cascade');

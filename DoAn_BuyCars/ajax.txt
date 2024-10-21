@@ -1,0 +1,382 @@
+TĂNG GIẢM VIEW THÌ SỬ DỤNG AJAX CŨNG NHƯ MẪU AJAX
+Javacript:
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.increase-btn').forEach(function (button) {
+        button.addEventListener('click', function () {
+            let input = this.closest('td').querySelector('.quantity-input');
+            let quantity = parseInt(input.value);
+            if (!isNaN(quantity)) {
+                input.value = quantity + 1;
+            }
+        });
+    });
+    document.querySelectorAll('.decrease-btn').forEach(function (button) {
+        button.addEventListener('click', function () {
+            let input = this.closest('td').querySelector('.quantity-input');
+            let quantity = parseInt(input.value);
+            if (!isNaN(quantity) && quantity > 1) {
+                input.value = quantity - 1;
+            }
+        });
+    });
+        // Thiết lập CSRF token cho các yêu cầu AJAX
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
+
+        // Tăng số lượng sản phẩm
+        $(document).on('click', '.increase-btn', function () {
+            const id = $(this).data('id'); // Lấy ID từ dữ liệu của nút
+            const input = $(this).closest('td').find('.quantity-input'); // Lấy input số lượng
+            let quantity = parseInt(input.val());
+
+            // Gửi yêu cầu AJAX
+            $.ajax({
+                url: `/cart/${id}/increase`,
+                method: 'POST',
+                dataType: 'json',
+                success: function (result) {
+                    if (result.success) {
+                        input.val(result.quantity); // Cập nhật giá trị input
+                    }
+                },
+                error: function (xhr) {
+                    console.error(xhr.responseText); // In ra lỗi nếu có
+                }
+            });
+        });
+
+        // Giảm số lượng sản phẩm
+        $(document).on('click', '.decrease-btn', function () {
+            const id = $(this).data('id'); // Lấy ID từ dữ liệu của nút
+            const input = $(this).closest('td').find('.quantity-input'); // Lấy input số lượng
+            let quantity = parseInt(input.val());
+
+            if (quantity > 1) { // Đảm bảo số lượng không nhỏ hơn 1
+                // Gửi yêu cầu AJAX
+                $.ajax({
+                    url: `/cart/${id}/decrease`,
+                    method: 'POST',
+                    dataType: 'json',
+                    success: function (result) {
+                        if (result.success) {
+                            input.val(result.quantity); // Cập nhật giá trị input
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error(xhr.responseText); // In ra lỗi nếu có
+                    }
+                });
+            }
+        });
+
+        // Xử lý thêm sản phẩm vào giỏ hàng
+        $('#addCartItemForm').on('submit', function(event) {
+            event.preventDefault(); // Ngăn không cho form gửi theo cách thông thường
+
+            $.ajax({
+                url: '/cart-items',
+                type: 'POST',
+                data: $(this).serialize(), // Lấy dữ liệu từ form
+                success: function(response) {
+                    console.log('Cart item added:', response);
+                    // Xử lý thêm như cập nhật giao diện người dùng
+                },
+                error: function(xhr) {
+                    console.error('Error adding cart item:', xhr.responseText);
+                    // Xử lý lỗi
+                }
+            });
+        });
+    </script>
+Product.php (Model)
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Product extends Model
+{
+    use HasFactory;
+
+    protected $table = 'products';
+
+    protected $primaryKey = 'ProductId';
+
+    public $incrementing = false;
+    
+    protected $fillable = ['ProductId', 'name', 'BrandId', 'price', 'description', 'image_url', 'color', 'created_at', 'updated_at'];
+}
+CartItemController.php (Controller)
+
+Thay thế vào index:
+$cartTotal = $cartItems->isEmpty() ? 0 : $cartItems->sum(function ($item) {
+            return $item->quantity * $item->product->price;
+        });
+
+        return view('cart', [
+            'cartItems' => $cartItems,
+            'cartTotal' => $cartTotal, // Truyền biến tổng tiền vào view
+            'message' => $cartItems->isEmpty() ? 'Giỏ hàng của bạn hiện đang trống.' : null
+        ]);
+        
+public function store(Request $request)
+    {
+        // Xác thực dữ liệu
+        $validated = $request->validate([
+            'CartId' => 'required|integer',
+            'ProductId' => 'required|integer',
+            'quantity' => 'required|integer',
+            'price' => 'required|numeric',
+        ]);
+
+        // Tạo mới CartItem
+        $cartItem = CartItem::create($validated);
+
+        return response()->json($cartItem, 201);
+    }
+
+public function increase($id)
+    {
+        $cartItem = CartItem::find($id);
+        if ($cartItem) {
+            $cartItem->quantity += 1;
+            $cartItem->save();
+            return response()->json(['success' => true, 'quantity' => $cartItem->quantity]);
+        }
+        return response()->json(['success' => false], 404);
+    }
+
+    public function decrease($id)
+    {
+        $cartItem = CartItem::find($id);
+        if ($cartItem && $cartItem->quantity > 1) {
+            $cartItem->quantity -= 1;
+            $cartItem->save();
+            return response()->json(['success' => true, 'quantity' => $cartItem->quantity]);
+        }
+        return response()->json(['success' => false], 404);
+    }
+Route web.php
+// Route mới cho tăng giảm số lượng
+    Route::post('/cart/{id}/increase', [CartItemController::class, 'increase'])->name('cart.increase');
+    Route::post('/cart/{id}/decrease', [CartItemController::class, 'decrease'])->name('cart.decrease');
+cart.blade.php
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Giỏ hàng</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/cart.css">
+</head>
+<body>
+    <div class="banner">
+        <div class="cart-header text-center">
+            <img src="{{ asset('images/banner1.jpg') }}" alt="Banner">
+            <h1>GIỎ HÀNG</h1>
+            <p><span id="hightlight">Trang chủ ></span> Giỏ hàng</p>
+        </div>
+    </div>
+    <div class="container my-5">
+        <div class="cart">
+            <div class="table-responsive">
+                <table class="cart-table table table-bordered text-center">
+                    <thead>
+                        <tr>
+                            <th>Ảnh sản phẩm</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Đơn giá</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền</th>
+                            <th>Xóa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (!empty($cartItems) && is_countable($cartItems) && count($cartItems) > 0)
+                            @foreach ($cartItems as $item)
+                                <tr>
+                                    <td><img src="{{ asset('images/56.jpg') }}" alt="Radio Ô tô" class="img-fluid" width="100"></td>
+                                    <td>{{ $item->product->name }}</td>
+                                    <td class="product-price">{{ number_format($item->product->price, 0, ',', '.') }}₫</td>
+                                    <td>
+                                        <button class="btn btn-outline-secondary quantity-btn decrease-btn" data-id="{{ $item->CartItemId }}">-</button>
+                                        <input type="text" class="form-control d-inline text-center quantity-input" style="width: 60px;" value="{{ $item->quantity }}" min="1">
+                                        <button class="btn btn-outline-secondary quantity-btn increase-btn" data-id="{{ $item->CartItemId }}">+</button>
+                                    </td>
+                                    <td class="product-total">{{ number_format($item->quantity * $item->product->price, 0, ',', '.') }}₫</td>
+                                    <td>
+                                        <form action="{{ route('cart.destroy', $item->CartItemId) }}" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button class="btn btn-outline-danger delete-btn">🗑️</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td colspan="6">Giỏ hàng của bạn hiện đang trống.</td>
+                            </tr>
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="cart-footer d-flex justify-content-between align-items-center mt-4">
+                <button class="btn btn-outline-danger continue-shopping">TIẾP TỤC MUA HÀNG</button>
+                <div class="total text-end">
+                    <label for="total">Tổng tiền thanh toán</label>
+                    <input type="text" id="total" class="form-control d-inline" value="{{ number_format($cartTotal, 0, ',', '.') }}₫" readonly style="width: 150px;">
+                    <button class="btn btn-danger checkout">TIẾN HÀNH THANH TOÁN</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>
+
+
+
+Javacript:
+lấy hình ảnh khi thêm
+public function store(Request $request)
+    {
+        // Kiểm tra xem có file ảnh được upload không
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+
+            // Đặt tên file ảnh duy nhất bằng cách nối thời gian hiện tại với tên gốc của file
+            $imageName = time() . '_' . $image->getClientOriginalName();
+
+            // Di chuyển file ảnh vào thư mục 'public/images'
+            $image->move(public_path('images'), $imageName);
+
+            // Lưu sản phẩm vào cơ sở dữ liệu với tên file ảnh
+            $product = new Product();
+            $product->name = $request->input('name');
+            $product->price = $request->input('price');
+            $product->image_name = $imageName; // Lưu tên file ảnh vào database
+            $product->save();
+        }
+
+        return redirect()->back()->with('success', 'Sản phẩm đã được thêm thành công.');
+    }
+
+
+
+
+
+
+????????????????????????????????????????
+document.addEventListener('DOMContentLoaded', function () {
+    const quantityInputs = document.querySelectorAll('.quantity-input');
+    const productItems = document.querySelectorAll('.product_item');
+    const totalInput = document.getElementById('total');
+
+    const alertBox = document.getElementById('alert-box');//hiển thị thông báo
+
+
+
+    // Cập nhật tổng tiền cho từng sản phẩm
+    function updateTotal(input, index) {
+        const price = parseFloat(input.getAttribute('data-price'));
+        const quantity = parseInt(input.value);
+        if (!isNaN(price) && !isNaN(quantity)) {
+            const total = quantity * price;
+            productItems[index].innerText = new Intl.NumberFormat('vi-VN').format(total) + '₫';
+
+            // Cập nhật giá trị hidden input trong form
+            const hiddenQuantityInput = document.querySelector(`input[name="cartItems[${input.closest('tr').getAttribute('data-id')}][quantity]"]`);
+            const hiddenPriceInput = document.querySelector(`input[name="cartItems[${input.closest('tr').getAttribute('data-id')}][price]"]`);
+
+            if (hiddenQuantityInput && hiddenPriceInput) {
+                hiddenQuantityInput.value = quantity;
+                hiddenPriceInput.value = total;
+            } else {
+                console.error('Hidden input không tìm thấy.');
+            }
+        }
+    }
+
+    // Hàm tính tổng tiền thanh toán
+    function updateGrandTotal() {
+        let grandTotal = 0;
+        productItems.forEach(function (item) {
+            const totalText = item.innerText.replace(/[₫.,]/g, '').trim();
+            const total = parseFloat(totalText);
+            if (!isNaN(total)) {
+                grandTotal += total;
+            }
+        });
+
+        // Cập nhật vào input tổng tiền
+        totalInput.value = new Intl.NumberFormat('vi-VN').format(grandTotal) + '₫';
+    }
+
+    // Tăng số lượng
+    function increaseQuantity(input) {
+        let quantity = parseInt(input.value);
+        if (!isNaN(quantity)) {
+            quantity += 1;
+            input.value = quantity;
+            const index = Array.from(quantityInputs).indexOf(input);
+            updateTotal(input, index);
+            updateGrandTotal();
+        }
+    }
+
+    // Giảm số lượng
+    function decreaseQuantity(input) {
+        let quantity = parseInt(input.value);
+        if (!isNaN(quantity) && quantity > 1) {
+            quantity -= 1;
+            input.value = quantity;
+            const index = Array.from(quantityInputs).indexOf(input);
+            updateTotal(input, index);
+            updateGrandTotal();
+        }
+    }
+
+    // Sự kiện nút tăng số lượng
+    document.querySelectorAll('.increase-btn').forEach(function (button) {
+        button.addEventListener('click', function () {
+            let input = this.closest('td').querySelector('.quantity-input');
+            increaseQuantity(input);
+        });
+    });
+
+    // Sự kiện nút giảm số lượng
+    document.querySelectorAll('.decrease-btn').forEach(function (button) {
+        button.addEventListener('click', function () {
+            let input = this.closest('td').querySelector('.quantity-input');
+            decreaseQuantity(input);
+        });
+    });
+
+    function showDeleteAlert() {
+        alertBox.textContent = 'Xóa sản phẩm thành công';
+        alertBox.style.display = 'block';
+        setTimeout(function () {
+            alertBox.style.display = 'none';
+        }, 3000);
+    }
+
+    // Cập nhật tổng tiền khi trang tải
+    quantityInputs.forEach((input, index) => {
+        updateTotal(input, index);
+    });
+
+    updateGrandTotal();
+
+});
