@@ -68,7 +68,7 @@
               <div class="collapse" id="submenu">
                 <ul class="nav nav-collapse">
                   <li><a href="#"><span class="sub-item">Quản lý người dùng</span></a></li>
-                  <li><a href="#"><span class="sub-item">Quản lý sản phẩm</span></a></li>
+                  <li><a href="{{ route('products.index') }}">Quản lý sản phẩm</a></li>
                   <li><a href="#"><span class="sub-item">Quản lý thương hiệu</span></a></li>
                   <li><a href="#"><span class="sub-item">Quản lý Đơn Hàng</span></a></li>
                   <li><a href="#"><span class="sub-item">Quản lý bình luận</span></a></li>
@@ -119,7 +119,8 @@
       <div class="container">
         <div class="page-inner">
           <div class="page-header">
-            <h4 class="page-title">Dashboard</h4>
+            @yield('main')
+
           </div>
         </div>
       </div>

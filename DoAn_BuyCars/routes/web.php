@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login_registerController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CrudProductsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +34,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('/', [AdminController::class, 'indexAdmin'])->name('admin.dashboard');
     // Thêm các route khác cho admin ở đây
 });
+Route::resources([
+    'products' => CrudProductsController::class,
+]);
