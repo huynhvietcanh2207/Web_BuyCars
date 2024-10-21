@@ -19,11 +19,11 @@
 
     <!-- thoogn báo alert -->
     @if(session()->has('success'))
-    <script>
-        window.onload = function() {
-            alert("{{ session('success') }}");
-        }
-    </script>
+        <script>
+            window.onload = function () {
+                alert("{{ session('success') }}");
+            }
+        </script>
     @endif
 
     <main class="main-banner">
@@ -31,91 +31,97 @@
     </main>
     <!-- sản phẩm -->
     <section class="products">
-    <h1>Sản <span>Phẩm</span></h1>
-    <div class="container">
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 section-products">
-            @foreach($products as $product)
-                <div class="col">
-                    <div class="product-card">
-                        <img class="image-products" src="{{ $product->image_url }}" alt="hình ảnh">
-                        <div class="product-title">{{ $product->name }}</div>
-                        <div class="product-price">{{ number_format($product->price, 0, ',', '.') }} VND</div>
-                        <div class="icon-btn">
-                            <div class="icon-products">
-                                <i class="fas fa-heart"></i>
+        <h1>Sản <span>Phẩm</span></h1>
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 section-products">
+                @foreach($products as $product)
+                    <div class="col">
+                        <div class="product-card">
+                            <img class="image-products" src="{{ $product->image_url }}" alt="hình ảnh">
+                            <div class="product-title">{{ $product->name }}</div>
+                            <div class="product-price">{{ number_format($product->price, 0, ',', '.') }} VND</div>
+                            <div class="icon-btn">
+                                <div class="icon-products">
+                                    <i class="fas fa-heart favorite-btn" data-product-id="{{ $product->ProductId }}"></i>
+                                </div>
+
+                                <button class="btn-add-to-cart">Thêm vào giỏ hàng</button>
                             </div>
-                            <button class="btn-add-to-cart">Thêm vào giỏ hàng</button>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
-    </div>
 
-      <!-- Phân trang -->
-      <div class="pagination">
-        <!-- đầu << -->
-        @if ($products->onFirstPage())
-            <button class="pagination-button" disabled><<</button>
-        @else
-            <a href="{{ $products->url(1) }}" class="pagination-button"><<</a>
-        @endif
+        <!-- Phân trang -->
+        <div class="pagination">
+            <!-- đầu << -->
+            @if ($products->onFirstPage())
+                <button class="pagination-button" disabled>
+                    << </button>
+            @else
+                <a href="{{ $products->url(1) }}" class="pagination-button">
+                    << </a>
+            @endif
 
-        <!-- giữa -->
-        @for ($i = 1; $i <= $products->lastPage(); $i++)
-            <a href="{{ $products->url($i) }}" class="pagination-button {{ ($products->currentPage() == $i) ? 'active' : '' }}">
-                {{ $i }}
-            </a>
-        @endfor
 
-        <!-- cuối >> -->
-        @if ($products->hasMorePages())
-            <a href="{{ $products->url($products->lastPage()) }}" class="pagination-button">>></a>
-        @else
-            <button class="pagination-button" disabled>>></button>
-        @endif
+                            <!-- giữa -->
+                            @for ($i = 1; $i <= $products->lastPage(); $i++)
+                                <a href="{{ $products->url($i) }}"
+                                    class="pagination-button {{ ($products->currentPage() == $i) ? 'active' : '' }}">
+                                    {{ $i }}
+                                </a>
+                            @endfor
+
+                            <!-- cuối >> -->
+                            @if ($products->hasMorePages())
+                                <a href="{{ $products->url($products->lastPage()) }}" class="pagination-button">>></a>
+                            @else
+                                <button class="pagination-button" disabled>>></button>
+                            @endif
         </div>
-</section>
-</section>
+    </section>
+    </section>
 
- <!-- Sản phẩm mới -->
-<div class="section-newProducts">
-    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-        <h1>Sản Phẩm <span>Mới</span></h1>
-        <div class="carousel-inner">
-            @foreach($newProducts as $index => $products)
-                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                    <div class="row item-products">
-                        <div class="col-lg-7 col-md-6 col-sm-12">
-                            <img src="{{ $products->image_url }}" class="d-block w-100 img-fluid" alt="Slide {{ $index + 1 }}">
-                        </div>
-                        <div class="col-lg-5 col-md-6 col-sm-12 d-flex flex-column justify-content-center">
-                            <h3>{{ $products->name }}</h3>
-                            <p>Giới thiệu sương sương</p>
-                            <div class="name-newProducts">
-                                Name: <a href="#">{{ $products->name }}</a>
+    <!-- Sản phẩm mới -->
+    <div class="section-newProducts">
+        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+            <h1>Sản Phẩm <span>Mới</span></h1>
+            <div class="carousel-inner">
+                @foreach($newProducts as $index => $products)
+                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                        <div class="row item-products">
+                            <div class="col-lg-7 col-md-6 col-sm-12">
+                                <img src="{{ $products->image_url }}" class="d-block w-100 img-fluid"
+                                    alt="Slide {{ $index + 1 }}">
                             </div>
-                            <div class="about">
-                                <p>{{ $products->description }}</p>
+                            <div class="col-lg-5 col-md-6 col-sm-12 d-flex flex-column justify-content-center">
+                                <h3>{{ $products->name }}</h3>
+                                <p>Giới thiệu sương sương</p>
+                                <div class="name-newProducts">
+                                    Name: <a href="#">{{ $products->name }}</a>
+                                </div>
+                                <div class="about">
+                                    <p>{{ $products->description }}</p>
+                                </div>
+                                <button class="btn btn-silder btn-primary mt-auto">Thêm vào giỏ hàng</button>
                             </div>
-                            <button class="btn btn-silder btn-primary mt-auto">Thêm vào giỏ hàng</button>
                         </div>
                     </div>
-                </div>
-            @endforeach
-        </div>
+                @endforeach
+            </div>
 
-        <!-- Bootstrap Carousel controls -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+            <!-- Bootstrap Carousel controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
     </div>
-</div>
 
     <!-- about -->
     <div class="about" id="About">
@@ -141,11 +147,14 @@
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet fugit provident suscipit
                     reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
-                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet fugit provident suscipit
+                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Eveniet fugit provident suscipit
                     reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
-                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet fugit provident suscipit
+                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Eveniet fugit provident suscipit
                     reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
-                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet fugit provident suscipit
+                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Eveniet fugit provident suscipit
                     reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
                     non voluptatem illum aut expedita nisi.
                 </p>
@@ -212,9 +221,9 @@
                     </div>
 
                     @if (session('success'))
-                    <div class="alert alert-success mt-2">
-                        {{ session('success') }}
-                    </div>
+                        <div class="alert alert-success mt-2">
+                            {{ session('success') }}
+                        </div>
                     @endif
 
                 </div>
@@ -228,14 +237,14 @@
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-
+<x-ajax-add-favorite/> <!-- Sử dụng component -->
 </html>
 <script>
+    
     //thêm vào giỏ hàng nhá
     document.querySelectorAll('.btn').forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             alert('Sản phẩm đã được thêm vào giỏ hàng!');
         });
     });

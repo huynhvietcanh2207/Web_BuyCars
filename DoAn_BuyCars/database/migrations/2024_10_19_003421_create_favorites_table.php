@@ -12,15 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('favorites', function (Blueprint $table) {
-            $table->id('FavoriteId');
-            $table->unsignedBigInteger('id');
-            $table->unsignedBigInteger('ProductId');
-            $table->timestamp('CreatedAt')->useCurrent();
+            $table->id('FavoriteId'); // Khóa chính
+            $table->unsignedBigInteger('user_id'); // ID người dùng
+            $table->unsignedBigInteger('ProductId'); // ID sản phẩm
+            $table->timestamps();
         
             // Khóa ngoại
-            $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('ProductId')->references('ProductId')->on('products')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // Khóa ngoại đến bảng users
+            $table->foreign('ProductId')->references('ProductId')->on('products')->onDelete('cascade'); // Khóa ngoại đến bảng products
         });
+        
+
+
         
     }
 
