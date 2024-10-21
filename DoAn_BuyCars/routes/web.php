@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login_registerController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CrudProductsController;
+use App\Http\Controllers\SubscriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +38,4 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 Route::resources([
     'products' => CrudProductsController::class,
 ]);
+Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('subscribe');
