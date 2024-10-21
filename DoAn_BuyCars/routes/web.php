@@ -3,6 +3,7 @@
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login_registerController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,4 @@ Route::post('login', [Login_registerController::class, 'login'])->name('login.po
 Route::post('logout', [Login_registerController::class, 'logout'])->name('logout');
 
 
+Route::get('/admin', [AdminController::class, 'indexAdmin']);

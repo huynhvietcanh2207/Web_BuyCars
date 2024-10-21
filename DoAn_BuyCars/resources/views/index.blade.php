@@ -31,10 +31,10 @@
     </main>
     <!-- sản phẩm -->
     <section class="products">
-        <h1>Sản <span>Phẩm</span></h1>
-        <div class="container">
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 section-products">
-                @foreach($products as $product)
+    <h1>Sản <span>Phẩm</span></h1>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 section-products">
+            @foreach($products as $product)
                 <div class="col">
                     <div class="product-card">
                         <img class="image-products" src="{{ $product->image_url }}" alt="hình ảnh">
@@ -48,41 +48,42 @@
                         </div>
                     </div>
                 </div>
-                @endforeach
-            </div>
+            @endforeach
         </div>
+    </div>
 
-        <!-- Phân trang -->
-        <div class="pagination">
-            <!-- đầu << -->
-            @if ($products->onFirstPage())
+      <!-- Phân trang -->
+      <div class="pagination">
+        <!-- đầu << -->
+        @if ($products->onFirstPage())
             <button class="pagination-button" disabled><<</button>
-                    @else
-                    <a href="{{ $products->url(1) }}" class="pagination-button"><<< /a>
-                            @endif
+        @else
+            <a href="{{ $products->url(1) }}" class="pagination-button"><<</a>
+        @endif
 
-                            <!-- giữa -->
-                            @for ($i = 1; $i <= $products->lastPage(); $i++)
-                                <a href="{{ $products->url($i) }}" class="pagination-button {{ ($products->currentPage() == $i) ? 'active' : '' }}">
-                                    {{ $i }}
-                                </a>
-                                @endfor
+        <!-- giữa -->
+        @for ($i = 1; $i <= $products->lastPage(); $i++)
+            <a href="{{ $products->url($i) }}" class="pagination-button {{ ($products->currentPage() == $i) ? 'active' : '' }}">
+                {{ $i }}
+            </a>
+        @endfor
 
-                                <!-- cuối >> -->
-                                @if ($products->hasMorePages())
-                                <a href="{{ $products->url($products->lastPage()) }}" class="pagination-button">>></a>
-                                @else
-                                <button class="pagination-button" disabled>>></button>
-                                 @endif
-                           </div>
-    </section>
+        <!-- cuối >> -->
+        @if ($products->hasMorePages())
+            <a href="{{ $products->url($products->lastPage()) }}" class="pagination-button">>></a>
+        @else
+            <button class="pagination-button" disabled>>></button>
+        @endif
+        </div>
+</section>
+</section>
 
-    <!-- Sản phẩm mới -->
-    <div class="section-newProducts">
-        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-            <h1>Sản Phẩm <span>Mới</span></h1>
-            <div class="carousel-inner">
-                @foreach($newProducts as $index => $products)
+ <!-- Sản phẩm mới -->
+<div class="section-newProducts">
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+        <h1>Sản Phẩm <span>Mới</span></h1>
+        <div class="carousel-inner">
+            @foreach($newProducts as $index => $products)
                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                     <div class="row item-products">
                         <div class="col-lg-7 col-md-6 col-sm-12">
@@ -101,20 +102,20 @@
                         </div>
                     </div>
                 </div>
-                @endforeach
-            </div>
-
-            <!-- Bootstrap Carousel controls -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+            @endforeach
         </div>
+
+        <!-- Bootstrap Carousel controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
+</div>
 
     <!-- about -->
     <div class="about" id="About">
