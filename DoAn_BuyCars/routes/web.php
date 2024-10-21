@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +20,4 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => ''], function () {
     Route::get('/', [Controller::class, 'index'])->name('index');
 });
+Route::get('/admin', [AdminController::class, 'indexAdmin']);
