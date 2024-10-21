@@ -31,10 +31,10 @@
     </main>
     <!-- sản phẩm -->
     <section class="products">
-    <h1>Sản <span>Phẩm</span></h1>
-    <div class="container">
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 section-products">
-            @foreach($products as $product)
+        <h1>Sản <span>Phẩm</span></h1>
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 section-products">
+                @foreach($products as $product)
                 <div class="col">
                     <div class="product-card">
                         <img class="image-products" src="{{ $product->image_url }}" alt="hình ảnh">
@@ -48,42 +48,44 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
-    </div>
 
-      <!-- Phân trang -->
-      <div class="pagination">
-        <!-- đầu << -->
-        @if ($products->onFirstPage())
-            <button class="pagination-button" disabled><<</button>
-        @else
-            <a href="{{ $products->url(1) }}" class="pagination-button"><<</a>
-        @endif
+        <!-- Phân trang -->
+        <div class="pagination">
+            <!-- đầu << -->
+            @if ($products->onFirstPage())
+            <button class="pagination-button" disabled>
+                <<< /button>
+                    @else
+                    <a href="{{ $products->url(1) }}" class="pagination-button">
+                        <<< /a>
+                            @endif
 
-        <!-- giữa -->
-        @for ($i = 1; $i <= $products->lastPage(); $i++)
-            <a href="{{ $products->url($i) }}" class="pagination-button {{ ($products->currentPage() == $i) ? 'active' : '' }}">
-                {{ $i }}
-            </a>
-        @endfor
+                            <!-- giữa -->
+                            @for ($i = 1; $i <= $products->lastPage(); $i++)
+                                <a href="{{ $products->url($i) }}" class="pagination-button {{ ($products->currentPage() == $i) ? 'active' : '' }}">
+                                    {{ $i }}
+                                </a>
+                                @endfor
 
-        <!-- cuối >> -->
-        @if ($products->hasMorePages())
-            <a href="{{ $products->url($products->lastPage()) }}" class="pagination-button">>></a>
-        @else
-            <button class="pagination-button" disabled>>></button>
-        @endif
+                                <!-- cuối >> -->
+                                @if ($products->hasMorePages())
+                                <a href="{{ $products->url($products->lastPage()) }}" class="pagination-button">>></a>
+                                @else
+                                <button class="pagination-button" disabled>>></button>
+                                @endif
         </div>
-</section>
-</section>
+    </section>
+    </section>
 
- <!-- Sản phẩm mới -->
-<div class="section-newProducts">
-    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-        <h1>Sản Phẩm <span>Mới</span></h1>
-        <div class="carousel-inner">
-            @foreach($newProducts as $index => $products)
+    <!-- Sản phẩm mới -->
+    <div class="section-newProducts">
+        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+            <h1>Sản Phẩm <span>Mới</span></h1>
+            <div class="carousel-inner">
+                @foreach($newProducts as $index => $products)
                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                     <div class="row item-products">
                         <div class="col-lg-7 col-md-6 col-sm-12">
@@ -102,20 +104,20 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
-        </div>
+                @endforeach
+            </div>
 
-        <!-- Bootstrap Carousel controls -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+            <!-- Bootstrap Carousel controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
     </div>
-</div>
 
     <!-- about -->
     <div class="about" id="About">
@@ -201,21 +203,36 @@
                         </a>
                     </div>
 
-                    <!-- nhận mail -->
-                    <div class="col-auto d-flex align-items-center">
-                        <p>Đăng Ký Nhận Tin
-                            <br>
-                            Nhận thông tin mới nhất về siêu xe và ưu đãi đặc biệt:
-                        </p>
-                        <input type="email" placeholder="Email của bạn" class="form-control mx-2" style="width: auto;">
-                        <button class="btn btn-dark">ĐĂNG KÝ</button>
-                    </div>
+                    <form action="{{ route('subscribe') }}" method="POST">
+                        @csrf
+                        <div class="col-auto d-flex align-items-center">
+                            <p>Đăng Ký Nhận Tin
+                                <br>
+                                Nhận thông tin mới nhất về siêu xe và ưu đãi đặc biệt:
+                            </p>
+                            <input type="email" name="email" placeholder="Email của bạn" class="form-control mx-2" style="width: auto;" required>
+                            <button type="submit" class="btn btn-dark">ĐĂNG KÝ</button>
+                        </div>
 
-                    @if (session('success'))
-                    <div class="alert alert-success mt-2">
-                        {{ session('success') }}
-                    </div>
-                    @endif
+                        @if (session('success'))
+                        <div class="alert alert-success mt-2">
+                            {{ session('success') }}
+                        </div>
+                        @endif
+
+                        @if ($errors->any())
+                        <div class="alert alert-danger mt-2">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+                    </form>
+
+
+
 
                 </div>
             </div>
@@ -233,11 +250,11 @@
 
 </html>
 <script>
-    //thêm vào giỏ hàng nhá
-    document.querySelectorAll('.btn').forEach(button => {
-        button.addEventListener('click', function() {
-            alert('Sản phẩm đã được thêm vào giỏ hàng!');
-        });
-    });
+    // //thêm vào giỏ hàng nhá
+    // document.querySelectorAll('.btn').forEach(button => {
+    //     button.addEventListener('click', function() {
+    //         alert('Sản phẩm đã được thêm vào giỏ hàng!');
+    //     });
+    // });
 </script>
 @endsection
