@@ -42,9 +42,9 @@
                             <div class="product-price">{{ number_format($product->price, 0, ',', '.') }} VND</div>
                             <div class="icon-btn">
                                 <div class="icon-products">
-                                    <i class="fas fa-heart favorite-btn" data-product-id="{{ $product->ProductId }}"></i>
+                                    <i class="{{ $product->is_favorited ? 'fas fa-heart' : 'far fa-heart' }} favorite-btn"
+                                        data-product-id="{{ $product->ProductId }}"></i>
                                 </div>
-
                                 <button class="btn-add-to-cart">Thêm vào giỏ hàng</button>
                             </div>
                         </div>
@@ -238,10 +238,11 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-<x-ajax-add-favorite/> <!-- Sử dụng component -->
+<x-ajax-add-favorite /> <!-- Sử dụng component -->
+
 </html>
 <script>
-    
+
     //thêm vào giỏ hàng nhá
     document.querySelectorAll('.btn').forEach(button => {
         button.addEventListener('click', function () {

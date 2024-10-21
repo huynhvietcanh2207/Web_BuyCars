@@ -24,10 +24,11 @@ Route::group(['prefix' => ''], function () {
 });
 
 // Thêm và xoá yêu thích sản phẩm
-
-Route::resource('favorites', FavoriteController::class);
-Route::post('/favorites/add/{productId}', [FavoriteController::class, 'addToFavorites'])->name('favorites.add');
-Route::post('/favorites/remove/{product}', [FavoriteController::class, 'remove'])->name('favorites.remove');
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('favorites', FavoriteController::class);
+    Route::post('/favorites/add/{productId}', [FavoriteController::class, 'addToFavorites'])->name('favorites.add');
+    Route::post('/favorites/remove/{product}', [FavoriteController::class, 'remove'])->name('favorites.remove');
+});
 
 
 Route::get('login', [Login_registerController::class, 'index'])->name('login');

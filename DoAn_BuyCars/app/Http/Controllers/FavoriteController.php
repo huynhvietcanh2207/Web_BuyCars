@@ -13,13 +13,13 @@ class FavoriteController extends Controller
      */
     public function index()
     {
-        // if (Auth::check()) {
-        //     $id = Auth::user()->id;
-        // } else {
-        //     return redirect("login"); // Đảm bảo trả về redirect
-        // }
+        if (Auth::check()) {
+            $id = Auth::user()->id;
+        } else {
+            return redirect("login"); // Đảm bảo trả về redirect
+        }
 
-        $favorites = Favorite::where('user_id',1)->paginate(5);
+        $favorites = Favorite::where('user_id',$id)->paginate(5);
         return view("favorite",compact("favorites"));
     }
 
@@ -73,9 +73,12 @@ class FavoriteController extends Controller
 
     public function addToFavorites(Request $request, $productId)
     {
-        $userId = Auth::id(); // Lấy ID người dùng đã đăng nhập
-        $userId = 1; // Lấy ID người dùng đã đăng nhập
-
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized'], 401); // Trả về mã 401 nếu chưa đăng nhập
+        }
+    
+        $userId = Auth::id();
+    
         // Kiểm tra xem sản phẩm đã tồn tại trong danh sách yêu thích chưa
         if (!Favorite::where('user_id', $userId)->where('ProductId', $productId)->exists()) {
             // Tạo một bản ghi mới trong bảng favorites
@@ -84,20 +87,22 @@ class FavoriteController extends Controller
                 'ProductId' => $productId,
             ]);
         }
-
-        return back()->with('success', 'Sản phẩm đã được thêm vào danh sách yêu thích!');
+    
+        return response()->json(['message' => 'Sản phẩm đã được thêm vào danh sách yêu thích!']);
     }
-
+    
     public function remove(Request $request, $productId)
     {
-        $userId = Auth::id(); // Lấy ID người dùng đã đăng nhập
-        $userId = 1; // Lấy ID người dùng đã đăng nhập
-
-    // Tìm bản ghi yêu thích và xóa nó
-        Favorite::where('user_id', $userId)
-                ->where('ProductId', $productId)
-                ->delete();
-
-        return response()->json(['success' => 'Sản phẩm đã được xóa khỏi danh sách yêu thích!']);
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized'], 401); // Trả về mã 401 nếu chưa đăng nhập
+        }
+    
+        $userId = Auth::id();
+    
+        // Xóa sản phẩm khỏi danh sách yêu thích
+        Favorite::where('user_id', $userId)->where('ProductId', $productId)->delete();
+    
+        return response()->json(['message' => 'Sản phẩm đã được xóa khỏi danh sách yêu thích!']);
     }
+    
 }
