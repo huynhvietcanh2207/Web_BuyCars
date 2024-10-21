@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('cart', function (Blueprint $table) {
             $table->id('CartId');
-            $table->unsignedBigInteger('UserId');
+            $table->unsignedBigInteger('id');
             $table->timestamp('CreatedAt')->useCurrent();
         
             // Khóa ngoại
-            $table->foreign('UserId')->references('UserId')->on('users')->onDelete('cascade');
+            $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
         });
         
         

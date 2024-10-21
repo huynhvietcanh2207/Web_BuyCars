@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('favorites', function (Blueprint $table) {
             $table->id('FavoriteId');
-            $table->unsignedBigInteger('UserId');
+            $table->unsignedBigInteger('id');
             $table->unsignedBigInteger('ProductId');
             $table->timestamp('CreatedAt')->useCurrent();
         
             // Khóa ngoại
-            $table->foreign('UserId')->references('UserId')->on('users')->onDelete('cascade');
+            $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('ProductId')->references('ProductId')->on('products')->onDelete('cascade');
         });
         

@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id('CommentId');
             $table->unsignedBigInteger('ProductId');
-            $table->unsignedBigInteger('UserId');
+            $table->unsignedBigInteger('id');
             $table->text('CommentText');
             $table->timestamp('CreatedAt')->useCurrent();
         
             // Khóa ngoại
             $table->foreign('ProductId')->references('ProductId')->on('products')->onDelete('cascade');
-            $table->foreign('UserId')->references('UserId')->on('users')->onDelete('cascade');
+            $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
         });
         
         

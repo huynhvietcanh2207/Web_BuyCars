@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('voucher_usage', function (Blueprint $table) {
             $table->id('VoucherUsageId');
             $table->unsignedBigInteger('VoucherId');
-            $table->unsignedBigInteger('UserId');
+            $table->unsignedBigInteger('id');
             $table->timestamp('UsedAt')->useCurrent();
         
             // Khóa ngoại
             $table->foreign('VoucherId')->references('VoucherId')->on('vouchers')->onDelete('cascade');
-            $table->foreign('UserId')->references('UserId')->on('users')->onDelete('cascade');
+            $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
         });
         
         

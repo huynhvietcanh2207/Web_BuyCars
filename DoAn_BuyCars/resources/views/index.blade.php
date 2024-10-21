@@ -15,8 +15,16 @@
 </head>
 
 <body>
-@section('main')
-    <!-- header -->
+    @section('main')
+
+    <!-- thoogn báo alert -->
+    @if(session()->has('success'))
+    <script>
+        window.onload = function() {
+            alert("{{ session('success') }}");
+        }
+    </script>
+    @endif
 
     <main class="main-banner">
         <img src="banner2.jpg" alt="Supercar Banner">
@@ -192,16 +200,16 @@
                             <i class="fab fa-youtube"></i>
                         </a>
                     </div>
-                    
+
                     <!-- nhận mail -->
                     <div class="col-auto d-flex align-items-center">
-                    <p>Đăng Ký Nhận Tin
-                        <br>
-                        Nhận thông tin mới nhất về siêu xe và ưu đãi đặc biệt:
-                    </p>
-                    <input type="email" placeholder="Email của bạn" class="form-control mx-2" style="width: auto;">
-                    <button class="btn btn-dark">ĐĂNG KÝ</button>
-                </div>
+                        <p>Đăng Ký Nhận Tin
+                            <br>
+                            Nhận thông tin mới nhất về siêu xe và ưu đãi đặc biệt:
+                        </p>
+                        <input type="email" placeholder="Email của bạn" class="form-control mx-2" style="width: auto;">
+                        <button class="btn btn-dark">ĐĂNG KÝ</button>
+                    </div>
 
                     @if (session('success'))
                     <div class="alert alert-success mt-2">
@@ -216,7 +224,7 @@
         </div>
     </section>
     <!-- footer -->
-   
+
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
