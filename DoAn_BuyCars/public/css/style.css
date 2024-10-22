@@ -26,6 +26,7 @@ header {
 }
 .favorite-btn{
     cursor: pointer;
+    color: red;
 }
 
 .header-content {
