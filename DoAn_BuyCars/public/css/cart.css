@@ -91,6 +91,17 @@ body {
 #cartItemsBody tr{
     border: 1px solid black;
 }
+
+#cartItemsBody tr {
+    border: 1px solid black;
+}
+
+#cartItemsBody tr .check{
+    width: 20px;
+    height: 20px;
+    margin-top: 10px;
+}
+
 .cart-table img {
     width: 100px;
 }
@@ -183,8 +194,8 @@ input[readonly] {
     color: rgb(126, 239, 126);
 }
 
-th:nth-child(6),
-td:nth-child(6) {
+th:nth-child(7),
+td:nth-child(7) {
     display: none;
 }
 
@@ -221,3 +232,4 @@ td:nth-child(6) {
     color: white;
     border: 1px solid #007bff;
 }
+/* Check */

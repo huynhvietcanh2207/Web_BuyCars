@@ -15,39 +15,6 @@ use function Laravel\Prompts\alert;
 class CartItemController extends Controller
 {
 
-    // public function store(Request $request, $id)
-    // {
-    //     $product = Product::find($id);
-    //     if (!$product) {
-    //         return redirect()->back()->with('error', 'Sản phẩm không tồn tại.');
-    //     }
-
-    //     $user = Auth::user();
-    //     if (!$user) {
-    //         return redirect()->back()->with('error', 'Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng.');
-    //     }
-
-    //     Log::info('Current user ID: ' . $user->id);
-
-    //     $cartItem = CartItem::where('UserId', $user->id)
-    //         ->where('ProductId', $id)
-    //         ->first();
-
-    //     if ($cartItem) {
-    //         $cartItem->quantity += 1;
-    //         $cartItem->save();
-    //     } else {
-    //         CartItem::create([
-    //             'UserId' => $user->id,
-    //             'ProductId' => $product->ProductId,
-    //             'quantity' => 1,
-    //             'price' => $product->price,
-    //         ]);
-    //     }
-    //     return redirect()->route('cart.index')->with('success', 'Sản phẩm đã được thêm vào giỏ hàng.');
-    // }
-
-
     public function index()
     {
         // Lấy tất cả các mục giỏ hàng và phân trang
@@ -88,7 +55,7 @@ class CartItemController extends Controller
             'user_id' => 'required|exists:users,id',
         ]);
 
-        // Lấy ID sản phẩm và ID người dùng từ dữ liệu đã xác thực
+        // Lấy ID Sản phẩm và ID người dùng
         $productId = $validatedData['product_id'];
         $userId = $validatedData['user_id'];
 
@@ -106,7 +73,6 @@ class CartItemController extends Controller
             $product = Product::find($productId); // Lấy thông tin sản phẩm
             CartItem::create([
                 'UserId' => $userId, // Đảm bảo UserId được truyền vào đây
-                // dd($userId),
                 'ProductId' => $productId,
                 'quantity' => 1,
                 'price' => $product->price,

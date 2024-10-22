@@ -26,6 +26,7 @@
                     <table class="cart-table table text-center" id="cartTable">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>Ảnh sản phẩm</th>
                                 <th>Tên sản phẩm</th>
                                 <th>Đơn giá</th>
@@ -40,6 +41,9 @@
                                 @foreach ($cartItems as $item)
                                     <tr class="cart-item" data-id="{{ $item->CartItemId }}"
                                         data-updated-at="{{ $item->updated_at }}">
+                                        <td>
+                                            <input type="checkbox" class="check">
+                                        </td>
                                         <td>
                                             @if (file_exists(public_path('images/' . $item->product->image_url . '.png')))
                                                 <img src="{{ asset('images/' . $item->product->image_url . '.png') }}"
