@@ -6,6 +6,7 @@ use App\Http\Controllers\Login_registerController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CrudProductsController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\FavoriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,14 @@ use App\Http\Controllers\SubscriptionController;
 Route::group(['prefix' => ''], function () {
     Route::get('/', [Controller::class, 'index'])->name('index');
 });
+
+// Thêm và xoá yêu thích sản phẩm
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('favorites', FavoriteController::class);
+    Route::post('/favorites/add/{productId}', [FavoriteController::class, 'addToFavorites'])->name('favorites.add');
+    Route::post('/favorites/remove/{product}', [FavoriteController::class, 'remove'])->name('favorites.remove');
+});
+
 
 Route::get('login', [Login_registerController::class, 'index'])->name('login');
 Route::post('register', [Login_registerController::class, 'store'])->name('register');

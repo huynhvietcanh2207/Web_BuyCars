@@ -24,6 +24,10 @@ header {
     width: 90%;
     margin: 0 auto;
 }
+.favorite-btn{
+    cursor: pointer;
+    color: red;
+}
 
 .header-content {
     display: flex;

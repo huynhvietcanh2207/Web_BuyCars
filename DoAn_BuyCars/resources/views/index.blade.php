@@ -19,11 +19,11 @@
 
     <!-- thoogn báo alert -->
     @if(session()->has('success'))
-    <script>
-        window.onload = function() {
-            alert("{{ session('success') }}");
-        }
-    </script>
+        <script>
+            window.onload = function () {
+                alert("{{ session('success') }}");
+            }
+        </script>
     @endif
 
     <main class="main-banner">
@@ -35,19 +35,20 @@
         <div class="container">
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 section-products">
                 @foreach($products as $product)
-                <div class="col">
-                    <div class="product-card">
-                        <img class="image-products" src="{{ $product->image_url }}" alt="hình ảnh">
-                        <div class="product-title">{{ $product->name }}</div>
-                        <div class="product-price">{{ number_format($product->price, 0, ',', '.') }} VND</div>
-                        <div class="icon-btn">
-                            <div class="icon-products">
-                                <i class="fas fa-heart"></i>
+                    <div class="col">
+                        <div class="product-card">
+                            <img class="image-products" src="{{ $product->image_url }}" alt="hình ảnh">
+                            <div class="product-title">{{ $product->name }}</div>
+                            <div class="product-price">{{ number_format($product->price, 0, ',', '.') }} VND</div>
+                            <div class="icon-btn">
+                                <div class="icon-products">
+                                    <i class="{{ $product->is_favorited ? 'fas fa-heart' : 'far fa-heart' }} favorite-btn"
+                                        data-product-id="{{ $product->ProductId }}"></i>
+                                </div>
+                                <button class="btn-add-to-cart">Thêm vào giỏ hàng</button>
                             </div>
-                            <button class="btn-add-to-cart">Thêm vào giỏ hàng</button>
                         </div>
                     </div>
-                </div>
                 @endforeach
             </div>
         </div>
@@ -143,11 +144,14 @@
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet fugit provident suscipit
                     reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
-                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet fugit provident suscipit
+                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Eveniet fugit provident suscipit
                     reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
-                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet fugit provident suscipit
+                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Eveniet fugit provident suscipit
                     reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
-                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet fugit provident suscipit
+                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Eveniet fugit provident suscipit
                     reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
                     non voluptatem illum aut expedita nisi.
                 </p>
@@ -233,6 +237,14 @@
 
 
 
+                        <button class="btn btn-dark">ĐĂNG KÝ</button>
+                    </div>
+
+                    @if (session('success'))
+                        <div class="alert alert-success mt-2">
+                            {{ session('success') }}
+                        </div>
+                    @endif
 
                 </div>
             </div>
@@ -245,8 +257,8 @@
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+<x-ajax-add-favorite /> <!-- Sử dụng component -->
 
 </html>
 <script>

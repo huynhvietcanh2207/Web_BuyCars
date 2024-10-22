@@ -46,4 +46,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+     // Quan hệ với Favorite
+     public function favorites()
+     {
+         return $this->hasMany(Favorite::class, 'user_id'); // user_id là khóa ngoại
+     }
 }
