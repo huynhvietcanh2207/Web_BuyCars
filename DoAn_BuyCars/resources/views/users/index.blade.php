@@ -9,7 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý Người dùng</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 
@@ -47,13 +48,14 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->password }}</td>
-
-                    <td>
-                        <a href="{{ route('users.edit', $user->id) }}">Edit</a>
+                     <td>  
+                        
+                        <a href="{{ route('users.edit', $user->id) }}"><i class="fa fa-pen"></i></a>
                         <form action="{{ route('users.destroy', $user->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">Delete</button>
+                            <button type="submit" class="btn btn-labeled btn-danger">
+                         <span class="btn-label"><i class="fa fa-remove"></i></span></button>
                         </form>
                     </td>
                 </tr>
@@ -62,7 +64,7 @@
 
         </table>
         <div class="d-flex justify-content-center">
-    {{ $users->links() }}
+    {{ $users->links('pagination::bootstrap-4')}}
 </div>
  
     </div>
