@@ -134,7 +134,7 @@
             </div>
             <hr class="my-4">
             <div class="text-center">
-                <p>&copy; 2024 VietCanh. Bản quyền thuộc về chúng tôi. Tất cả quyền được bảo lưu.</p>
+                <p>&copy; 2024 Nhóm B. Bản quyền thuộc về chúng tôi. Tất cả quyền được bảo lưu.</p>
             </div>
         </div>
     </footer>

@@ -18,8 +18,18 @@ class Controller extends BaseController
 
         // Lấy danh sách sản phẩm với phân trang và sắp xếp theo thứ tự giảm dần của ngày tạo
         $products = Product::orderBy('created_at', 'desc')->paginate(8);
-
         // Truyền danh sách sản phẩm và sản phẩm mới sang view
         return view('index', compact('products', 'newProducts'));
+    }
+
+    public function show($id)
+    {
+        $product = Product::find($id);
+
+        if (!$product) {
+            return redirect()->route('products.index')->with('error', 'Sản phẩm không tồn tại.');
+        }
+
+        return view('product.show', compact('product')); // Chuyển biến $product vào view
     }
 }
