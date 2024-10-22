@@ -6,6 +6,8 @@ use App\Http\Controllers\Login_registerController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CrudProductsController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -39,3 +41,6 @@ Route::resources([
     'products' => CrudProductsController::class,
 ]);
 Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('subscribe');
+
+
+Route::resource('users', UserController::class);
