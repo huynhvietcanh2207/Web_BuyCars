@@ -51,7 +51,7 @@ class Login_registerController extends Controller
             // Kiểm tra vai trò của người dùng
             if ($user->roles->contains('RoleName', 'admin')) {
                 // Chuyển hướng đến trang admin nếu là admin
-                return redirect()->route('admin.dashboard')->with('success', 'Đăng nhập thành công với quyền Admin!');
+                return redirect()->route('admin')->with('success', 'Đăng nhập thành công với quyền Admin!');
             } else {
                 // Chuyển hướng đến trang người dùng nếu là user
                 return redirect()->route('index')->with('success', 'Đăng nhập thành công!');

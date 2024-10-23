@@ -30,6 +30,6 @@ Route::post('logout', [Login_registerController::class, 'logout'])->name('logout
 
 // Route cho admin
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
-    Route::get('/', [AdminController::class, 'indexAdmin'])->name('admin.dashboard');
+    Route::get('/', [AdminController::class, 'indexAdmin'])->name('admin');
     // Thêm các route khác cho admin ở đây
 });
