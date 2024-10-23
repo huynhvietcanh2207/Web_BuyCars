@@ -28,6 +28,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class, 'user_role_assignments', 'user_id', 'RoleId');
     }
+    
     /**
      * The attributes that should be hidden for serialization.
      *

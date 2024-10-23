@@ -17,14 +17,24 @@
 <body>
     @section('main')
 
-    <!-- thoogn báo alert -->
-    @if(session()->has('success'))
-        <script>
-            window.onload = function () {
-                alert("{{ session('success') }}");
-            }
-        </script>
-    @endif
+    <!-- Thông báo alert cho success -->
+@if(session()->has('success'))
+    <script>
+        window.onload = function() {
+            alert("{{ session('success') }}");
+        }
+    </script>
+@endif
+
+<!-- Thông báo alert cho error -->
+@if(session()->has('error'))
+    <script>
+        window.onload = function() {
+            alert("{{ session('error') }}");
+        }
+    </script>
+@endif
+
 
     <main class="main-banner">
         <img src="banner2.jpg" alt="Supercar Banner">
@@ -144,14 +154,11 @@
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet fugit provident suscipit
                     reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
-                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Eveniet fugit provident suscipit
+                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet fugit provident suscipit
                     reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
-                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Eveniet fugit provident suscipit
+                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet fugit provident suscipit
                     reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
-                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Eveniet fugit provident suscipit
+                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet fugit provident suscipit
                     reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
                     non voluptatem illum aut expedita nisi.
                 </p>
