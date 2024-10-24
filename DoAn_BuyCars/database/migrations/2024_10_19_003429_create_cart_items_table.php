@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamp('updated_at')->useCurrent();
             
             // Khóa ngoại
-            $table->foreign('UserId')->references('UserId')->on('users')->onDelete('cascade');
+            $table->foreign('UserId')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('ProductId')->references('ProductId')->on('products')->onDelete('cascade');
             $table->unique(['ProductId']);
         });

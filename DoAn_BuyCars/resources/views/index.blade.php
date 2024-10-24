@@ -29,9 +29,7 @@
         @if (auth()->check())
             <input type="hidden" name="user_id" value="{{ auth()->id() }}">
         @endif
-        <div class="user-info">
-            <p>Xin chào! Vui lòng <a href="{{ route('login') }}">đăng nhập</a> để tiếp tục.</p>
-        </div>
+      
         <main class="main-banner">
             <img src="banner2.jpg" alt="Supercar Banner">
         </main>
@@ -50,14 +48,15 @@
                                     <div class="icon-products">
                                         <i class="fas fa-heart"></i>
                                     </div>
-                                    <button class="btn-add-to-cart">
+                                    <button  type="submit" class="btn-add-to-cart">
+                                    Thêm vào giỏ hàng
                                         <form action="{{ route('cart.add', $product->ProductId) }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="product_id" value="{{ $product->ProductId }}">
                                             @if (auth()->check())
                                                 <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                                             @endif
-                                            <button type="submit">Thêm vào giỏ hàng</button>
+                                          
                                         </form>
                                     </button>
                                 </div>
