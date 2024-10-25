@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login_registerController;
 use App\Http\Controllers\AdminController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\CrudProductsController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CrudBrandsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +34,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/favorites/add/{productId}', [FavoriteController::class, 'addToFavorites'])->name('favorites.add');
     Route::post('/favorites/remove/{product}', [FavoriteController::class, 'remove'])->name('favorites.remove');
 });
+
+
+Route::get('/product', [ProductController::class, 'showProducts'])->name('product');
 
 
 Route::get('login', [Login_registerController::class, 'index'])->name('login');
