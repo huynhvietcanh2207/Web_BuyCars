@@ -34,58 +34,99 @@
             }
         </script>
     @endif
-
-    <!-- sản phẩm -->
-    <section class="products">
-        <h1><span>Sản Phẩm</span></h1>
-        <div class="container">
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 section-products">
-                @foreach($products as $product)
-                    <div class="col">
-                        <div class="product-card">
-                            <img class="image-products" src="{{ $product->image_url }}" alt="hình ảnh">
-                            <div class="product-title">{{ $product->name }}</div>
-                            <div class="product-price">{{ number_format($product->price, 0, ',', '.') }} VND</div>
-                            <div class="icon-btn">
-                                <div class="icon-products">
-                                    <i class="{{ $product->is_favorited ? 'fas fa-heart' : 'far fa-heart' }} favorite-btn"
-                                        data-product-id="{{ $product->ProductId }}"></i>
-                                </div>
-                                <button class="btn-add-to-cart">Thêm vào giỏ hàng</button>
-                            </div>
-                        </div>
+    <!-- Thanh sidebar -->
+    <div class="d-flex">
+        <!-- Thanh sidebar -->
+        <aside class="sidebar" id="filter-form">
+            <h4>Lọc Sản Phẩm</h4>
+            <form id="filter-products" method="GET">
+                <!-- Thương Hiệu -->
+                <h5>Thương Hiệu</h5>
+                @foreach($brands as $item)
+                    <div>
+                        <input type="checkbox" name="brand[]" value="{{ $item->BrandId }}" id="brand_{{ $item->BrandId }}">
+                        <label for="brand_{{ $item->BrandId }}" style="display: inline;">{{ $item->BrandName }}</label>
                     </div>
                 @endforeach
+
+                <hr>
+                <!-- Giá từ - đến -->
+                <h5>Giá</h5>
+                <label for="minPrice">Giá Từ: </label>
+                <input type="text" id="minPriceInput" value="0" placeholder="0" />VND
+                <input type="range" min="0" max="1000000000" step="1000000" name="min_price" id="minPrice" value="0">
+                <br>
+                <label for="maxPrice">Đến: </label>
+                <input type="text" id="maxPriceInput" value="1000000000" placeholder="1000000000" />VND
+                <input type="range" min="0" max="1000000000" step="1000000" name="max_price" id="maxPrice"
+                    value="1000000000">
+                <hr>
+                <!-- Màu Sắc -->
+                <h5>Màu Sắc</h5>
+                <select name="color" id="color">
+                    <option value="">Tất cả</option>
+                    @foreach($colors as $color)
+                        <option value="{{ $color }}">{{ ucfirst($color) }}</option>
+                    @endforeach
+                </select>
+
+                <!-- Nút Lọc -->
+                <button type="submit" id="apply-filter" class="btn btn-primary mt-2">Lọc</button>
+            </form>
+        </aside>
+
+        <!-- Phần sản phẩm -->
+        <section class="products">
+            <h1><span>Sản Phẩm</span></h1>
+            <div class="container">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 section-products" id="product-list">
+                    @foreach($products as $product)
+                        <div class="col">
+                            <div class="product-card">
+                                <img class="image-products" src="{{ $product->image_url }}" alt="hình ảnh">
+                                <div class="product-title">{{ $product->name }}</div>
+                                <div class="product-price">{{ number_format($product->price, 0, ',', '.') }} VND</div>
+                                <div class="icon-btn">
+                                    <div class="icon-products">
+                                        <i class="{{ $product->is_favorited ? 'fas fa-heart' : 'far fa-heart' }} favorite-btn"
+                                            data-product-id="{{ $product->ProductId }}"></i>
+                                    </div>
+                                    <button class="btn-add-to-cart">Thêm vào giỏ hàng</button>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
             </div>
-        </div>
+        </section>
+    </div>
+    <!-- Phân trang -->
+    <div class="pagination">
+        <!-- đầu << -->
+        <!-- Nút đầu <<< -->
+        @if ($products->onFirstPage())
+            <button class="pagination-button" disabled>
+                << </button>
+        @else
+            <a href="{{ $products->url(1) }}" class="pagination-button">
+                << </a>
+        @endif
 
-        <!-- Phân trang -->
-        <div class="pagination">
-            <!-- đầu << -->
-            <!-- Nút đầu <<< -->
-            @if ($products->onFirstPage())
-                <button class="pagination-button" disabled>
-                    << </button>
-            @else
-                <a href="{{ $products->url(1) }}" class="pagination-button">
-                    << </a>
-            @endif
+                        <!-- Các trang ở giữa -->
+                        @for ($i = 1; $i <= $products->lastPage(); $i++)
+                            <a href="{{ $products->url($i) }}"
+                                class="pagination-button {{ ($products->currentPage() == $i) ? 'active' : '' }}">
+                                {{ $i }}
+                            </a>
+                        @endfor
 
-                            <!-- Các trang ở giữa -->
-                            @for ($i = 1; $i <= $products->lastPage(); $i++)
-                                <a href="{{ $products->url($i) }}"
-                                    class="pagination-button {{ ($products->currentPage() == $i) ? 'active' : '' }}">
-                                    {{ $i }}
-                                </a>
-                            @endfor
-
-                            <!-- Nút cuối >> -->
-                            @if ($products->hasMorePages())
-                                <a href="{{ $products->url($products->lastPage()) }}" class="pagination-button">>></a>
-                            @else
-                                <button class="pagination-button" disabled>>></button>
-                            @endif
-        </div>
+                        <!-- Nút cuối >> -->
+                        @if ($products->hasMorePages())
+                            <a href="{{ $products->url($products->lastPage()) }}" class="pagination-button">>></a>
+                        @else
+                            <button class="pagination-button" disabled>>></button>
+                        @endif
+    </div>
     </section>
     </section>
 
@@ -93,54 +134,7 @@
 
 
     <!-- about -->
-    <div class="about" id="About">
 
-        <h1><span>Web About</span></h1>
-
-        <div class="about_main">
-            <div class="about_image">
-                <div class="about_small_image">
-                    <img src="banner2.jpg" onclick="functio(this)">
-                    <img src="banner1.jpg" onclick="functio(this)">
-                    <img src="banner2.jpg" onclick="functio(this)">
-                    <img src="banner1.jpg" onclick="functio(this)">
-                </div>
-
-                <div class="image_contaner">
-                    <img src="banner2.jpg" id="imagebox">
-                </div>
-
-            </div>
-
-            <div class="about_text">
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet fugit provident suscipit
-                    reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
-                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Eveniet fugit provident suscipit
-                    reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
-                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Eveniet fugit provident suscipit
-                    reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
-                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Eveniet fugit provident suscipit
-                    reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
-                    non voluptatem illum aut expedita nisi.
-                </p>
-            </div>
-
-        </div>
-
-        <a href="#" class="about_btn">Shop Now</a>
-
-        <script>
-            function functio(small) {
-                var full = document.getElementById("imagebox")
-                full.src = small.src
-            }
-        </script>
-
-    </div>
 
     <!-- icon-footer -->
     <section>
@@ -235,11 +229,140 @@
 
 </html>
 <script>
-    // //thêm vào giỏ hàng nhá
-    // document.querySelectorAll('.btn').forEach(button => {
-    //     button.addEventListener('click', function() {
-    //         alert('Sản phẩm đã được thêm vào giỏ hàng!');
-    //     });
-    // });
+    $(document).ready(function () {
+        // Đồng bộ khi người dùng thay đổi giá trị thanh trượt
+        $('#minPrice').on('input', function () {
+            let minPrice = parseInt($(this).val());
+            let maxPrice = parseInt($('#maxPrice').val());
+
+            // Giới hạn minPrice không vượt quá maxPrice
+            if (minPrice > maxPrice) {
+                minPrice = maxPrice;
+                $(this).val(minPrice);
+            }
+
+            $('#minPriceInput').val(new Intl.NumberFormat().format(minPrice));
+        });
+
+        $('#maxPrice').on('input', function () {
+            let maxPrice = parseInt($(this).val());
+            let minPrice = parseInt($('#minPrice').val());
+
+            // Giới hạn maxPrice không thấp hơn minPrice
+            if (maxPrice < minPrice) {
+                maxPrice = minPrice;
+                $(this).val(maxPrice);
+            }
+
+            $('#maxPriceInput').val(new Intl.NumberFormat().format(maxPrice));
+        });
+
+        // Đồng bộ khi người dùng nhập giá trị trực tiếp vào ô input
+        $('#minPriceInput').on('input', function () {
+            let minPrice = parseInt($(this).val().replace(/,/g, '')) || 0;
+            let maxPrice = parseInt($('#maxPrice').val());
+
+            // Giới hạn minPrice không vượt quá maxPrice
+            if (minPrice > maxPrice) {
+                minPrice = maxPrice;
+            }
+
+            $('#minPrice').val(minPrice);
+            $(this).val(new Intl.NumberFormat().format(minPrice));
+        });
+
+        $('#maxPriceInput').on('input', function () {
+            let maxPrice = parseInt($(this).val().replace(/,/g, '')) || 0;
+            let minPrice = parseInt($('#minPrice').val());
+
+            // Giới hạn maxPrice không thấp hơn minPrice
+            if (maxPrice < minPrice) {
+                maxPrice = minPrice;
+            }
+
+            $('#maxPrice').val(maxPrice);
+            $(this).val(new Intl.NumberFormat().format(maxPrice));
+        });
+    });
+    $(document).ready(function () {
+        $('#apply-filter').on('click', function (e) {
+            e.preventDefault();
+            fetchFilteredProducts();
+        });
+
+        function fetchFilteredProducts() {
+            let selectedBrands = [];
+            $('input[name="brand[]"]:checked').each(function () {
+                selectedBrands.push($(this).val());
+            });
+            $.ajax({
+                url: '{{ route('product.filter') }}',
+                method: 'GET',
+                data: {
+                    brand: selectedBrands,
+                    min_price: $('#minPrice').val(),
+                    max_price: $('#maxPrice').val(),
+                    color: $('#color').val()
+                },
+                success: function (response) {
+                    $('#product-list').html(response.html); // Đưa partial view vào HTML
+                },
+                error: function () {
+                    alert('Đã xảy ra lỗi khi tải sản phẩm.');
+                }
+            });
+        }
+
+        // Cập nhật giá trị input khi kéo thanh trượt
+        $('#minPrice').on('input', function () {
+            $('#minPriceInput').val($(this).val());
+        });
+        $('#maxPrice').on('input', function () {
+            $('#maxPriceInput').val($(this).val());
+        });
+    });
+
+
+    $(document).ready(function () {
+        // Hàm để định dạng số
+        function formatNumber(value) {
+            return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        // Cập nhật thanh trượt khi thay đổi ô input
+        $('#minPriceInput').on('input', function () {
+            let value = $(this).val().replace(/[^0-9]/g, ''); // Chỉ lấy số
+            $(this).val(formatNumber(value));
+            $('#minPrice').val(value);
+        });
+
+        $('#maxPriceInput').on('input', function () {
+            let value = $(this).val().replace(/[^0-9]/g, ''); // Chỉ lấy số
+            $(this).val(formatNumber(value));
+            $('#maxPrice').val(value);
+        });
+
+        // Cập nhật ô input khi thay đổi thanh trượt
+        $('#minPrice').on('input', function () {
+            let value = $(this).val();
+            $('#minPriceInput').val(formatNumber(value));
+        });
+
+        $('#maxPrice').on('input', function () {
+            let value = $(this).val();
+            $('#maxPriceInput').val(formatNumber(value));
+        });
+
+        // Khởi tạo giá trị mặc định
+        $('#minPriceInput').val(formatNumber(0));
+        $('#maxPriceInput').val(formatNumber(10000000));
+    });
+
+
+
+
+
+
+
 </script>
 @endsection

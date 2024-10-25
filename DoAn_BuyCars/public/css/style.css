@@ -636,3 +636,86 @@ footer {
         margin-top: 20px;
     }
 }
+
+.d-flex {
+    display: flex; /* Sử dụng flexbox để sắp xếp các phần tử theo hàng */
+}
+
+.sidebar {
+    width: 200px; /* Chiều rộng của sidebar */
+    margin-right: 20px; /* Khoảng cách bên phải */
+    padding: 20px; /* Padding bên trong */
+    background-color: #f8f9fa; /* Màu nền */
+    border: 1px solid #ccc; /* Viền */
+    margin-top: 150px;
+}
+
+.products {
+    flex-grow: 1; /* Cho phép phần sản phẩm chiếm không gian còn lại */
+}
+
+/* Định dạng cho sidebar có ID filter-form */
+#filter-form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* Tiêu đề trong sidebar */
+#filter-form h4 {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+/* Tiêu đề cho từng phần lọc */
+#filter-form h5 {
+    margin: 10px 0;
+    font-size: 1.2rem;
+    color: #555;
+}
+
+/* Định dạng cho select và input */
+#filter-form select,
+#filter-form input[type="text"],
+#filter-form input[type="range"] {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+/* Hiệu ứng khi hover vào select và input */
+#filter-form select:hover,
+#filter-form input[type="text"]:hover,
+#filter-form input[type="range"]:hover {
+    border-color: #007bff;
+}
+
+/* Nút Lọc */
+#filter-form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+/* Hiệu ứng khi hover vào nút */
+#filter-form button:hover {
+    background-color: #0056b3;
+}
+
+/* Định dạng cho nhãn input range */
+#filter-form label {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
+}

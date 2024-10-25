@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 Route::get('/product', [ProductController::class, 'showProducts'])->name('product');
+Route::get('/product/filter', [ProductController::class, 'filter'])->name('product.filter');
 
 
 Route::get('login', [Login_registerController::class, 'index'])->name('login');
@@ -55,3 +56,6 @@ Route::resources([
     'brands' => CrudBrandsController::class,
 ]);
 Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('subscribe');
+
+
+
