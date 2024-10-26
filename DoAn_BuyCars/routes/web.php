@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login_registerController;
 use App\Http\Controllers\AdminController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\CrudProductsController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CrudBrandsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +36,10 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 
+Route::get('/product', [ProductController::class, 'showProducts'])->name('product');
+Route::get('/product/filter', [ProductController::class, 'filter'])->name('product.filter');
+
+
 Route::get('login', [Login_registerController::class, 'index'])->name('login');
 Route::post('register', [Login_registerController::class, 'store'])->name('register');
 Route::post('login', [Login_registerController::class, 'login'])->name('login.post');
@@ -50,3 +56,6 @@ Route::resources([
     'brands' => CrudBrandsController::class,
 ]);
 Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('subscribe');
+
+
+
