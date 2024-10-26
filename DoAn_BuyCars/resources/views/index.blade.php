@@ -16,6 +16,7 @@
 
 <body>
     @section('main')
+<<<<<<< HEAD
 
         <!-- Thông báo alert cho success -->
         @if (session()->has('success'))
@@ -38,10 +39,17 @@
         @if (auth()->check())
             <input type="hidden" name="user_id" value="{{ auth()->id() }}">
         @endif
-        <main class="main-banner">
-            <img src="{{ asset('images/56.jpg') }}" alt="Supercar Banner">
-        </main>
-        <!-- sản phẩm -->
+         <main class="main-banner">
+        <video src="review.mp4" autoplay muted loop></video>
+        <div class="banner-text">
+            <h1>Trải nghiệm đỉnh cao tốc độ và thiết kế!</h1>
+            <p>Vượt qua mọi giới hạn với siêu phẩm này</p>
+            <p>Thiết kế hiện đại, hiệu suất tối đa.
+                Siêu xe – Định nghĩa mới của tốc độ.
+            </p>
+        </div>
+    </main>
+       <!-- sản phẩm -->
         <section class="products">
             <h1>Sản <span>Phẩm</span></h1>
             <div class="container">
@@ -274,6 +282,9 @@
             </div>
         </section>
         <!-- footer -->
+
+</body>
+>>>>>>> 10x-laravel-1-TrangChu
 
     </body>
 
