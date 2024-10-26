@@ -78,7 +78,7 @@
               </div>
             </li>
             <li class="nav-item">
-              <a data-bs-toggle="collapse" href="#">
+              <a href="{{route('admin.chart.index')}}">
                 <i class="fas fa-bars"></i>
                 <p>Danh thu và báo cáo</p>
               </a>
