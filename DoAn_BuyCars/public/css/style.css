@@ -1,4 +1,4 @@
- /* Global styles */
+ 
  * {
     margin: 0;
     padding: 0;
@@ -6,19 +6,27 @@
 }
 
 body {
-    background-color: #dee9ee;
-    /* background-image: url('anh-nen.jpg');  */
+    background-color: #ebf0f3;
     color: #b6e4e4;
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
+    padding-top: 80px;
 }
 
+
 header {
-    border-bottom: 1px solid #ddd;
-    background: linear-gradient(120deg, #0c4985, #C0C0C0);
-    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    border-bottom: 2px solid #FFD700; 
+    background: linear-gradient(80deg, #000000, #dbdf91);
+    color: #FFFFFF;
+    padding: 15px 0;
 }
+
+
 
 .container-header {
     width: 90%;
@@ -72,13 +80,13 @@ nav a:hover {
 
 .icons a {
     color: white;
-    font-size: 18px;
+    font-size: 22px;
     text-decoration: none;
     transition: color 0.3s;
 }
 
 .icons a:hover {
-    color: #d6d91f;
+    color: #000000;
 }
 /*banner*/
 .main-banner {
@@ -99,7 +107,7 @@ nav a:hover {
     font-weight: bold;
     margin: 3rem 0;
     text-align: center;
-    background: linear-gradient(to right, #0c4985, #C0C0C0);
+    background: linear-gradient(80deg, #000000, #dbdf91);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;     
             margin-left: 15px;
@@ -123,13 +131,14 @@ nav a:hover {
     justify-content: center;
     border: 1px solid #ddd;
     padding: 1rem;
-    background: linear-gradient(135deg, #0c4985, #C0C0C0);
-    color: white;
+    background: linear-gradient(120deg,  #403737);
+    color: rgb(0, 0, 0);
     transition: background 0.3s;
+    box-shadow: 0 0 8px #523c3c;
 }
 
 .product-card:hover {
-    background: linear-gradient(135deg, #fefefe, #B0BFC6);
+    background: linear-gradient(80deg, #000000, #dbdf91);
 }
 
 .product-image {
@@ -143,12 +152,18 @@ nav a:hover {
 .product-title {
     font-weight: bold;
     margin: 0.5rem 0;
+    color: #000000;
 }
-
+.product-title:hover {
+   
+    color: #e9da64;
+}
 .product-price {
-    color: white;
+    color: #000000;
 }
-
+.product-price:hover {
+    color: #e9da64;
+}
 .icon-btn {
     display: flex;
     align-items: center;
@@ -160,7 +175,7 @@ nav a:hover {
 }
 
 .btn-add-to-cart {
-    background-color: #4682B4;
+    background-color: #000000;
     color: #F8F8F8;
     padding: 0.5rem 1rem;
     border: none;
@@ -170,7 +185,8 @@ nav a:hover {
 }
 
 .btn-add-to-cart:hover {
-    background-color: #0c4985;
+    background-color: #e9da64;
+    color: black;
 }
 .image-products {
     width: 100%;
@@ -187,18 +203,18 @@ nav a:hover {
     padding: 0.5rem 1rem;
     border: 1px solid #ddd;
     margin: 0 0.5rem;
-    background-color: white;
+    background-color: #ffffff;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 .pagination-button:hover {
-    background-color: #0c4985;
+    background-color: #000000;
     color: white;
 }
 
 .pagination-button.active {
-    background-color: #0c4985;
+    background-color: #e9da64;
     color: white;
 }
 
@@ -217,6 +233,9 @@ nav a:hover {
     font-size: 2rem;
 }
 .icon-footer p{
+    color: #000000;
+}
+.icon-footer a i{
     color: #000000;
 }
 hr{
@@ -352,7 +371,7 @@ footer {
     font-size: 60px;
     font-weight: bold;
 
-    background: linear-gradient(to right, #0c4985, #C0C0C0);
+    background: linear-gradient(80deg, #000000, #dbdf91);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-left: 15px;
@@ -399,7 +418,7 @@ footer {
 .flex-column {
     height: 400px;
     border-radius: 10px;
-    border: 3px solid rgb(46, 168, 212);
+    border: 3px solid #e9da64;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     background-color: rgb(255, 255, 255);
@@ -460,7 +479,7 @@ footer {
 }
 
 .about h1 span {
-    background: linear-gradient(to right, #0c4985, #C0C0C0);
+    background: linear-gradient(80deg, #000000, #dbdf91);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-left: 15px;
@@ -493,7 +512,7 @@ footer {
     height: 92px;
     margin: 5px 0;
     cursor: pointer;
-    background: linear-gradient(120deg, #0c4985, #C0C0C0);
+    background:linear-gradient(80deg, #000000, #dbdf91);
     display: block;
     border-radius: 6px;
     padding: 5px 5px;
@@ -512,12 +531,12 @@ footer {
 }
 
 .about .about_main .image_contaner img {
-    border: 3px solid #0c4985;
+    border: 3px solid #e9da64;
     border-radius: 20px;
     height: 430px;
     padding: 10px;
     width: 550px;
-    box-shadow: 0 0 8px #0c4985;
+    box-shadow: 0 0 8px #e9da64;
 }
 
 .about .about_main .about_text {
@@ -525,14 +544,14 @@ footer {
 }
 
 .about .about_main .about_text p {
-    background: linear-gradient(to left, #000000, #000000);
+    background: linear-gradient(80deg, #000000, #dbdf91);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     line-height: 22px;
     width: 500px;
     text-align: justify;
     padding: 25px 30px;
-    border: 2px solid #0c4985;
+    border: 2px solid #e9da64;
     border-radius: 20px;
     box-shadow: 0 0 20px #0c4985;
 }
@@ -545,15 +564,15 @@ footer {
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 10px 25px;
-    border: 2px solid #0c4985;
+    border: 2px solid #e9da64;
     text-decoration: none;
-    box-shadow: 0 0 8px #0c4985;
+    box-shadow: 0 0 8px #e9da64;
     transition: 0.5s;
 }
 
 .about .about_btn:hover {
     border: 2px solid transparent;
-    background: #0c4985;
+    background: #e9da64;
     color: white;
 }
 
@@ -631,4 +650,38 @@ footer {
     .about .about_main .about_image {
         margin-top: 20px;
     }
+}
+.main-banner video {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+}
+.main-banner {
+    position: relative;
+}
+
+.main-banner video {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.banner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(222, 196, 49);
+    text-align: center;
+}
+
+.banner-text h1 {
+    font-size: 2.5em;
+    font-weight: bold;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.banner-text p {
+    font-size: 1.2em;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
 }
