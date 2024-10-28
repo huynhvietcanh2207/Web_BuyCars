@@ -2,12 +2,20 @@ var barChart = document.getElementById("barChart").getContext("2d"),
   pieChart = document.getElementById("pieChart").getContext("2d"),
   multipleBarChart = document.getElementById("multipleBarChart").getContext("2d");
 
+
+//Biểu đồ tròn cho Thu - Chi
+var chartDataElement = document.getElementById('chart-data');
+var income = chartDataElement.getAttribute('data-income');
+var expenses = chartDataElement.getAttribute('data-expenses');
+
+income = parseFloat(income);
+expenses = parseFloat(expenses);
 var myPieChart = new Chart(pieChart, {
   type: "pie",
   data: {
     datasets: [
       {
-        data: [50, 50],
+        data: [expenses, income],
         backgroundColor: ["#f3545d", "#fdaf4b"],
         borderWidth: 0,
       },
@@ -43,115 +51,122 @@ var myPieChart = new Chart(pieChart, {
   },
 });
 
-var myBarChart = new Chart(barChart, {
-  type: "bar",
-  data: {
-    labels: [
-      "Tháng 1",
-      "Tháng 2",
-      "Tháng 3",
-      "Tháng 4",
-      "Tháng 5",
-      "Tháng 6",
-      "Tháng 7",
-      "Tháng 8",
-      "Tháng 9",
-      "Tháng 10",
-      "Tháng 11",
-      "Tháng 12",
-    ],
-    datasets: [
-      {
+//Biểu đồ cột: Thể hiện Số lượng dùng theo tháng
+document.addEventListener('DOMContentLoaded', function () {
+  var chartDataElement = document.getElementById('user-chart-data');
+  const months = JSON.parse(chartDataElement.getAttribute('data-user'));
+  const counts = JSON.parse(chartDataElement.getAttribute('data-counts'));
+
+  // Tạo biểu đồ với Chart.js
+  var barChart = new Chart(document.getElementById('barChart'), {
+    type: "bar",
+    data: {
+      labels: months,
+      datasets: [{
         label: "Tổng số người dùng",
         backgroundColor: "rgb(23, 125, 255)",
         borderColor: "rgb(23, 125, 255)",
-        data: [5,2],
-      },
-    ],
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            beginAtZero: true,
-          },
-        },
-      ],
+        borderWidth: 1,
+        data: counts,
+      }],
     },
-  },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top',
+        },
+      },
+    },
+  });
 });
 
-var myMultipleBarChart = new Chart(multipleBarChart, {
-  type: "bar",
-  data: {
-    labels: [
-      "Tháng 1",
-      "Tháng 2",
-      "Tháng 3",
-      "Tháng 4",
-      "Tháng 5",
-      "Tháng 6",
-      "Tháng 7",
-      "Tháng 8",
-      "Tháng 9",
-      "Tháng 10",
-      "Tháng 11",
-      "Tháng 12",
-    ],
-    datasets: [
-      {
-        label: "Mercedes",
-        backgroundColor: "#59d05d",
-        borderColor: "#59d05d",
-        data: [95, 100, 112, 101, 144, 159, 178, 156, 188, 190, 210, 245],
-      },
-      {
-        label: "Poscher",
-        backgroundColor: "#fdaf4b",
-        borderColor: "#fdaf4b",
-        data: [
-          145, 256, 244, 233, 210, 279, 287, 253, 287, 299, 312, 356,
+document.addEventListener('DOMContentLoaded', function () {
+  // Biểu đồ Thương hiệu
+  var brandChartData = document.getElementById('brand-chart-data');
+  var labels = JSON.parse(brandChartData.getAttribute('data-labels'));
+  var data = JSON.parse(brandChartData.getAttribute('data-brand'));
+
+  console.log('Labels:', labels);
+  console.log('Data:', data);
+
+  // Mảng màu sắc cố định cho từng thương hiệu
+  var fixedColors = [
+    '#FF0000',
+    '#FFFF33',
+    '#33FF33',
+    '#FFCC33',
+    '#0099FF',
+    '#9933FF',
+    '#002200',
+    '#FF9966',
+    '#333333',
+    '#990066',
+    '#000055',
+    '#009900'
+  ];
+
+  // Tạo datasets với màu sắc cố định
+  var datasets = labels.map((label, index) => {
+    return {
+      label: label,
+      backgroundColor: fixedColors[index % fixedColors.length],
+      borderColor: fixedColors[index % fixedColors.length],
+      data: data[index],
+    };
+  });
+
+  var multipleBarChart = document.getElementById('multipleBarChart');
+  // Kiểm tra xem multipleBarChart có tồn tại không
+  if (multipleBarChart) {
+    // Tạo biểu đồ
+    var myMultipleBarChart = new Chart(multipleBarChart, {
+      type: "bar",
+      data: {
+        labels: [
+          "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4",
+          "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8",
+          "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12",
         ],
+        datasets: datasets,
       },
-      {
-        label: "Lamboghini",
-        backgroundColor: "#177dff",
-        borderColor: "#177dff",
-        data: [
-          185, 279, 273, 287, 234, 312, 322, 286, 301, 320, 346, 399,
-        ],
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+          position: "bottom",
+        },
+        title: {
+          display: true,
+          text: "Biểu đồ thương hiệu",
+        },
+        tooltips: {
+          mode: "index",
+          intersect: false,
+        },
+        scales: {
+          xAxes: [{
+            stacked: true,
+          }],
+          yAxes: [{
+            stacked: true,
+            ticks: {
+              beginAtZero: true,
+            },
+          }],
+        },
       },
-    ],
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    legend: {
-      position: "bottom",
-    },
-    title: {
-      display: true,
-      text: "Biểu đồ thương hiệu",
-    },
-    tooltips: {
-      mode: "index",
-      intersect: false,
-    },
-    responsive: true,
-    scales: {
-      xAxes: [
-        {
-          stacked: true,
-        },
-      ],
-      yAxes: [
-        {
-          stacked: true,
-        },
-      ],
-    },
-  },
+    });
+  } else {
+    console.error('Canvas element not found!');
+  }
 });
+
+

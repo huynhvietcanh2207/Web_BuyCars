@@ -9,6 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Document</title>
     </head>
+
     <body>
         <div class="container">
             <div class="page-inner">
@@ -64,8 +65,8 @@
                                     </div>
                                     <div class="col-7 col-stats">
                                         <div class="numbers">
-                                            <p class="card-category">Tổng Chi</p>
-                                            <h4 class="card-title">1</h4>
+                                            <p class="card-category">Yêu Thích</p>
+                                            <h4 class="card-title">{{ $favoriteCount }}</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -83,8 +84,8 @@
                                     </div>
                                     <div class="col-7 col-stats">
                                         <div class="numbers">
-                                            <p class="card-category">Tổng Thu</p>
-                                            <h4 class="card-title">100</h4>
+                                            <p class="card-category">Bình luận</p>
+                                            <h4 class="card-title">{{ $commentCount }}</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -103,6 +104,8 @@
                                 <div class="card-title">Biểu Đồ Thu Chi</div>
                             </div>
                             <div class="card-body">
+                                <div id="chart-data" data-income="{{ $income }}" data-expenses="{{ $expenses }}">
+                                </div>
                                 <div class="chart-container">
                                     <canvas id="pieChart" style="width: 50%; height: 50%"></canvas>
                                 </div>
@@ -112,6 +115,8 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-header">
+                                <div id="user-chart-data" data-user="{{ json_encode($userStatistics['months']) }}"
+                                    data-counts="{{ json_encode($userStatistics['counts']) }}"></div>
                                 <div class="card-title">Biểu Đồ Người Dùng</div>
                             </div>
                             <div class="card-body">
@@ -127,6 +132,9 @@
                                 <div class="card-title">Biểu Đồ Thương Hiệu</div>
                             </div>
                             <div class="card-body">
+                                <div id="brand-chart-data" data-labels="{{ json_encode($brandStatistics['labels']) }}"
+                                    data-brand="{{ json_encode($brandStatistics['data']) }}">
+                                </div>
                                 <div class="chart-container">
                                     <canvas id="multipleBarChart"></canvas>
                                 </div>
@@ -150,8 +158,10 @@
                     </div>
                 </div>
             </div>
+        </div>
     </body>
     <script src="{{ asset('js/plugin/chart.js/chart.min.js') }}"></script>
     <script src="{{ asset('js/plugin/chart.js/chart.js') }}"></script>
+
     </html>
 @endsection
