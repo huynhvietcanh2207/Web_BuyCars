@@ -11,6 +11,12 @@ class Role extends Model
 {
     protected $table = 'user_roles'; // Chỉ định bảng nếu tên không theo chuẩn
 
+    // Định nghĩa các trường có thể được gán hàng loạt
+    protected $fillable = [
+        'RoleName',
+        'Description',
+    ];
+
     /**
      * Thiết lập mối quan hệ nhiều-nhiều với User.
      */
@@ -18,4 +24,9 @@ class Role extends Model
     {
         return $this->belongsToMany(User::class, 'user_role_assignments', 'RoleId', 'user_id');
     }
+
+    // Khai báo kiểu dữ liệu cho các thuộc tính (tuỳ chọn)
+    protected $casts = [
+        'AssignedAt' => 'datetime',
+    ];
 }

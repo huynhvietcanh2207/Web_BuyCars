@@ -8,21 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class UserRoleAssignment extends Model
 {
     use HasFactory;
-    protected $table = 'user_role_assignments';
 
-    protected $primaryKey = 'AssignmentId';
-
-    protected $fillable = ['user_id', 'RoleId', 'AssignedAt'];
-
+    // Tắt timestamps
     public $timestamps = false;
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
+    // Định nghĩa các trường có thể được gán giá trị
+    protected $fillable = [
+        'user_id',
+        'RoleId',
+        'AssignedAt',
+    ];
 
-    public function role()
-    {
-        return $this->belongsTo(UserRole::class, 'RoleId');
-    }
+    // Khai báo kiểu dữ liệu cho các thuộc tính (tuỳ chọn)
+    protected $casts = [
+        'AssignedAt' => 'datetime',
+    ];
 }
