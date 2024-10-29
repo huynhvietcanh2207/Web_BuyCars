@@ -11,6 +11,7 @@ use App\Http\Controllers\CrudProductsController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CrudBrandsController;
+use App\Http\Controllers\CrudVoucherController;
 
 
 /*
@@ -61,6 +62,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 Route::resources([
     'products' => CrudProductsController::class,
     'brands' => CrudBrandsController::class,
+    'vouchers' => CrudVoucherController::class,
 ]);
 
 Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('subscribe');

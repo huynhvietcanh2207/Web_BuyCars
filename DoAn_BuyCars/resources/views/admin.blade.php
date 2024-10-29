@@ -3,7 +3,7 @@
 
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Kaiadmin - Bootstrap 5 Admin Dashboard</title>
+  <title>BuyCars - Admin</title>
   <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
   <link
     rel="stylesheet"
@@ -68,12 +68,12 @@
               </a>
               <div class="collapse" id="submenu">
                 <ul class="nav nav-collapse">
-                  <li><a href="#"><span class="sub-item">Quản lý người dùng</span></a></li>
-                  <li><a href="{{ route('products.index') }}">Quản lý sản phẩm</a></li>
-                  <li><a href="{{ route('brands.index') }}">Quản lý thương hiệu</a></li>
+                  <li><a href="#"><span class="sub-item">Quản lý Người dùng</span></a></li>
+                  <li><a href="{{ route('products.index') }}"><span class="sub-item">Quản lý Sản phẩm</span></a></li>
+                  <li><a href="{{ route('brands.index') }}"><span class="sub-item">Quản lý Thương hiệu</span></a></li>
                   <li><a href="#"><span class="sub-item">Quản lý Đơn Hàng</span></a></li>
-                  <li><a href="#"><span class="sub-item">Quản lý bình luận</span></a></li>
-                  <li><a href="#"><span class="sub-item">Quản lý voucher</span></a></li>
+                  <li><a href="#"><span class="sub-item">Quản lý Bình luận</span></a></li>
+                  <li><a href="{{ route('vouchers.index') }}"><span class="sub-item">Quản lý Voucher</span></a></li>
                 </ul>
               </div>
             </li>
