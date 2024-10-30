@@ -21,7 +21,7 @@ class CrudVoucherController extends Controller
      */
     public function create()
     {
-        return view('admin.vouchers.crud'); 
+        return view('admin.vouchers.crud');
     }
 
     /**
@@ -30,15 +30,15 @@ class CrudVoucherController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'VoucherCode' => 'required|string|max:50|unique:vouchers,VoucherCode', // Đảm bảo VoucherCode không vượt quá 50 ký tự
-            'DiscountPercentage' => 'required|numeric|min:0|max:100', // Kiểm tra giá trị giảm giá là phần trăm
-            'ExpirationDate' => 'required|date', // Kiểm tra ngày hết hạn hợp lệ
-            'IsActive' => 'required|boolean', // Kiểm tra trạng thái là boolean
+            'VoucherCode' => 'required|string|max:50|unique:vouchers,VoucherCode',
+            'DiscountPercentage' => 'required|numeric|min:0|max:100',
+            'ExpirationDate' => 'required|date',
+            'IsActive' => 'required|boolean',
         ]);
 
         Voucher::create([
             'VoucherCode' => $request->VoucherCode,
-            'DiscountPercentage' => $this->calculateDiscountAmount($request->DiscountPercentage), // Tính toán giá trị giảm
+            'DiscountPercentage' => $request->DiscountPercentage,
             'ExpirationDate' => $request->ExpirationDate,
             'IsActive' => $request->IsActive,
         ]);
@@ -70,16 +70,16 @@ class CrudVoucherController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'VoucherCode' => 'required|string|max:50|unique:vouchers,VoucherCode,' . $id . ',VoucherId', // Đảm bảo không trùng với voucher hiện tại
-            'DiscountPercentage' => 'required|numeric|min:0|max:100', // Kiểm tra giá trị giảm giá là phần trăm
-            'ExpirationDate' => 'required|date', // Kiểm tra ngày hết hạn hợp lệ
-            'IsActive' => 'required|boolean', // Kiểm tra trạng thái là boolean
+            'VoucherCode' => 'required|string|max:50|unique:vouchers,VoucherCode,' . $id . ',VoucherId',
+            'DiscountPercentage' => 'required|numeric|min:0|max:100',
+            'ExpirationDate' => 'required|date',
+            'IsActive' => 'required|boolean',
         ]);
 
         $voucher = Voucher::findOrFail($id);
         $voucher->update([
             'VoucherCode' => $request->VoucherCode,
-            'DiscountAmount' => $this->calculateDiscountAmount($request->DiscountPercentage), // Tính toán giá trị giảm
+            'DiscountPercentage' => $request->DiscountPercentage,
             'ExpirationDate' => $request->ExpirationDate,
             'IsActive' => $request->IsActive,
         ]);
@@ -95,15 +95,5 @@ class CrudVoucherController extends Controller
         $voucher = Voucher::findOrFail($id);
         $voucher->delete();
         return redirect()->route('vouchers.index')->with('success', 'Voucher đã được xóa thành công!');
-    }
-
-    /**
-     * Tính toán giá trị giảm giá dựa trên phần trăm
-     */
-    private function calculateDiscountAmount($percentage)
-    {
-        // Giả định giá gốc, bạn có thể thay đổi theo logic thực tế của bạn
-        $originalPrice = 100; // Ví dụ: giá gốc là 100
-        return ($originalPrice * $percentage) / 100;
     }
 }
