@@ -62,6 +62,9 @@
                     <a href="#" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></a>
                     <div class="dropdown-menu">
                         @auth
+                        <a href="{{ route('password.change') }}">Đổi Mật Khẩu</a> 
+
+
                         <a href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng Xuất</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

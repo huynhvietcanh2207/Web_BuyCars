@@ -11,6 +11,7 @@ use App\Http\Controllers\CrudProductsController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CrudBrandsController;
+use App\Http\Controllers\ChangePasswordController;
 
 
 /*
@@ -51,6 +52,7 @@ Route::get('/cart', [CartItemController::class, 'index'])->name('cart.index');
 Route::delete('/cart/{id}', [CartItemController::class, 'destroy'])->name('cart.destroy');
 Route::put('/cart/update', [CartItemController::class, 'updateCart'])->name('cart.update');
 
+
 // Route cho admin
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('/', [AdminController::class, 'indexAdmin'])->name('admin');
@@ -65,5 +67,8 @@ Route::resources([
 
 Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('subscribe');
 
-
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/change-password', [ChangePasswordController::class, 'showChangePasswordForm'])->name('password.change');
+    Route::post('/change-password', [ChangePasswordController::class, 'changePassword'])->name('password.update');
+});
 
