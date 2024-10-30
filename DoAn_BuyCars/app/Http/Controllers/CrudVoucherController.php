@@ -38,7 +38,7 @@ class CrudVoucherController extends Controller
 
         Voucher::create([
             'VoucherCode' => $request->VoucherCode,
-            'DiscountAmount' => $this->calculateDiscountAmount($request->DiscountPercentage), // Tính toán giá trị giảm
+            'DiscountPercentage' => $this->calculateDiscountAmount($request->DiscountPercentage), // Tính toán giá trị giảm
             'ExpirationDate' => $request->ExpirationDate,
             'IsActive' => $request->IsActive,
         ]);
