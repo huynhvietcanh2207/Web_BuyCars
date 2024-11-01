@@ -8,13 +8,13 @@
     <link rel="stylesheet" href="login.css">
     <link href="{{ asset('css/login.css') }}" rel="stylesheet">
 
-    <title>Document</title>
+    <title>Đăng Nhập & Đăng Ký</title>
 </head>
 
 <body>
     <div class="container" id="container">
         <div class="form-container sign-up">
-        <form action="{{ route('register') }}" method="POST">
+            <form action="{{ route('register') }}" method="POST">
                 @csrf
                 <h1>Create Account</h1>
                 @if ($errors->any())
@@ -26,6 +26,7 @@
                         </ul>
                     </div>
                 @endif
+                <input type="text" name="username" placeholder="Username" required>
                 <input type="text" name="name" placeholder="Name" required>
                 <input type="text" name="phone_number" placeholder="Phone" required>
                 <input type="email" name="email" placeholder="Email" required>
@@ -35,7 +36,7 @@
             </form>
         </div>
         <div class="form-container sign-in">
-        <form action="{{ route('login') }}" method="POST">
+            <form action="{{ route('login') }}" method="POST">
                 @csrf
                 <h1>Sign In</h1>
                 @if ($errors->any())
