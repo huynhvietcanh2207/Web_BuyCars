@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DETAIL - (TÊN SẢN PHẨM)</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/detail.css') }}">
+    <link rel="stylesheet" href="{{ url('css/detail.css') }}">
 </head>
 
 <body>
@@ -15,18 +15,18 @@
             <!-- Product Image -->
             <div class="col-md-6">
                 <!-- Main product image -->
-                <div id="productCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+                <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="{{ asset('images/56.jpg') }}" class="d-block w-100"
-                                alt="Nhớt Castrol Magnatec 10W40">
+                            <img src="{{ asset('images/' . $product->image_url . '.jpg') }}" class="d-block w-100"
+                                alt="{{ $product->name }}">
                         </div>
                         <div class="carousel-item">
-                            <img src="{{ asset('images/57.jpg') }}" class="d-block w-100"
+                            <img src="{{ asset('images/lambo.jpg') }}" class="d-block w-100"
                                 alt="Nhớt Castrol Magnatec 10W40 - 2">
                         </div>
                         <div class="carousel-item">
-                            <img src="{{ asset('images/58.jpg') }}" class="d-block w-100"
+                            <img src="{{ asset('images/banner1.jpg') }}" class="d-block w-100"
                                 alt="Nhớt Castrol Magnatec 10W40 - 3">
                         </div>
                     </div>
@@ -46,24 +46,24 @@
                 <div class="mt-3 d-flex justify-content-center">
                     <img src="{{ asset('images/56.jpg') }}" class="img-thumbnail me-2" style="width: 100px;"
                         data-bs-target="#productCarousel" data-bs-slide-to="0" alt="Nhớt Castrol Magnatec 10W40">
-                    <img src="{{ asset('images/57.jpg') }}" class="img-thumbnail me-2" style="width: 100px;"
+                    <img src="{{ asset('images/lambo.jpg') }}" class="img-thumbnail me-2" style="width: 100px;"
                         data-bs-target="#productCarousel" data-bs-slide-to="1" alt="Nhớt Castrol Magnatec 10W40 - 2">
-                    <img src="{{ asset('images/58.jpg') }}" class="img-thumbnail" style="width: 100px;"
+                    <img src="{{ asset('images/banner1.jpg') }}" class="img-thumbnail" style="width: 100px;"
                         data-bs-target="#productCarousel" data-bs-slide-to="2" alt="Nhớt Castrol Magnatec 10W40 - 3">
                 </div>
             </div>
             <!-- Product Information -->
             <div class="col-md-6">
-                <h3>Nhớt Castrol Magnatec 10W40 (4L)</h3>
+                <h3>{{ $product->name }}</h3>
                 <p>Thương hiệu: Đang cập nhật | Tình trạng: <span class="text-success">Còn hàng</span></p>
-                <h4 class="text-danger">460.000đ</h4>
+                <h4 class="text-danger">{{ number_format($product->price, 0, ',', '.') }} VND</h4>
                 <div class="input-group mb-3">
                     <button class="btn btn-outline-secondary" type="button">-</button>
                     <input type="text" class="form-control text-center" value="1" style="max-width: 60px;">
                     <button class="btn btn-outline-secondary" type="button">+</button>
                 </div>
                 <button class="btn btn-danger mb-3">Đặt hàng</button>
-                <p>Nhớt Castrol Magnatec 10W40 chống lại sự mòn động cơ ngay từ khi bạn khởi động...</p>
+                <p>{{ $product->description }}</p>
                 <div class="d-flex">
                     <span class="me-2">Chia sẻ: </span>
                     <a href="#" class="me-2"><i class="fa fa-facebook"></i></a>
@@ -86,17 +86,14 @@
                     </li>
                 </ul>
                 <div class="p-3">
-                    <h5>Nhớt Castrol Magnatec 10W40</h5>
+                    <h5>{{ $product->name}}</h5>
                     <ul>
-                        <li>Chống lại sự mòn động cơ từ khi khởi động.</li>
-                        <li>Hơn 75% mài mòn xảy ra trong quá trình khởi động...</li>
-                        <li>Công thức độc đáo của Castrol Magnatec giúp bảo vệ động cơ...</li>
+                        <li>{{ $product->description }}</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

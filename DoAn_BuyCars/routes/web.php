@@ -10,6 +10,7 @@ use App\Http\Controllers\CrudProductsController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CrudBrandsController;
+use App\Http\Controllers\DetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,9 +45,7 @@ Route::post('cart/add/{id}', [CartItemController::class, 'addToCart'])->name('ca
 Route::get('/cart', [CartItemController::class, 'index'])->name('cart.index');
 Route::delete('/cart/{id}', [CartItemController::class, 'destroy'])->name('cart.destroy');
 Route::put('/cart/update', [CartItemController::class, 'updateCart'])->name('cart.update');
-Route::get('/detail', function () {
-    return view('detail');
-});
+Route::get('/detail/{id}',[DetailController::class, 'indexDetail'])->name('detail.index');
 
 // Route cho admin
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
