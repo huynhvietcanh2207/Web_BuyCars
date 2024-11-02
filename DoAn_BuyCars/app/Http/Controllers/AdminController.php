@@ -8,6 +8,12 @@ class AdminController extends Controller
 {
     public function indexAdmin()
     {
-        return view('admin');
+        // return view('admin');
+        return redirect()->route('detail_admin');
+
+    }
+    public function detail_admin()
+    {
+        return view('detail_admin');
     }
 }

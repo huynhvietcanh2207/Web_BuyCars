@@ -26,8 +26,8 @@
     <div class="sidebar" data-background-color="dark">
       <div class="sidebar-logo">
         <div class="logo-header" data-background-color="dark">
-          <a href="index.html" class="logo">
-            <img src="{{ asset('56.jpg')}}" alt="navbar brand" class="navbar-brand" height="20" />
+          <a  href="{{ route('index') }}" class="logo">
+            <img src="{{ asset('logweb.jpg')}}" alt="navbar brand" class="navbar-brand" height="30"  />
           </a>
           <div class="nav-toggle">
             <button class="btn btn-toggle toggle-sidebar"><i class="gg-menu-right"></i></button>
@@ -43,17 +43,15 @@
               <a data-bs-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
                 <i class="fas fa-home"></i>
                 <p>Trang Chủ</p>
-                <span class="caret"></span>
+                <!-- <span class="caret"></span> -->
               </a>
-              <div class="collapse" id="dashboard">
+              <!-- <div class="collapse" id="dashboard">
                 <ul class="nav nav-collapse">
                   <li>
-                    <a href="#">
-                      <span class="sub-item">Dashboard 1</span>
-                    </a>
+                  <a href="{{ route('detail_admin') }}"><span class="sub-item">Thông tin trang chủ</span></a>
                   </li>
                 </ul>
-              </div>
+              </div> -->
             </li>
             <li class="nav-section">
               <span class="sidebar-mini-icon"><i class="fa fa-ellipsis-h"></i></span>
@@ -119,7 +117,7 @@
       <div class="container">
         <div class="page-inner">
           <div class="page-header">
-            <h4 class="page-title">Dashboard</h4>
+            @yield('main')
           </div>
         </div>
       </div>
@@ -132,3 +130,10 @@
 </body>
 
 </html>
+<style>
+  .navbar-brand{
+    height: 50px;
+    border-radius: 50%;
+    width: 50px;
+  }
+</style>
