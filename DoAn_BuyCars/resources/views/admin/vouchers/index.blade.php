@@ -24,39 +24,44 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Mã Voucher</th>
-                    <th scope="col">Giảm giá (%)</th> 
+                    <th scope="col">Giảm giá (%)</th>
                     <th scope="col">Ngày hết hạn</th>
                     <th scope="col">Trạng thái</th>
-                    <th scope="col">Ngày tạo</th>
+                    <th scope="col">Ngày cập nhật</th>
                     <th scope="col">Hành động</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($vouchers as $voucher)
-                <tr>
-                    <td>{{ $voucher->VoucherId }}</td>
-                    <td>{{ $voucher->VoucherCode }}</td>
-                    <td>{{ $voucher->DiscountPercentage }} %</td>
-                    <td>{{ $voucher->ExpirationDate }}</td>
-                    <td>{{ $voucher->IsActive ? 'Đang hoạt động' : 'Không hoạt động' }}</td>
-                    <td>{{ $voucher->created_at }}</td>
-                    <td class="text-center">
-                        <div class="d-flex justify-content-around">
-                            <a href="{{ route('vouchers.edit', $voucher->VoucherId) }}" class="text-primary" title="Sửa">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <form action="{{ route('vouchers.destroy', $voucher->VoucherId) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa voucher này không?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-danger" title="Xóa" style="border: none; background: none; cursor: pointer;">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>{{ $voucher->VoucherId }}</td>
+                        <td>{{ $voucher->VoucherCode }}</td>
+                        <td>{{ $voucher->DiscountPercentage }} %</td>
+                        <td>{{ \Carbon\Carbon::parse($voucher->ExpirationDate)->format('d/m/Y') }}</td>
+                        <td>{{ $voucher->IsActive ? 'Đang hoạt động' : 'Không hoạt động' }}</td>
+                        <td>{{ \Carbon\Carbon::parse($voucher->created_at)->format('d/m/Y H:i') }}</td>
+                        <!-- Định dạng ngày và giờ -->
+                        <td class="text-center">
+                            <div class="d-flex justify-content-around">
+                                <a href="{{ route('vouchers.edit', $voucher->VoucherId) }}" class="text-primary"
+                                    title="Sửa">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form action="{{ route('vouchers.destroy', $voucher->VoucherId) }}" method="POST"
+                                    onsubmit="return confirm('Bạn có chắc chắn muốn xóa voucher này không?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-danger" title="Xóa"
+                                        style="border: none; background: none; cursor: pointer;">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
+
         </table>
 
         <div class="d-flex justify-content-center mt-3">
