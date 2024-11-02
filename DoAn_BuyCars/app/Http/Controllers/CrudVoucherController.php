@@ -76,6 +76,7 @@ class CrudVoucherController extends Controller
             'IsActive' => 'required|boolean',
         ]);
 
+        // dd($request->all());
         $voucher = Voucher::findOrFail($id);
         $voucher->update([
             'VoucherCode' => $request->VoucherCode,
@@ -83,6 +84,7 @@ class CrudVoucherController extends Controller
             'ExpirationDate' => $request->ExpirationDate,
             'IsActive' => $request->IsActive,
         ]);
+        // dd($voucher);
 
         return redirect()->route('vouchers.index')->with('success', 'Voucher đã được cập nhật thành công!');
     }

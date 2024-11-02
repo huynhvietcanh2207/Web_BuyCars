@@ -285,7 +285,7 @@
         });
     });
     $(document).ready(function () {
-        $('#apply-filter').on('click', function (e) {
+        $(document).on('click', '#apply-filter', function (e) {
             e.preventDefault();
             fetchFilteredProducts();
         });
@@ -314,10 +314,11 @@
         }
 
         // Cập nhật giá trị input khi kéo thanh trượt
-        $('#minPrice').on('input', function () {
+        $(document).on('input', '#minPrice', function () {
             $('#minPriceInput').val($(this).val());
         });
-        $('#maxPrice').on('input', function () {
+        // Khi nhập vào trường maxPrice
+        $(document).on('input', '#maxPrice', function () {
             $('#maxPriceInput').val($(this).val());
         });
     });
@@ -330,25 +331,27 @@
         }
 
         // Cập nhật thanh trượt khi thay đổi ô input
-        $('#minPriceInput').on('input', function () {
+        $(document).on('input', '#minPriceInput', function () {
             let value = $(this).val().replace(/[^0-9]/g, ''); // Chỉ lấy số
             $(this).val(formatNumber(value));
             $('#minPrice').val(value);
         });
 
-        $('#maxPriceInput').on('input', function () {
+        // Khi nhập vào trường maxPriceInput
+        $(document).on('input', '#maxPriceInput', function () {
             let value = $(this).val().replace(/[^0-9]/g, ''); // Chỉ lấy số
             $(this).val(formatNumber(value));
             $('#maxPrice').val(value);
         });
 
-        // Cập nhật ô input khi thay đổi thanh trượt
-        $('#minPrice').on('input', function () {
+        // Cập nhật ô input khi thay đổi thanh trượt minPrice
+        $(document).on('input', '#minPrice', function () {
             let value = $(this).val();
             $('#minPriceInput').val(formatNumber(value));
         });
 
-        $('#maxPrice').on('input', function () {
+        // Cập nhật ô input khi thay đổi thanh trượt maxPrice
+        $(document).on('input', '#maxPrice', function () {
             let value = $(this).val();
             $('#maxPriceInput').val(formatNumber(value));
         });
