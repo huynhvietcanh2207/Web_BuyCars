@@ -14,6 +14,7 @@ use App\Http\Controllers\CrudBrandsController;
 use App\Http\Controllers\ChangePasswordController;
 
 use App\Http\Controllers\CrudVoucherController;
+use App\Http\Controllers\DetailController;
 
 
 /*
@@ -53,6 +54,7 @@ Route::post('cart/add/{id}', [CartItemController::class, 'addToCart'])->name('ca
 Route::get('/cart', [CartItemController::class, 'index'])->name('cart.index');
 Route::delete('/cart/{id}', [CartItemController::class, 'destroy'])->name('cart.destroy');
 Route::put('/cart/update', [CartItemController::class, 'updateCart'])->name('cart.update');
+Route::get('/detail/{id}',[DetailController::class, 'indexDetail'])->name('detail.index');
 
 
 // Route cho admin
