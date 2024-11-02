@@ -20,5 +20,4 @@ use App\Http\Controllers\AdminController;
 Route::group(['prefix' => ''], function () {
     Route::get('/', [Controller::class, 'index'])->name('index');
 });
-Route::get('/admin', [AdminController::class, 'indexAdmin']);
-Route::get('/detail_admin', [AdminController::class, 'detail_admin'])->name('detail_admin');
+Route::get('/admin', [AdminController::class, 'indexAdmin'])->name('admin');

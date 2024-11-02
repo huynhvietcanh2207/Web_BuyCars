@@ -1,139 +1,115 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('header_admin')
 
-<head>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Kaiadmin - Bootstrap 5 Admin Dashboard</title>
-  <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-    integrity="sha512-yK+RPn9vBM6kU+pHxMZTZdAdW1U1Rm6xaT+vLgBNGVOCmnMEI7b6t7Sk67S9aox+N7ZOCqtnZ0R+bv1vyD7zw=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer" />
+@section('main')
+<div class="detail">
+<div class="container mt-4">
+    <h1 class="text-primary text-center mb-4">Thông Tin Trang Website - BuyCars</h1>
 
-
-
-  <!-- Core CSS Files -->
-  <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/kaiadmin.min.css') }}">
-
-</head>
-
-<body>
-  <div class="wrapper">
-    <!-- Sidebar -->
-    <div class="sidebar" data-background-color="dark">
-      <div class="sidebar-logo">
-        <div class="logo-header" data-background-color="dark">
-          <a  href="{{ route('index') }}" class="logo">
-            <img src="{{ asset('logweb.jpg')}}" alt="navbar brand" class="navbar-brand" height="30"  />
-          </a>
-          <div class="nav-toggle">
-            <button class="btn btn-toggle toggle-sidebar"><i class="gg-menu-right"></i></button>
-            <button class="btn btn-toggle sidenav-toggler"><i class="gg-menu-left"></i></button>
-          </div>
-          <button class="topbar-toggler more"><i class="gg-more-vertical-alt"></i></button>
-        </div>
-      </div>
-      <div class="sidebar-wrapper scrollbar scrollbar-inner">
-        <div class="sidebar-content">
-          <ul class="nav nav-secondary">
-            <li class="nav-item active">
-              <a data-bs-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
-                <i class="fas fa-home"></i>
-                <p>Trang Chủ</p>
-                <!-- <span class="caret"></span> -->
-              </a>
-              <!-- <div class="collapse" id="dashboard">
-                <ul class="nav nav-collapse">
-                  <li>
-                  <a href="{{ route('detail_admin') }}"><span class="sub-item">Thông tin trang chủ</span></a>
-                  </li>
-                </ul>
-              </div> -->
-            </li>
-            <li class="nav-section">
-              <span class="sidebar-mini-icon"><i class="fa fa-ellipsis-h"></i></span>
-              <h4 class="text-section">Components</h4>
-            </li>
-            <li class="nav-item">
-              <a data-bs-toggle="collapse" href="#submenu">
-                <i class="fas fa-bars"></i>
-                <p>Danh Mục Quản Lý</p>
-                <span class="caret"></span>
-              </a>
-              <div class="collapse" id="submenu">
-                <ul class="nav nav-collapse">
-                  <li><a href="#"><span class="sub-item">Quản lý người dùng</span></a></li>
-                  <li><a href="#"><span class="sub-item">Quản lý sản phẩm</span></a></li>
-                  <li><a href="#"><span class="sub-item">Quản lý thương hiệu</span></a></li>
-                  <li><a href="#"><span class="sub-item">Quản lý Đơn Hàng</span></a></li>
-                  <li><a href="#"><span class="sub-item">Quản lý bình luận</span></a></li>
-                  <li><a href="#"><span class="sub-item">Quản lý voucher</span></a></li>
-                </ul>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a data-bs-toggle="collapse" href="#submenu">
-                <i class="fas fa-bars"></i>
-                <p>Danh thu và báo cáo</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a data-bs-toggle="collapse" href="#submenu">
-                <i class="fas fa-bars"></i>
-                <p>Phân quyền</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a data-bs-toggle="collapse" href="#submenu">
-                <i class="fas fa-bars"></i>
-                <p>Xuất</p>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <!-- End Sidebar -->
-
-    <div class="main-panel">
-      <div class="main-header">
-        <div class="main-header-logo">
-          <div class="logo-header" data-background-color="dark">
-            <a href="index.html" class="logo">
-              <img src="assets/img/kaiadmin/logo_light.svg" alt="navbar brand" class="navbar-brand" height="20" />
-            </a>
-            <div class="nav-toggle">
-              <button class="btn btn-toggle toggle-sidebar"><i class="gg-menu-right"></i></button>
-              <button class="btn btn-toggle sidenav-toggler"><i class="gg-menu-left"></i></button>
+    <!-- Thông tin chính về Website -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h4 class="card-title text-success">Về Chúng Tôi</h4>
+                    <p class="card-text">
+                        BuyCars là nền tảng mua bán xe hơi trực tuyến hàng đầu, giúp khách hàng kết nối với các đại lý uy tín và cập nhật thông tin xe mới nhất.
+                    </p>
+                    <p><strong>Sứ mệnh:</strong> Mang lại trải nghiệm mua xe tốt nhất cho khách hàng.</p>
+                </div>
             </div>
-            <button class="topbar-toggler more"><i class="gg-more-vertical-alt"></i></button>
-          </div>
         </div>
-      </div>
-
-      <div class="container">
-        <div class="page-inner">
-          <div class="page-header">
-            @yield('main')
-          </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h4 class="card-title text-info">Dịch Vụ</h4>
+                    <p class="card-text">
+                        BuyCars cung cấp dịch vụ đa dạng từ tư vấn mua bán, cho vay tài chính đến bảo hành và bảo trì xe cho khách hàng.
+                    </p>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <!-- Core JS Files -->
-  <script src="{{ asset('js/bootstrap.min.js') }}"></script> <!-- Đổi href thành src -->
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="card text-center shadow border-primary">
+                <div class="card-body">
+                    <h5 class="text-primary">Người Dùng</h5>
+                    <p class="display-5">100,240+</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center shadow border-success">
+                <div class="card-body">
+                    <h5 class="text-success">Xe Đã Bán</h5>
+                    <p class="display-5">3,150+</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center shadow border-info">
+                <div class="card-body">
+                    <h5 class="text-info">Đại Lý</h5>
+                    <p class="display-5">250+</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center shadow border-warning">
+                <div class="card-body">
+                    <h5 class="text-warning">Bình Luận</h5>
+                    <p class="display-5">1,200+</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-</body>
+    <div class="card mt-4 shadow-lg">
+        <div class="card-body">
+            <h3 class="text-secondary mb-3">Thông Tin Chi Tiết</h3>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Chỉ Mục</th>
+                        <th>Chi Tiết</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ngày Thành Lập</td>
+                        <td>01/10/2024</td>
+                    </tr>
+                    <tr>
+                        <td>Địa Chỉ</td>
+                        <td>123, Đường làng tăng phú, Tăng Nhơn Phú A, TP.HCM</td>
+                    </tr>
+                    <tr>
+                        <td>Email Hỗ Trợ</td>
+                        <td>huynhvietcanh@buycars.com</td>
+                    </tr>
+                    <tr>
+                        <td>Số Điện Thoại</td>
+                        <td>+84 342779848</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-</html>
+</div>
+
 <style>
-  .navbar-brand{
-    height: 50px;
-    border-radius: 50%;
-    width: 50px;
-  }
+    /* .detail{
+        background-image: url('hinhnenvutru.jpg');
+    } */
+    .card {
+        transition: transform 0.3s ease;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
 </style>
+@endsection
