@@ -57,7 +57,7 @@
                 <input type="range" min="0" max="1000000000" step="1000000" name="min_price" id="minPrice" value="0">
                 <br>
                 <label for="maxPrice">Đến: </label>
-                <input type="text" id="maxPriceInput" value="1000000000" placeholder="1000000000" />VND
+                <input type="text" id="maxPriceInput" value="1,000,000,000" placeholder="1000000000" />VND
                 <input type="range" min="0" max="1000000000" step="1000000" name="max_price" id="maxPrice"
                     value="1000000000">
                 <hr>
