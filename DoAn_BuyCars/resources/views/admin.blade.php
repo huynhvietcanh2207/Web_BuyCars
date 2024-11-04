@@ -72,7 +72,7 @@
                   <li><a href="{{ route('products.index') }}"><span class="sub-item">Quản lý Sản phẩm</span></a></li>
                   <li><a href="{{ route('brands.index') }}"><span class="sub-item">Quản lý Thương hiệu</span></a></li>
                   <li><a href="#"><span class="sub-item">Quản lý Đơn Hàng</span></a></li>
-                  <li><a href="#"><span class="sub-item">Quản lý Bình luận</span></a></li>
+                  <li><a href="{{ route('comments.index') }}"><span class="sub-item">Quản lý Bình luận</span></a></li>
                   <li><a href="{{ route('vouchers.index') }}"><span class="sub-item">Quản lý Voucher</span></a></li>
                 </ul>
               </div>
