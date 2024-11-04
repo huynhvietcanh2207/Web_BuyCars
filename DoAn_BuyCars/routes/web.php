@@ -12,6 +12,8 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CrudBrandsController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\PaymentController;
+
 
 use App\Http\Controllers\CrudVoucherController;
 use App\Http\Controllers\DetailController;
@@ -50,11 +52,19 @@ Route::get('login', [Login_registerController::class, 'index'])->name('login');
 Route::post('register', [Login_registerController::class, 'store'])->name('register');
 Route::post('login', [Login_registerController::class, 'login'])->name('login.post');
 Route::post('logout', [Login_registerController::class, 'logout'])->name('logout');
-Route::post('cart/add/{id}', [CartItemController::class, 'addToCart'])->name('cart.add');
-Route::get('/cart', [CartItemController::class, 'index'])->name('cart.index');
-Route::delete('/cart/{id}', [CartItemController::class, 'destroy'])->name('cart.destroy');
-Route::put('/cart/update', [CartItemController::class, 'updateCart'])->name('cart.update');
+// Route::post('cart/add/{id}', [CartItemController::class, 'addToCart'])->name('cart.add');
+// Route::get('/cart', [CartItemController::class, 'index'])->name('cart.index');
+// Route::delete('/cart/{id}', [CartItemController::class, 'destroy'])->name('cart.destroy');
+// Route::put('/cart/update', [CartItemController::class, 'updateCart'])->name('cart.update');
 Route::get('/detail/{id}',[DetailController::class, 'indexDetail'])->name('detail.index');
+
+
+ 
+//chỉnh sửa giỏ hàng + thanh toán
+Route::get('/cart', [CartItemController::class, 'index'])->name('cart.index');
+Route::post('/cart', [CartItemController::class, 'addToCart'])->name('cart.add');
+Route::delete('/cart/{id}', [CartItemController::class, 'destroy'])->name('cart.destroy');
+Route::post('/cart/update', [CartItemController::class, 'updateCart'])->name('cart.update');
 
 
 // Route cho admin
@@ -77,3 +87,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/change-password', [ChangePasswordController::class, 'changePassword'])->name('password.update');
 });
 
+//gọi hàm chức năng thanh toán
+Route::post('/vnpay_payment', [PaymentController::class, 'vnpay_payment'])->name('vnpay_payment');
