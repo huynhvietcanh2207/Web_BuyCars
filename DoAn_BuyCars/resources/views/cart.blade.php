@@ -82,14 +82,25 @@
             }, $cartItems)), 0, ',', '.') }}₫" style="width: 200px;">
             </div>
 
-            <!-- Payment form -->
+            <!-- Payment form
             <form action="{{ url('/vnpay_payment') }}" method="POST" class="text-end mt-3">
                 @csrf
                 <input type="hidden" name="total" value="{{ array_sum(array_map(function($item) {
                 return $item['quantity'] * $item['price'];
             }, $cartItems)) }}">
                 <button type="submit" name="redirect" class="btn btn-danger checkout-btn">Thanh toán</button>
+            </form> -->
+
+            <form action="{{ url('/vnpay_payment') }}" method="POST" class="text-end mt-3">
+                @csrf
+                <input type="hidden" name="total" value="{{ array_sum(array_map(function($item) {
+        return $item['quantity'] * $item['price'];
+    }, $cartItems)) }}">
+                <button type="submit" name="redirect" class="btn btn-danger checkout-btn">Thanh toán</button>
             </form>
+
+
+
         </div>
     </div>
 
