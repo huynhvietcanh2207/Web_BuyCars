@@ -47,10 +47,6 @@
                     <div class="profile-form d-flex">
                         <div class="flex-fill">
                             <div class="form-group">
-                                <label>Tên đăng nhập</label>
-                                <p>{{ $user->username }}</p>
-                            </div>
-                            <div class="form-group">
                                 <label>Tên</label>
                                 <input type="text" name="name" class="form-control" placeholder="Nhập tên của bạn"
                                     value="{{ old('name', $user->name) }}">
@@ -111,16 +107,18 @@
             <div class="vertical-divider"></div>
 
             <!-- Avatar Section -->
-            <div class="avatar">
+            <div class="avatar text-center">
                 <form action="{{ route('account.updateAvatar') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <img src="{{ $user->profile_image ? Storage::url($user->profile_image) : asset('default-avatar.png') }}"
-                        alt="Avatar" width="100">
+                        alt="Avatar" width="100" class="mb-2">
+                    <div class="mt-2">
+                        <label class="custom-file-upload">
+                            Chọn Ảnh
+                            <input type="file" name="avatar" style="display: none;" onchange="this.form.submit()">
+                        </label>
+                    </div>
                     <p>Dung lượng tối đa 1 MB<br>Định dạng: JPEG, PNG</p>
-                    <label class="custom-file-upload mt-2">
-                        Chọn Ảnh
-                        <input type="file" name="avatar" style="display: none;" onchange="this.form.submit()">
-                    </label>
                 </form>
             </div>
         </div>
@@ -147,6 +145,10 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="pagination justify-content-center">
+            {{ $activityLogs->links('pagination::bootstrap-4') }}
+            <!-- Laravel sử dụng template của Bootstrap -->
+        </div>
     </div>
 </div>
 

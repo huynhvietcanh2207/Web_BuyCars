@@ -94,7 +94,7 @@
                                                 quyền</span></a></li>
                                     <li><a href="{{ route('role.assign') }}"><span class="sub-item">Phân quyền người
                                                 dùng</span></a></li>
-                                    <li><a href="{{ route('role.assign') }}"><span class="sub-item">Danh sách người dùng
+                                    <li><a href="{{ route('role.list') }}"><span class="sub-item">Danh sách người dùng
                                                 được phân quyền</span></a></li>
                                 </ul>
                             </div>

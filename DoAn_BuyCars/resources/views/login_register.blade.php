@@ -26,7 +26,6 @@
                         </ul>
                     </div>
                 @endif
-                <input type="text" name="username" placeholder="Username" required>
                 <input type="text" name="name" placeholder="Name" required>
                 <input type="text" name="phone_number" placeholder="Phone" required>
                 <input type="email" name="email" placeholder="Email" required>
