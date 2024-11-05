@@ -57,7 +57,7 @@
                 <input type="range" min="0" max="1000000000" step="1000000" name="min_price" id="minPrice" value="0">
                 <br>
                 <label for="maxPrice">Đến: </label>
-                <input type="text" id="maxPriceInput" value="1000000000" placeholder="1000000000" />VND
+                <input type="text" id="maxPriceInput" value="1,000,000,000" placeholder="1000000000" />VND
                 <input type="range" min="0" max="1000000000" step="1000000" name="max_price" id="maxPrice"
                     value="1000000000">
                 <hr>
@@ -91,7 +91,14 @@
                                         <i class="{{ $product->is_favorited ? 'fas fa-heart' : 'far fa-heart' }} favorite-btn"
                                             data-product-id="{{ $product->ProductId }}"></i>
                                     </div>
-                                    <button class="btn-add-to-cart">Thêm vào giỏ hàng</button>
+                                    <form action="{{ route('cart.add', $product->ProductId) }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $product->ProductId }}">
+                                        @if (auth()->check())
+                                            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                                        @endif
+                                        <button class="btn-add-to-cart" type="submit">Thêm vào giỏ hàng</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -285,7 +292,7 @@
         });
     });
     $(document).ready(function () {
-        $('#apply-filter').on('click', function (e) {
+        $(document).on('click', '#apply-filter', function (e) {
             e.preventDefault();
             fetchFilteredProducts();
         });
@@ -314,10 +321,11 @@
         }
 
         // Cập nhật giá trị input khi kéo thanh trượt
-        $('#minPrice').on('input', function () {
+        $(document).on('input', '#minPrice', function () {
             $('#minPriceInput').val($(this).val());
         });
-        $('#maxPrice').on('input', function () {
+        // Khi nhập vào trường maxPrice
+        $(document).on('input', '#maxPrice', function () {
             $('#maxPriceInput').val($(this).val());
         });
     });
@@ -330,25 +338,27 @@
         }
 
         // Cập nhật thanh trượt khi thay đổi ô input
-        $('#minPriceInput').on('input', function () {
+        $(document).on('input', '#minPriceInput', function () {
             let value = $(this).val().replace(/[^0-9]/g, ''); // Chỉ lấy số
             $(this).val(formatNumber(value));
             $('#minPrice').val(value);
         });
 
-        $('#maxPriceInput').on('input', function () {
+        // Khi nhập vào trường maxPriceInput
+        $(document).on('input', '#maxPriceInput', function () {
             let value = $(this).val().replace(/[^0-9]/g, ''); // Chỉ lấy số
             $(this).val(formatNumber(value));
             $('#maxPrice').val(value);
         });
 
-        // Cập nhật ô input khi thay đổi thanh trượt
-        $('#minPrice').on('input', function () {
+        // Cập nhật ô input khi thay đổi thanh trượt minPrice
+        $(document).on('input', '#minPrice', function () {
             let value = $(this).val();
             $('#minPriceInput').val(formatNumber(value));
         });
 
-        $('#maxPrice').on('input', function () {
+        // Cập nhật ô input khi thay đổi thanh trượt maxPrice
+        $(document).on('input', '#maxPrice', function () {
             let value = $(this).val();
             $('#maxPriceInput').val(formatNumber(value));
         });

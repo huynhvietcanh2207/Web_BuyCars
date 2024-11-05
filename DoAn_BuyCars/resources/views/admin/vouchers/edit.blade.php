@@ -10,7 +10,8 @@
 
         <div class="form-group">
             <label for="VoucherCode">Mã Voucher</label>
-            <input type="text" name="VoucherCode" id="VoucherCode" class="form-control" value="{{ old('VoucherCode', $voucher->VoucherCode) }}" required>
+            <input type="text" name="VoucherCode" id="VoucherCode" class="form-control"
+                value="{{ old('VoucherCode', $voucher->VoucherCode) }}" required>
             @if ($errors->has('VoucherCode'))
                 <span class="text-danger">{{ $errors->first('VoucherCode') }}</span>
             @endif
@@ -18,7 +19,8 @@
 
         <div class="form-group">
             <label for="DiscountPercentage">Giảm giá (%)</label>
-            <input type="number" name="DiscountPercentage" id="DiscountPercentage" class="form-control" value="{{ old('DiscountPercentage', $voucher->DiscountPercentage) }}" min="0" max="100" required>
+            <input type="number" name="DiscountPercentage" id="DiscountPercentage" class="form-control"
+                value="{{ old('DiscountPercentage', $voucher->DiscountPercentage) }}" min="0" max="100" required>
             @if ($errors->has('DiscountPercentage'))
                 <span class="text-danger">{{ $errors->first('DiscountPercentage') }}</span>
             @endif
@@ -26,7 +28,8 @@
 
         <div class="form-group">
             <label for="ExpirationDate">Ngày hết hạn</label>
-            <input type="date" name="ExpirationDate" id="ExpirationDate" class="form-control" value="{{ old('ExpirationDate', $voucher->ExpirationDate->format('Y-m-d')) }}" required>
+            <input type="date" name="ExpirationDate" id="ExpirationDate" class="form-control"
+                value="{{ old('ExpirationDate', $voucher->ExpirationDate->format('Y-m-d')) }}" required>
             @if ($errors->has('ExpirationDate'))
                 <span class="text-danger">{{ $errors->first('ExpirationDate') }}</span>
             @endif

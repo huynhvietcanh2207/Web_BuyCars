@@ -112,6 +112,12 @@ class ProductController extends Controller
     
         // Lấy danh sách sản phẩm đã lọc
         $products = $query->get();
+        $userId = Auth::id();
+        $favoriteProductIds = Favorite::where('user_id', $userId)->pluck('ProductId')->toArray();
+
+        foreach ($products as $product) {
+            $product->is_favorited = in_array($product->ProductId, $favoriteProductIds);
+        }
 
         // Nếu là yêu cầu AJAX, trả về partial view
         if ($request->ajax()) {
