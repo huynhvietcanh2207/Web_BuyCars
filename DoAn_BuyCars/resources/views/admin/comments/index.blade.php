@@ -61,7 +61,30 @@
         </table>
 
         <div class="d-flex justify-content-center mt-3">
-            {{ $comments->links() }} <!-- Hiển thị liên kết phân trang -->
+            <nav>
+                <ul class="pagination">
+                    <!-- Nút Previous -->
+                    <li class="page-item {{ $comments->onFirstPage() ? 'disabled' : '' }}">
+                        <a class="page-link" href="{{ $comments->previousPageUrl() }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+
+                    <!-- Các trang -->
+                    @foreach ($comments->getUrlRange(1, $comments->lastPage()) as $page => $url)
+                    <li class="page-item {{ $page == $comments->currentPage() ? 'active' : '' }}">
+                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                    </li>
+                    @endforeach
+
+                    <!-- Nút Next -->
+                    <li class="page-item {{ $comments->hasMorePages() ? '' : 'disabled' }}">
+                        <a class="page-link" href="{{ $comments->nextPageUrl() }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 
