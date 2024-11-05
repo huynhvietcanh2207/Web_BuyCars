@@ -5,24 +5,23 @@
 
     <form action="{{ route('users.store') }}" method="POST">
         @csrf
-        <div>
-            <label for="name">Name:</label>
-            <input type="text" name="name" id="name" required>
+        <div class="form-group">
+            <label for="name">Tên người dùng</label>
+            <input type="text" class="form-control" name="name" id="name" required>
         </div>
 
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" name="email" id="email" required>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" name="email" id="email" required>
         </div>
 
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password" required>
+        <div class="form-group">
+            <label for="password">Mật khẩu</label>
+            <input type="password" class="form-control" name="password" id="password" required>
         </div>
 
-        <button type="submit"  class="btn btn-success" >Create</button>
+        <button type="submit" class="btn btn-success">Tạo người dùng</button>
         <a href="{{ route('users.index') }}" class="btn btn-secondary">Quay lại</a>
-
     </form>
 </div>
 @endsection

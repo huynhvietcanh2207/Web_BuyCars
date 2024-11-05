@@ -16,10 +16,13 @@ class CrudProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::paginate(5);
+        // $products = Product::all();
 
         return view('admin.products.index', compact('products'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -70,7 +73,7 @@ class CrudProductsController extends Controller
         foreach ($subscribers as $subscriber) {
             Mail::to($subscriber->email)->send(new \App\Mail\ProductAdded($product));
         }
-//cacsh 2
+        //cacsh 2
         // $subscribers = Subscription::all();
         // foreach ($subscribers as $subscriber) {
         //     try {
@@ -87,7 +90,7 @@ class CrudProductsController extends Controller
         //     }
         // }
 
-//cacsh 3
+        //cacsh 3
         // Mail::raw('Nội dung email thử nghiệm', function ($message) {
         //     $message->to('huynhvietcanh2004@gmail.com') // Thay thế bằng địa chỉ email bạn muốn gửi đến
         //         ->subject('Tiêu đề email thử nghiệm');
