@@ -12,9 +12,9 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CrudBrandsController;
 use App\Http\Controllers\ChangePasswordController;
-
 use App\Http\Controllers\CrudVoucherController;
 use App\Http\Controllers\DetailController;
+use App\Http\Controllers\CrudCommentController;
 
 
 /*
@@ -68,6 +68,7 @@ Route::resources([
     'products' => CrudProductsController::class,
     'brands' => CrudBrandsController::class,
     'vouchers' => CrudVoucherController::class,
+    'comments' => CrudCommentController::class,
 ]);
 
 Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('subscribe');
@@ -76,4 +77,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/change-password', [ChangePasswordController::class, 'showChangePasswordForm'])->name('password.change');
     Route::post('/change-password', [ChangePasswordController::class, 'changePassword'])->name('password.update');
 });
+
 
