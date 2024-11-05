@@ -128,6 +128,7 @@ nav a:hover {
 }
 .product-card {
     display: flex;
+    position: relative;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -193,6 +194,7 @@ nav a:hover {
 .image-products {
     width: 100%;
     height: 250px;
+    object-fit: cover;
 }
 /*phân trang */
 .pagination {
@@ -770,4 +772,22 @@ footer {
 .banner-text p {
     font-size: 1.2em;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.item-img{
+    width: 250px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 50px;
+}
+
+.item-img img {
+    width: 250px;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
 }

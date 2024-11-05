@@ -9,15 +9,10 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <style>
-
-    </style>
 </head>
 
 <body>
     @section('main')
-<<<<<<< HEAD
-
         <!-- Thông báo alert cho success -->
         @if (session()->has('success'))
             <script>
@@ -57,9 +52,11 @@
                     @foreach ($products as $product)
                         <div class="col">
                             <div class="product-card">
-                                <a href="{{ route('detail.index', ['id' => $product->ProductId]) }}">
-                                    <img class="image-products" src="{{ $product->image_url }}" alt="hình ảnh">
-                                </a>
+                                <div class="item-img">
+                                    <a href="{{ route('detail.index', ['id' => $product->ProductId]) }}">
+                                        <img class="image-products" src="{{ asset('images/' . $product->image_url . '.jpg') }}" alt="{{$product->name}}">
+                                    </a>
+                                </div>
                                 <div class="product-title">{{ $product->name }}</div>
                                 <div class="product-price">{{ number_format($product->price, 0, ',', '.') }} VND</div>
                                 <div class="icon-btn">
@@ -87,11 +84,9 @@
             <div class="pagination">
                 <!-- đầu << -->
                 @if ($products->onFirstPage())
-                    <button class="pagination-button" disabled>
-                        <<< /button>
+                    <button class="pagination-button" disabled><<</button>
                         @else
-                            <a href="{{ $products->url(1) }}" class="pagination-button">
-                                <<< /a>
+                            <a href="{{ $products->url(1) }}" class="pagination-button"><<</a>
                 @endif
                 <!-- giữa -->
                 @for ($i = 1; $i <= $products->lastPage(); $i++)
