@@ -20,7 +20,6 @@ class Login_registerController extends Controller
     {
         // Xác thực dữ liệu
         $request->validate([
-            'username' => 'required|string|min:5|max:20|unique:users,username|regex:/^[a-zA-Z0-9_]+$/u',
             'name' => 'required|string|min:5|max:20|regex:/^[\p{L}\s]+$/u',
             'email' => 'required|email|unique:users,email',
             'phone_number' => 'required|numeric|digits_between:10,12',
@@ -29,11 +28,10 @@ class Login_registerController extends Controller
 
         // Lưu thông tin người dùng
         User::create([
-            'username' => $request->username,
             'name' => $request->name,
             'email' => $request->email,
             'phone_number' => $request->phone_number,
-            'password' => Hash::make($request->getPassword),
+            'password' => Hash::make($request->password),
             'profile_image' => asset('default-avatar.png'),
         ]);
 

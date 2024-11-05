@@ -12,20 +12,27 @@ class UserProfileController extends Controller
 {
     public function showProfile()
     {
+        // Kiểm tra nếu người dùng chưa đăng nhập
+        if (!auth()->check()) {
+            return redirect()->route('login')
+                ->with('error', 'Bạn cần đăng nhập để truy cập vào trang này.');
+        }
+
         $user = auth()->user();
 
-        // Kiểm tra nếu có tham số username trong đường dẫn
-        if (request()->is('account/*')) {
+        // Kiểm tra nếu có tham số không hợp lệ trong đường dẫn
+        if (request()->is('/')) {
             return redirect()->route('account.profile')
                 ->with('error', 'Bạn không có quyền truy cập vào trang này.');
         }
 
-        // Lấy nhật ký hoạt động
-        $activityLogs = ActivityLog::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+        // Lấy nhật ký hoạt động với phân trang (10 bản ghi mỗi trang)
+        $activityLogs = ActivityLog::where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
 
         return view('account.profile', compact('user', 'activityLogs'));
     }
-
 
     public function updateAvatar(Request $request)
     {

@@ -3,12 +3,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\UserRoleAssignment;
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
+use Illuminate\Http\Request;
 
 class UserRoleAssignmentController extends Controller
 {
+    public function index()
+    {
+        // Lấy danh sách người dùng đã được phân quyền cùng với vai trò của họ
+        $assignments = UserRoleAssignment::with(['user', 'role'])->get();
+
+        return view('admin.role.list_assign', compact('assignments'));
+    }
+
     public function create()
     {
         $users = User::all();

@@ -11,7 +11,6 @@ return new class extends Migration {
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id(); // Sử dụng cột id mặc định
-            $table->string('username');
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone_number', 20)->nullable();
