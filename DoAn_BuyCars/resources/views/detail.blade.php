@@ -18,7 +18,7 @@
                 <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="{{ asset('images/' . $product->image_url . '.jpg') }}" class="d-block w-100"
+                            <img src="{{ asset('images/' . $product->image_url . '.jpg') }}" class="d-block"
                                 alt="{{ $product->name }}">
                         </div>
                         <div class="carousel-item">
@@ -55,7 +55,7 @@
             <!-- Product Information -->
             <div class="col-md-6">
                 <h3>{{ $product->name }}</h3>
-                <p>Thương hiệu: Đang cập nhật | Tình trạng: <span class="text-success">Còn hàng</span></p>
+                <p>Thương hiệu: {{$product->BrandId}} | Tình trạng: <span class="text-success">Còn hàng</span></p>
                 <h4 class="text-danger">{{ number_format($product->price, 0, ',', '.') }} VND</h4>
                 <div class="input-group mb-3">
                     <button class="btn btn-outline-secondary" type="button">-</button>

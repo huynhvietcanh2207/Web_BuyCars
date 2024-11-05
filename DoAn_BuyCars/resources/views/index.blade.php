@@ -79,11 +79,9 @@
             <div class="pagination">
                 <!-- đầu << -->
                 @if ($products->onFirstPage())
-                    <button class="pagination-button" disabled>
-                        <<< /button>
+                    <button class="pagination-button" disabled><<</button>
                         @else
-                            <a href="{{ $products->url(1) }}" class="pagination-button">
-                                <<< /a>
+                            <a href="{{ $products->url(1) }}" class="pagination-button">>></a>
                 @endif
                 <!-- giữa -->
                 @for ($i = 1; $i <= $products->lastPage(); $i++)
