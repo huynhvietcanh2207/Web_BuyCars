@@ -14,10 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        // Lấy danh sách người dùng với phân trang
-        $users = User::paginate(3); // 10 người dùng mỗi trang
-
-        // Trả về view với dữ liệu phân trang
+        $users = User::paginate(3); // Paginate users, 3 per page
         return view('users.index', compact('users'));
     }
 
@@ -38,11 +35,15 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+{
+    try {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6',
+        ], [
+            'email.unique' => 'Email này đã được sử dụng.', // Custom error message
+            'required' => 'Vui lòng kiểm tra lại thông tin', // General error message for required fields
         ]);
 
         $user = new User();
@@ -51,8 +52,12 @@ class UserController extends Controller
         $user->password = bcrypt($validatedData['password']);
         $user->save();
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'Thêm người dùng thành công');
+    } catch (\Exception $e) {
+        return redirect()->back()->withInput()->withErrors(['general' => 'Vui lòng kiểm tra lại thông tin.']);
     }
+}
+
 
     /**
      * Display the specified resource.
@@ -77,7 +82,6 @@ class UserController extends Controller
         return view('users.edit', compact('user'));
     }
 
-
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
@@ -85,30 +89,29 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
-            // Validate password only if it is present
+            // Password is optional, only validate if it is provided
             'password' => 'nullable|string|min:6',
         ]);
 
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
 
-        // Người dùng có thể không thay đổi mật khẩu
+        // Update password only if a new password is provided
         if (!empty($validatedData['password'])) {
             $user->password = bcrypt($validatedData['password']);
         }
 
         $user->save();
 
-        return redirect()->route('users.index')->with('success', 'User updated successfully');
+        return redirect()->route('users.index')->with('success', 'Cập nhập thông tin thành công');
     }
-
-
 
 
     public function destroy($id)
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->route('users.index');
+
+        return redirect()->route('users.index')->with('success', 'Xóa dữ liệu    thành công');
     }
 }
