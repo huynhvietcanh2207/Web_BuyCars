@@ -11,8 +11,26 @@
     <title>Quản lý Sản phẩm</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
+<!-- Thông báo alert cho success -->
+@if (session()->has('success'))
+<script>
+    window.onload = function() {
+        alert("{{ session('success') }}");
+    }
+</script>
+@endif
+
+<!-- Thông báo alert cho error -->
+@if (session()->has('error'))
+<script>
+    window.onload = function() {
+        alert("{{ session('error') }}");
+    }
+</script>
+@endif
 
 <body class="bg-light">
+
     <div class="container bg-white p-4 shadow">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h1 class="h4">Quản lý Thương Hiệu</h1>
