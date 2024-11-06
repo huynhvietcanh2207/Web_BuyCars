@@ -11,8 +11,26 @@
     <title>Quản lý Sản phẩm</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
+<!-- Thông báo alert cho success -->
+@if (session()->has('success'))
+<script>
+    window.onload = function() {
+        alert("{{ session('success') }}");
+    }
+</script>
+@endif
+
+<!-- Thông báo alert cho error -->
+@if (session()->has('error'))
+<script>
+    window.onload = function() {
+        alert("{{ session('error') }}");
+    }
+</script>
+@endif
 
 <body class="bg-light">
+
     <div class="container bg-white p-4 shadow">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h1 class="h4">Quản lý Thương Hiệu</h1>
@@ -57,28 +75,28 @@
             </tbody>
         </table>
         <div class="d-flex justify-content-center mt-3">
-    <nav>
-        <ul class="pagination">
-            <li class="page-item {{ $brands->onFirstPage() ? 'disabled' : '' }}">
-                <a class="page-link" href="{{ $brands->previousPageUrl() }}" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item {{ $brands->onFirstPage() ? 'disabled' : '' }}">
+                        <a class="page-link" href="{{ $brands->previousPageUrl() }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
 
-            @foreach ($brands->getUrlRange(1, $brands->lastPage()) as $page => $url)
-                <li class="page-item {{ $page == $brands->currentPage() ? 'active' : '' }}">
-                    <a class="page-link" href="{{ $url }}">{{ $page }}</a>
-                </li>
-            @endforeach
+                    @foreach ($brands->getUrlRange(1, $brands->lastPage()) as $page => $url)
+                    <li class="page-item {{ $page == $brands->currentPage() ? 'active' : '' }}">
+                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                    </li>
+                    @endforeach
 
-            <li class="page-item {{ $brands->hasMorePages() ? '' : 'disabled' }}">
-                <a class="page-link" href="{{ $brands->nextPageUrl() }}" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</div>
+                    <li class="page-item {{ $brands->hasMorePages() ? '' : 'disabled' }}">
+                        <a class="page-link" href="{{ $brands->nextPageUrl() }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
 
     </div>
 
