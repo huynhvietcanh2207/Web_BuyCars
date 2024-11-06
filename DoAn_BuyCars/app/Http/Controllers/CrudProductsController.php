@@ -16,7 +16,8 @@ class CrudProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+
+        $products = Product::paginate(4);
 
         return view('admin.products.index', compact('products'));
     }
@@ -50,9 +51,12 @@ class CrudProductsController extends Controller
             'color' => 'nullable|string|max:255',
         ]);
 
-        // Handle file upload
         if ($request->hasFile('file_upload')) {
-            $imagePath = $request->file('file_upload')->store('images', 'public');
+            // Lấy tên gốc của file
+            $originalFilename = $request->file('file_upload')->getClientOriginalName();
+            $destinationPath = public_path('images');
+            $request->file('file_upload')->move($destinationPath, $originalFilename);
+            $imagePath = 'images/' . $originalFilename;
         }
 
         // Create a new product in the database
@@ -61,6 +65,7 @@ class CrudProductsController extends Controller
             'BrandId' => $request->BrandId,
             'price' => $request->price,
             'image_url' => $imagePath ?? null,
+
             'description' => $request->description,
             'color' => $request->color,
         ]);
@@ -70,7 +75,7 @@ class CrudProductsController extends Controller
         foreach ($subscribers as $subscriber) {
             Mail::to($subscriber->email)->send(new \App\Mail\ProductAdded($product));
         }
-//cacsh 2
+        //cacsh 2
         // $subscribers = Subscription::all();
         // foreach ($subscribers as $subscriber) {
         //     try {
@@ -87,7 +92,7 @@ class CrudProductsController extends Controller
         //     }
         // }
 
-//cacsh 3
+        //cacsh 3
         // Mail::raw('Nội dung email thử nghiệm', function ($message) {
         //     $message->to('huynhvietcanh2004@gmail.com') // Thay thế bằng địa chỉ email bạn muốn gửi đến
         //         ->subject('Tiêu đề email thử nghiệm');
@@ -109,24 +114,56 @@ class CrudProductsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
+    public function edit($id)
+{
+    $product = Product::findOrFail($id);
+    $brands = Brand::all();
+    return view('admin.products.edit', compact('product', 'brands'));
+}
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $product = Product::findOrFail($id);
+    
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'BrandId' => 'required|integer',
+            'price' => 'required|numeric',
+            'file_upload' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'description' => 'nullable|string',
+            'color' => 'nullable|string|max:255',
+        ]);
+    
+        // Cập nhật hình ảnh nếu có file mới được tải lên
+        if ($request->hasFile('file_upload')) {
+            $originalFilename = $request->file('file_upload')->getClientOriginalName();
+            $destinationPath = public_path('images');
+            $request->file('file_upload')->move($destinationPath, $originalFilename);
+            $product->image_url = 'images/' . $originalFilename;
+        }
+    
+        $product->name = $request->name;
+        $product->BrandId = $request->BrandId;
+        $product->price = $request->price;
+        $product->description = $request->description;
+        $product->color = $request->color;
+        $product->save();
+    
+        return redirect()->route('products.index')->with('success', 'Sản phẩm đã được cập nhật thành công!');
     }
+    
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->delete();
+    
+        return redirect()->route('products.index')->with('success', 'Sản phẩm đã được xóa thành công!');
     }
 }

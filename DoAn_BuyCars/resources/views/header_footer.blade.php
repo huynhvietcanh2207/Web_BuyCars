@@ -37,6 +37,8 @@
         .dropdown-menu a:hover {
             background-color: #f0f0f0;
         }
+   
+
     </style>
 </head>
 
@@ -45,7 +47,7 @@
     <header>
         <div class="container-header header-content">
             <div class="logo">
-                <img src="banner1.jpg" alt="LOGO"> <!-- Replace with your logo URL -->
+                <img src="logoweb.jpg" alt="LOGO"> <!-- Replace with your logo URL -->
             </div>
             <nav>
                 <a href="{{route('index')}}">Trang Chủ</a>

@@ -16,69 +16,69 @@
 
 <body>
     @section('main')
-<<<<<<< HEAD
+    <<<<<<< HEAD
 
         <!-- Thông báo alert cho success -->
         @if (session()->has('success'))
-            <script>
-                window.onload = function() {
-                    alert("{{ session('success') }}");
-                }
-            </script>
+        <script>
+            window.onload = function() {
+                alert("{{ session('success') }}");
+            }
+        </script>
         @endif
 
         <!-- Thông báo alert cho error -->
         @if (session()->has('error'))
-            <script>
-                window.onload = function() {
-                    alert("{{ session('error') }}");
-                }
-            </script>
+        <script>
+            window.onload = function() {
+                alert("{{ session('error') }}");
+            }
+        </script>
         @endif
         <!-- Hiển thị thông tin người dùng -->
         @if (auth()->check())
-            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+        <input type="hidden" name="user_id" value="{{ auth()->id() }}">
         @endif
-         <main class="main-banner">
-        <video src="review.mp4" autoplay muted loop></video>
-        <div class="banner-text">
-            <h1>Trải nghiệm đỉnh cao tốc độ và thiết kế!</h1>
-            <p>Vượt qua mọi giới hạn với siêu phẩm này</p>
-            <p>Thiết kế hiện đại, hiệu suất tối đa.
-                Siêu xe – Định nghĩa mới của tốc độ.
-            </p>
-        </div>
-    </main>
-       <!-- sản phẩm -->
+        <main class="main-banner">
+            <video src="review.mp4" autoplay muted loop></video>
+            <div class="banner-text">
+                <h1>Trải nghiệm đỉnh cao tốc độ và thiết kế!</h1>
+                <p>Vượt qua mọi giới hạn với siêu phẩm này</p>
+                <p>Thiết kế hiện đại, hiệu suất tối đa.
+                    Siêu xe – Định nghĩa mới của tốc độ.
+                </p>
+            </div>
+        </main>
+        <!-- sản phẩm -->
         <section class="products">
             <h1>Sản <span>Phẩm</span></h1>
             <div class="container">
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 section-products">
                     @foreach ($products as $product)
-                        <div class="col">
-                            <div class="product-card">
-                                <a href="{{ route('detail.index', ['id' => $product->ProductId]) }}">
-                                    <img class="image-products" src="{{ $product->image_url }}" alt="hình ảnh">
-                                </a>
-                                <div class="product-title">{{ $product->name }}</div>
-                                <div class="product-price">{{ number_format($product->price, 0, ',', '.') }} VND</div>
-                                <div class="icon-btn">
-                                    <div class="icon-products">
-                                        <i class="{{ $product->is_favorited ? 'fas fa-heart' : 'far fa-heart' }} favorite-btn"
-                                            data-product-id="{{ $product->ProductId }}"></i>
-                                    </div>
-                                    {{-- <button class="btn-add-to-cart">Thêm vào giỏ hàng</button> --}}
-                                    <form action="{{ route('cart.add', $product->ProductId) }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="product_id" value="{{ $product->ProductId }}">
-                                        @if (auth()->check())
-                                            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
-                                        @endif
-                                        <button class="btn-add-to-cart" type="submit">Thêm vào giỏ hàng</button>
-                                    </form>
+                    <div class="col">
+                        <div class="product-card">
+                            <a href="{{ route('detail.index', ['id' => $product->ProductId]) }}">
+                                <img class="image-products" src="{{ $product->image_url }}" alt="hình ảnh">
+                            </a>
+                            <div class="product-title">{{ $product->name }}</div>
+                            <div class="product-price">{{ number_format($product->price, 0, ',', '.') }} VND</div>
+                            <div class="icon-btn">
+                                <div class="icon-products">
+                                    <i class="{{ $product->is_favorited ? 'fas fa-heart' : 'far fa-heart' }} favorite-btn"
+                                        data-product-id="{{ $product->ProductId }}"></i>
                                 </div>
+                                {{-- <button class="btn-add-to-cart">Thêm vào giỏ hàng</button> --}}
+                                <form action="{{ route('cart.add', $product->ProductId) }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $product->ProductId }}">
+                                    @if (auth()->check())
+                                    <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                                    @endif
+                                    <button class="btn-add-to-cart" type="submit">Thêm vào giỏ hàng</button>
+                                </form>
                             </div>
                         </div>
+                    </div>
                     @endforeach
                 </div>
             </div>
@@ -87,26 +87,26 @@
             <div class="pagination">
                 <!-- đầu << -->
                 @if ($products->onFirstPage())
-                    <button class="pagination-button" disabled>
-                        <<< /button>
+                <button class="pagination-button" disabled>
+                    <<</button>
                         @else
-                            <a href="{{ $products->url(1) }}" class="pagination-button">
-                                <<< /a>
-                @endif
-                <!-- giữa -->
-                @for ($i = 1; $i <= $products->lastPage(); $i++)
-                    <a href="{{ $products->url($i) }}"
-                        class="pagination-button {{ $products->currentPage() == $i ? 'active' : '' }}">
-                        {{ $i }}
-                    </a>
-                @endfor
+                        <a href="{{ $products->url(1) }}" class="pagination-button">
+                            <<</a>
+                                @endif
+                                <!-- giữa -->
+                                @for ($i = 1; $i <= $products->lastPage(); $i++)
+                                    <a href="{{ $products->url($i) }}"
+                                        class="pagination-button {{ $products->currentPage() == $i ? 'active' : '' }}">
+                                        {{ $i }}
+                                    </a>
+                                    @endfor
 
-                <!-- cuối >> -->
-                @if ($products->hasMorePages())
-                    <a href="{{ $products->url($products->lastPage()) }}" class="pagination-button">>></a>
-                @else
-                    <button class="pagination-button" disabled>>></button>
-                @endif
+                                    <!-- cuối >> -->
+                                    @if ($products->hasMorePages())
+                                    <a href="{{ $products->url($products->lastPage()) }}" class="pagination-button">>></a>
+                                    @else
+                                    <button class="pagination-button" disabled>>></button>
+                                    @endif
             </div>
         </section>
         </section>
@@ -117,25 +117,25 @@
                 <h1>Sản Phẩm <span>Mới</span></h1>
                 <div class="carousel-inner">
                     @foreach ($newProducts as $index => $products)
-                        <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                            <div class="row item-products">
-                                <div class="col-lg-7 col-md-6 col-sm-12">
-                                    <img src="{{ $products->image_url }}" class="d-block w-100 img-fluid"
-                                        alt="Slide {{ $index + 1 }}">
+                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                        <div class="row item-products">
+                            <div class="col-lg-7 col-md-6 col-sm-12">
+                                <img src="{{ $products->image_url }}" class="d-block w-100 img-fluid"
+                                    alt="Slide {{ $index + 1 }}">
+                            </div>
+                            <div class="col-lg-5 col-md-6 col-sm-12 d-flex flex-column justify-content-center">
+                                <h3>{{ $products->name }}</h3>
+                                <p>Giới thiệu sương sương</p>
+                                <div class="name-newProducts">
+                                    Name: <a href="#">{{ $products->name }}</a>
                                 </div>
-                                <div class="col-lg-5 col-md-6 col-sm-12 d-flex flex-column justify-content-center">
-                                    <h3>{{ $products->name }}</h3>
-                                    <p>Giới thiệu sương sương</p>
-                                    <div class="name-newProducts">
-                                        Name: <a href="#">{{ $products->name }}</a>
-                                    </div>
-                                    <div class="about">
-                                        <p>{{ $products->description }}</p>
-                                    </div>
-                                    <button class="btn btn-silder btn-primary mt-auto">Thêm vào giỏ hàng</button>
+                                <div class="about">
+                                    <p>{{ $products->description }}</p>
                                 </div>
+                                <button class="btn btn-silder btn-primary mt-auto">Thêm vào giỏ hàng</button>
                             </div>
                         </div>
+                    </div>
                     @endforeach
                 </div>
 
@@ -223,62 +223,41 @@
 
                 <div class="icon-footer">
                     <div class="row justify-content-between align-items-center">
-                        <div class="col-auto social-icons">
-                            <a href="">
-                                <i class="fab fa-google"></i>
-                            </a>
-                            <a href="">
-                                <i class="fab fa-facebook"></i>
-                            </a>
-                            <a href="">
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                            <a href="">
-                                <i class="fab fa-youtube"></i>
-                            </a>
+                        <div class="col-lg-3 social-icons">
+                            <a href=""><i class="fab fa-google"></i></a>
+                            <a href=""><i class="fab fa-facebook"></i></a>
+                            <a href=""><i class="fab fa-instagram"></i></a>
+                            <a href=""><i class="fab fa-youtube"></i></a>
                         </div>
 
-                        <form action="{{ route('subscribe') }}" method="POST">
-                            @csrf
-                            <div class="col-auto d-flex align-items-center">
-                                <p>Đăng Ký Nhận Tin
-                                    <br>
-                                    Nhận thông tin mới nhất về siêu xe và ưu đãi đặc biệt:
-                                </p>
-                                <input type="email" name="email" placeholder="Email của bạn"
-                                    class="form-control mx-2" style="width: auto;" required>
-                                <button type="submit" class="btn btn-dark">ĐĂNG KÝ</button>
-                            </div>
-
-                            @if (session('success'))
-                                <div class="alert alert-success mt-2">
-                                    {{ session('success') }}
+                        <div class="col-lg-9">
+                            <form action="{{ route('subscribe') }}" method="POST">
+                                @csrf
+                                <div class="d-flex align-items-center">
+                                    <p>Đăng Ký Nhận Tin<br>Nhận thông tin mới nhất về siêu xe và ưu đãi đặc biệt:</p>
+                                    <input type="email" name="email" placeholder="Email của bạn"
+                                        class="form-control mx-2" style="width: auto;" required>
+                                    <button type="submit" class="btn btn-dark">ĐĂNG KÝ</button>
                                 </div>
-                            @endif
 
-                            @if ($errors->any())
+                                @if (session('success'))
+                                <div class="alert alert-success mt-2">{{ session('success') }}</div>
+                                @endif
+
+                                @if ($errors->any())
                                 <div class="alert alert-danger mt-2">
                                     <ul>
                                         @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
+                                        <li>{{ $error }}</li>
                                         @endforeach
                                     </ul>
                                 </div>
-                            @endif
-                        </form>
-
-
-
-                        <button class="btn btn-dark">ĐĂNG KÝ</button>
-                    </div>
-
-                    @if (session('success'))
-                        <div class="alert alert-success mt-2">
-                            {{ session('success') }}
+                                @endif
+                            </form>
                         </div>
-                    @endif
-
+                    </div>
                 </div>
+
             </div>
 
             <hr class="my-4">
@@ -289,19 +268,19 @@
 </body>
 >>>>>>> 10x-laravel-1-TrangChu
 
-    </body>
+</body>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <x-ajax-add-favorite /> <!-- Sử dụng component -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+<x-ajax-add-favorite /> <!-- Sử dụng component -->
 
-    </html>
-    <script>
-        // //thêm vào giỏ hàng nhá
-        // document.querySelectorAll('.btn').forEach(button => {
-        //     button.addEventListener('click', function() {
-        //         alert('Sản phẩm đã được thêm vào giỏ hàng!');
-        //     });
-        // });
-    </script>
+</html>
+<script>
+    // //thêm vào giỏ hàng nhá
+    // document.querySelectorAll('.btn').forEach(button => {
+    //     button.addEventListener('click', function() {
+    //         alert('Sản phẩm đã được thêm vào giỏ hàng!');
+    //     });
+    // });
+</script>
 @endsection

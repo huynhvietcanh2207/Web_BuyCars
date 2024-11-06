@@ -18,12 +18,13 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="image_url">Vui Lòng Chọn Hình Ảnh:</label>
-            <input type="file" name="file_upload" id="image_url" class="form-control" required>
-            @if ($errors->has('image_url'))
-                <span class="text-danger">{{ $errors->first('image_url') }}</span>
-            @endif
-        </div>
+                    <label for="image_url">Vui Lòng Chọn Hình Ảnh:</label>
+                    <input type="file" name="file_upload" id="file_upload" class="form-control" required>
+                    @if ($errors->has('file_upload'))
+                    <span class="text-danger">{{ $errors->first('file_upload') }}</span>
+                    @endif
+
+                </div>
         <div class="form-group">
             <label for="price">Giá</label>
             <input type="text" class="form-control" id="price" name="price" required>
