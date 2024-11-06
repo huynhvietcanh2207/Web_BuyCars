@@ -116,7 +116,6 @@
                                 onclick="window.location.href='{{ route('index') }}'">
                                 TIẾP TỤC MUA HÀNG
                             </button>
-
                             <div class="total text-end">
                                 <label for="total" class="text-dark">Tổng tiền thanh toán: </label>
                                 <input type="text" id="total" class="form-control d-inline" readonly
