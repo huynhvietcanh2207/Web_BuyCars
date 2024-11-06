@@ -14,22 +14,29 @@
 </head>
 
 <body class="bg-light">
-    <!-- @if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-    @endif -->
+    @if (session()->has('success'))
+    <script>
+        window.onload = function() {
+            alert("{{ session('success') }}");
+        }
+    </script>
+    @endif
+
+    <!-- Thông báo alert cho error -->
+    @if (session()->has('error'))
+    <script>
+        window.onload = function() {
+            alert("{{ session('error') }}");
+        }
+    </script>
+    @endif
 
     <div class="container bg-white p-4  shadow">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h1 class="h4">Quản lý Sản phẩm</h1>
             <a href="{{ route('products.create') }}" class="btn btn-primary">Thêm</a>
         </div>
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <button class="btn btn-danger d-flex align-items-center">
-                <i class="fas fa-trash-alt mr-2"></i> Xóa các mục đã chọn
-            </button>
-        </div>
+      
         <table class="table table-bordered">
             <thead class="thead-light">
                 <tr>
@@ -56,8 +63,18 @@
                     <td>{{ $product->color }}</td>
                     <td>{{ $product->created_at }}</td>
                     <td class="text-center">
-                        <a href="#" class="text-primary">Sửa</a> <a href="#" class="text-danger">Xóa</a>
+                        <a href="{{ route('products.edit', $product->ProductId) }}" class="text-primary">
+                        <i class="fas fa-edit"></i>
+                        </a>
+                        <form action="{{ route('products.destroy', $product->ProductId) }}" method="POST" style="display:inline-block;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-link text-danger p-0 m-0" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này không?');">
+                            <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
                     </td>
+
                 </tr>
                 @endforeach
             </tbody>
@@ -65,12 +82,23 @@
         <div class="d-flex justify-content-center mt-3">
             <nav>
                 <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">«</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">»</a></li>
+                    <li class="page-item {{ $products->onFirstPage() ? 'disabled' : '' }}">
+                        <a class="page-link" href="{{ $products->previousPageUrl() }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+
+                    @foreach ($products->getUrlRange(1, $products->lastPage()) as $page => $url)
+                    <li class="page-item {{ $page == $products->currentPage() ? 'active' : '' }}">
+                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                    </li>
+                    @endforeach
+
+                    <li class="page-item {{ $products->hasMorePages() ? '' : 'disabled' }}">
+                        <a class="page-link" href="{{ $products->nextPageUrl() }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>

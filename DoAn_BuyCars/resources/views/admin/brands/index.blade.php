@@ -57,28 +57,28 @@
             </tbody>
         </table>
         <div class="d-flex justify-content-center mt-3">
-    <nav>
-        <ul class="pagination">
-            <li class="page-item {{ $brands->onFirstPage() ? 'disabled' : '' }}">
-                <a class="page-link" href="{{ $brands->previousPageUrl() }}" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item {{ $brands->onFirstPage() ? 'disabled' : '' }}">
+                        <a class="page-link" href="{{ $brands->previousPageUrl() }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
 
-            @foreach ($brands->getUrlRange(1, $brands->lastPage()) as $page => $url)
-                <li class="page-item {{ $page == $brands->currentPage() ? 'active' : '' }}">
-                    <a class="page-link" href="{{ $url }}">{{ $page }}</a>
-                </li>
-            @endforeach
+                    @foreach ($brands->getUrlRange(1, $brands->lastPage()) as $page => $url)
+                    <li class="page-item {{ $page == $brands->currentPage() ? 'active' : '' }}">
+                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                    </li>
+                    @endforeach
 
-            <li class="page-item {{ $brands->hasMorePages() ? '' : 'disabled' }}">
-                <a class="page-link" href="{{ $brands->nextPageUrl() }}" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</div>
+                    <li class="page-item {{ $brands->hasMorePages() ? '' : 'disabled' }}">
+                        <a class="page-link" href="{{ $brands->nextPageUrl() }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
 
     </div>
 

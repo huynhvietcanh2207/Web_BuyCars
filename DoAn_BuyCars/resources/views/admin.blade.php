@@ -22,6 +22,14 @@
 </head>
 
 <body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar" data-background-color="dark">
+            <div class="sidebar-logo">
+                <div class="logo-header" data-background-color="dark">
+                    <a href="index.html" class="logo">
+                        <img src="{{ asset('56.jpg')}}" alt="navbar brand" class="navbar-brand" height="20" />
+                    </a>
   <div class="wrapper">
     <!-- Sidebar -->
     <div class="sidebar" data-background-color="dark">
@@ -84,11 +92,19 @@
               </a>
             </li>
             <li class="nav-item">
-              <a data-bs-toggle="collapse" href="#">
-                <i class="fas fa-bars"></i>
-                <p>Phân quyền</p>
-              </a>
-            </li>
+                            <a data-bs-toggle="collapse" href="#role">
+                                <i class="fas fa-bars"></i>
+                                <p>Phân quyền</p>
+                                <span class="caret"></span>
+                            </a>
+                          
+                        </li>
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#">
+                                <i class="fas fa-bars"></i>
+                                <p>Xuất</p>
+                            </a>
+                        </li>
             <li class="nav-item">
               <a data-bs-toggle="collapse" href="#">
                 <i class="fas fa-bars"></i>
