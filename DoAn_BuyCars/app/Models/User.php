@@ -56,9 +56,14 @@ class User extends Authenticatable
         return $this->hasMany(Favorite::class, 'user_id'); // user_id là khóa ngoại
     }
 
+    //Quan hệ với roleAssignments
     public function roleAssignments()
     {
         return $this->hasMany(UserRoleAssignment::class, 'user_id');
     }
 
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
+    }
 }

@@ -22,10 +22,12 @@
                                 alt="{{ $product->name }}">
                         </div>
                         <div class="carousel-item">
-                            <img src="{{ asset('images/lambo.jpg') }}" class="d-block w-100" alt="Image 2">
+                            <img src="{{ asset('images/lambo.jpg') }}" class="d-block w-100"
+                                alt="Nhớt Castrol Magnatec 10W40 - 2">
                         </div>
                         <div class="carousel-item">
-                            <img src="{{ asset('images/banner1.jpg') }}" class="d-block w-100" alt="Image 3">
+                            <img src="{{ asset('images/banner1.jpg') }}" class="d-block w-100"
+                                alt="Nhớt Castrol Magnatec 10W40 - 3">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel"
@@ -43,14 +45,13 @@
                 <!-- Thumbnails below the carousel -->
                 <div class="mt-3 d-flex justify-content-center">
                     <img src="{{ asset('images/56.jpg') }}" class="img-thumbnail me-2" style="width: 100px;"
-                        data-bs-target="#productCarousel" data-bs-slide-to="0" alt="Thumbnail 1">
+                        data-bs-target="#productCarousel" data-bs-slide-to="0" alt="Nhớt Castrol Magnatec 10W40">
                     <img src="{{ asset('images/lambo.jpg') }}" class="img-thumbnail me-2" style="width: 100px;"
-                        data-bs-target="#productCarousel" data-bs-slide-to="1" alt="Thumbnail 2">
+                        data-bs-target="#productCarousel" data-bs-slide-to="1" alt="Nhớt Castrol Magnatec 10W40 - 2">
                     <img src="{{ asset('images/banner1.jpg') }}" class="img-thumbnail" style="width: 100px;"
-                        data-bs-target="#productCarousel" data-bs-slide-to="2" alt="Thumbnail 3">
+                        data-bs-target="#productCarousel" data-bs-slide-to="2" alt="Nhớt Castrol Magnatec 10W40 - 3">
                 </div>
             </div>
-
             <!-- Product Information -->
             <div class="col-md-6">
                 <h3>{{ $product->name }}</h3>
@@ -71,8 +72,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Product Details and Tabs -->
         <div class="row mt-5">
             <div class="col-md-12">
                 <ul class="nav nav-tabs">
@@ -92,55 +91,9 @@
                         <li>{{ $product->description }}</li>
                     </ul>
                 </div>
-
-                <!-- Comment Form -->
-                <div class="mt-5">
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-                    <h4>Đánh giá sản phẩm</h4>
-
-                    @guest
-                        <p>Vui lòng <a href="{{ route('login') }}">đăng nhập</a> để bình luận</p>
-                    @else
-                        @if ($isBannedFromCommenting)
-                            <p class="text-danger">Bạn không có quyền bình luận về sản phẩm này.</p>
-                        @else
-                            <form action="{{ route('product.comment', $productId) }}" method="POST">
-                                @csrf
-                                <div class="mb-3">
-                                    <label for="commentText" class="form-label">Viết bình luận của bạn:</label>
-                                    <textarea class="form-control" id="commentText" name="commentText" rows="3"></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Gửi bình luận</button>
-                            </form>
-                        @endif
-                    @endguest
-                </div>
-
-                <!-- Display comments -->
-                <div class="mt-4">
-                    @if ($comments->isEmpty())
-                        <p>Chưa có bình luận nào</p>
-                    @else
-                        <h5>Phản hồi từ khách hàng</h5>
-                        @foreach ($comments as $comment)
-                            <div class="border rounded p-3 mb-3">
-                                <strong>{{ $comment->username }}</strong>
-                                <p>{{ $comment->CommentText }}</p>
-                                <small
-                                    class="text-muted">{{ \Carbon\Carbon::parse($comment->CreatedAt)->format('d/m/Y H:i') }}</small>
-                            </div>
-                        @endforeach
-                    @endif
-                </div>
-
             </div>
         </div>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

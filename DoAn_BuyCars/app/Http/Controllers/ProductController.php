@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Comment;
+use App\Models\Brand;
 use App\Models\Product;
+use App\Models\Favorite;
 use Illuminate\Http\Request;
+use Auth;
 
 class ProductController extends Controller
 {
@@ -35,18 +36,15 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(string $id)
     {
-        // Lấy tất cả các bình luận của sản phẩm
-        $comments = $product->comments()->latest()->get();
-
-        return view('detail', compact('product', 'comments'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit(string $id)
     {
         //
     }
@@ -54,7 +52,7 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -62,27 +60,72 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(string $id)
     {
         //
     }
-
-    public function comment(Request $request, $productId)
+    public function showProducts()
     {
-        // Xác thực dữ liệu
-        $request->validate([
-            'username' => 'required|string|max:255',
-            'comment' => 'required|string',
-        ]);
+        // Lấy danh sách sản phẩm với phân trang
+        $products = Product::orderBy('created_at', 'desc')->paginate(8);
 
-        // Tạo bình luận mới
-        Comment::create([
-            'product_id' => $productId,
-            'username' => $request->input('username'),
-            'content' => $request->input('comment'),
-        ]);
+        if (Auth::check()) {
+            $userId = Auth::id();
+            $favoriteProductIds = Favorite::where('user_id', $userId)->pluck('ProductId')->toArray();
 
-        // Chuyển hướng lại trang sản phẩm với thông báo thành công
-        return redirect()->route('product.show', $productId)->with('success', 'Bình luận của bạn đã được gửi.');
+            foreach ($products as $product) {
+                $product->is_favorited = in_array($product->ProductId, $favoriteProductIds);
+            }
+        }
+        $brands = Brand::all();
+        $colors = Product::select('color')->distinct()->pluck('color');
+        // Truyền danh sách sản phẩm sang view 'product'
+        return view('product', compact('products','brands','colors'));
     }
+    public function filter(Request $request)
+    {
+        // Lấy dữ liệu từ request
+        $brandIds = $request->input('brand', []); // Mảng các BrandId đã chọn
+        $minPrice = $request->input('min_price');
+        $maxPrice = $request->input('max_price');
+        $color = $request->input('color');
+        // Xây dựng query
+        $query = Product::query();
+
+        // Lọc theo thương hiệu
+        if (!empty($brandIds)) {
+            $query->whereIn('BrandId', $brandIds);
+        }
+    
+        // Lọc theo giá
+        if ($minPrice) {
+            $query->where('price', '>=', $minPrice);
+        }
+        if ($maxPrice) {
+            $query->where('price', '<=', $maxPrice);
+        }
+    
+        // Lọc theo màu sắc
+        if ($color) {
+            $query->where('color', $color);
+        }
+    
+        // Lấy danh sách sản phẩm đã lọc
+        $products = $query->get();
+        $userId = Auth::id();
+        $favoriteProductIds = Favorite::where('user_id', $userId)->pluck('ProductId')->toArray();
+
+        foreach ($products as $product) {
+            $product->is_favorited = in_array($product->ProductId, $favoriteProductIds);
+        }
+
+        // Nếu là yêu cầu AJAX, trả về partial view
+        if ($request->ajax()) {
+            $view = view('partials.products_list', compact('products'))->render();
+            return response()->json(['html' => $view]);
+        }
+    }
+    
+
+
 }

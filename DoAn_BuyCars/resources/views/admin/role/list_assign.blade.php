@@ -29,7 +29,7 @@
             <tbody>
                 @foreach($assignments as $assignment)
                     <tr>
-                        <td>{{ $assignment->user->username }}</td>
+                        <td>{{ $assignment->user->name }}</td>
                         <td>{{ $assignment->role->RoleName }}</td>
                         <td>{{ $assignment->AssignedAt }}</td>
                     </tr>

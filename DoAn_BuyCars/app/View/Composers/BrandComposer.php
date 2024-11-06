@@ -19,7 +19,7 @@ class BrandComposer
      */
     public function __construct()
     {
-        $this->brands = Brand::orderBy('BrandId', 'desc')->get(); // Lấy danh sách thương hiệu
+        $this->brands = (new Brand)->listBrand(); // Lấy danh sách thương hiệu
     }
 
     /**
@@ -30,6 +30,6 @@ class BrandComposer
      */
     public function compose(View $view)
     {
-        $view->with('brands', $this->brands); // Truyền danh sách thương hiệu vào view
+        $view->with('sidebar_brands', $this->brands); // Truyền danh sách thương hiệu vào view
     }
 }

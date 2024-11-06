@@ -2,7 +2,7 @@
 @section('main')
 
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -46,19 +46,19 @@
             </thead>
             <tbody>
                 @foreach($products as $product)
-                    <tr>
-                        <td>{{ $product->ProductId }}</td>
-                        <td>{{ $product->name }}</td>
-                        <td>{{ $product->BrandId }}</td>
-                        <td>{{ $product->price }}</td>
-                        <td><img src="{{ $product->image_url }}" class="d-block w-100 img-fluid"></td>
-                        <td>{{ $product->description }}</td>
-                        <td>{{ $product->color }}</td>
-                        <td>{{ $product->created_at }}</td>
-                        <td class="text-center">
-                            <a href="#" class="text-primary">Sửa</a> <a href="#" class="text-danger">Xóa</a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>{{ $product->ProductId }}</td>
+                    <td>{{ $product->name }}</td>
+                    <td>{{ $product->BrandId }}</td>
+                    <td>{{ $product->price }}</td>
+                    <td><img src="{{ $product->image_url }}" class="d-block w-100 img-fluid"></td>
+                    <td>{{ $product->description }}</td>
+                    <td>{{ $product->color }}</td>
+                    <td>{{ $product->created_at }}</td>
+                    <td class="text-center">
+                        <a href="#" class="text-primary">Sửa</a> <a href="#" class="text-danger">Xóa</a>
+                    </td>
+                </tr>
                 @endforeach
             </tbody>
         </table>

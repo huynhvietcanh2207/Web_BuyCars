@@ -5,8 +5,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <title>@yield('title')</title>
     <style>
         .dropdown-user {
             position: relative;
@@ -45,11 +45,11 @@
     <header>
         <div class="container-header header-content">
             <div class="logo">
-                <img src="{{ asset('/banner1.jpg') }}" alt="LOGO"> <!-- Replace with your logo URL -->
+                <img src="banner1.jpg" alt="LOGO"> <!-- Replace with your logo URL -->
             </div>
             <nav>
-                <a href="{{ route('index') }}">Trang Chủ</a>
-                <a href="#">Sản Phẩm</a>
+                <a href="{{route('index')}}">Trang Chủ</a>
+                <a href="{{ route('product') }}">Sản Phẩm</a>
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" id="brandDropdown" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -59,7 +59,7 @@
                         <li>
                             <a class="dropdown-item" href="/brands">Tất cả thương hiệu</a>
                         </li>
-                        @foreach ($brands as $row)
+                        @foreach ($sidebar_brands as $row)
                             <li>
                                 <a class="dropdown-item"
                                     href="{{ route('brands.show', $row->BrandId) }}">{{ $row->BrandName }}</a>
@@ -69,16 +69,17 @@
                 </div>
                 <a href="#">Sản Phẩm Mới</a>
                 <a href="#">Giới Thiệu</a>
-                <a href="{{ route('favorites.index') }}">Yêu Thích</a>
+                <a href="{{route('favorites.index')}}">Yêu Thích</a>
             </nav>
             <div class="icons">
                 <a href="#"><i class="fas fa-search"></i></a>
-                <a href="#"><i class="fas fa-shopping-cart"></i></a>
+                <a href="{{route('cart.index')}}"><i class="fas fa-shopping-cart"></i></a>
                 <div class="dropdown-user">
                     <a href="#" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></a>
                     <div class="dropdown-menu">
                         @auth
                             <a href="{{ route('account.profile') }}">Cá nhân</a>
+                            <a href="{{ route('password.change') }}">Đổi Mật Khẩu</a>
                             <a href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng
                                 Xuất</a>
@@ -90,11 +91,21 @@
                         @endauth
                     </div>
                 </div>
+
+
+
+
+
+
             </div>
         </div>
     </header>
 
+
     @yield('main')
+
+
+
 
     <!-- footer -->
     <footer class="footer-content">
@@ -147,9 +158,12 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-L3BL0XgQYuk4S7Np7aANqAc99Z/3hZfPHq7nxDyoe37PMa3hb/jRlQi9lAQzS3t9" crossorigin="anonymous">
-        </script>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-L3BL0XgQYuk4S7Np7aANqAc99Z/3hZfPHq7nxDyoe37PMa3hb/jRlQi9lAQzS3t9" crossorigin="anonymous">
+    </script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 
 </html>

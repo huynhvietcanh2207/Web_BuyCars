@@ -4,15 +4,12 @@
 <script>
     $(document).ready(function () {
         // Khi nhấn vào biểu tượng trái tim
-        $('.favorite-btn').on('click', function () {
-
+        $(document).on('click', '.favorite-btn', function () {
             var productId = $(this).data('product-id'); // Lấy ID sản phẩm
             var icon = $(this); // Lưu biểu tượng để thay đổi sau này
             var isFavorited = icon.hasClass('fas'); // Kiểm tra xem sản phẩm đã được yêu thích chưa
-
             // Đặt URL dựa trên trạng thái yêu thích
             var url = isFavorited ? '/favorites/remove/' + productId : '/favorites/add/' + productId;
-
             $.ajax({
                 url: url, // URL đến route của bạn
                 type: 'POST',
@@ -35,7 +32,5 @@
                 }
             });
         });
-
     });
-
 </script>

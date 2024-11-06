@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    protected $fillable = ['Name', 'BrandId', 'Price', 'Description', 'ImageUrl', 'Color'];
 
-    // Quan hệ one-to-many với Comment
-    public function comments()
-    {
-        return $this->hasMany(Comment::class, 'ProductId', 'id');
-    }
+    protected $table = 'products'; // Tên bảng trong database
+    protected $primaryKey = 'ProductId';
+
+    // Các trường có thể được thêm hoặc chỉnh sửa
+    protected $fillable = ['name', 'BrandId', 'price', 'description', 'image_url', 'color'];
 }
