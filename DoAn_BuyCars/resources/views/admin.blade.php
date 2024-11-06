@@ -3,7 +3,7 @@
 
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Kaiadmin - Bootstrap 5 Admin Dashboard</title>
+  <title>BuyCars - Admin</title>
   <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
   <link
     rel="stylesheet"
@@ -11,7 +11,8 @@
     integrity="sha512-yK+RPn9vBM6kU+pHxMZTZdAdW1U1Rm6xaT+vLgBNGVOCmnMEI7b6t7Sk67S9aox+N7ZOCqtnZ0R+bv1vyD7zw=="
     crossorigin="anonymous"
     referrerpolicy="no-referrer" />
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 
   <!-- Core CSS Files -->
@@ -67,17 +68,17 @@
               </a>
               <div class="collapse" id="submenu">
                 <ul class="nav nav-collapse">
-                  <li><a href="#"><span class="sub-item">Quản lý người dùng</span></a></li>
-                  <li><a href="{{ route('products.index') }}">Quản lý sản phẩm</a></li>
-                  <li><a href="#"><span class="sub-item">Quản lý thương hiệu</span></a></li>
+                  <li><a href="#"><span class="sub-item">Quản lý Người dùng</span></a></li>
+                  <li><a href="{{ route('products.index') }}"><span class="sub-item">Quản lý Sản phẩm</span></a></li>
+                  <li><a href="{{ route('brands.index') }}"><span class="sub-item">Quản lý Thương hiệu</span></a></li>
                   <li><a href="#"><span class="sub-item">Quản lý Đơn Hàng</span></a></li>
-                  <li><a href="#"><span class="sub-item">Quản lý bình luận</span></a></li>
-                  <li><a href="#"><span class="sub-item">Quản lý voucher</span></a></li>
+                  <li><a href="{{ route('comments.index') }}"><span class="sub-item">Quản lý Bình luận</span></a></li>
+                  <li><a href="{{ route('vouchers.index') }}"><span class="sub-item">Quản lý Voucher</span></a></li>
                 </ul>
               </div>
             </li>
             <li class="nav-item">
-              <a data-bs-toggle="collapse" href="#">
+              <a href="{{route('admin.chart.index')}}">
                 <i class="fas fa-bars"></i>
                 <p>Danh thu và báo cáo</p>
               </a>
