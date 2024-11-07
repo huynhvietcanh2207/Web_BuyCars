@@ -62,7 +62,7 @@
                         @foreach ($sidebar_brands as $row)
                             <li>
                                 <a class="dropdown-item"
-                                    href="{{ route('brands.show', $row->BrandId) }}">{{ $row->BrandName }}</a>
+                                    href="{{ route('brands.showBrand', $row->BrandId) }}">{{ $row->BrandName }}</a>
                             </li>
                         @endforeach
                     </ul>
