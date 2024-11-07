@@ -52,7 +52,7 @@ Route::get('login', [Login_registerController::class, 'index'])->name('login');
 Route::post('register', [Login_registerController::class, 'store'])->name('register');
 Route::post('login', [Login_registerController::class, 'login'])->name('login.post');
 Route::post('logout', [Login_registerController::class, 'logout'])->name('logout');
-// Route::post('cart/add/{id}', [CartItemController::class, 'addToCart'])->name('cart.add');
+Route::post('cart/add/{id}', [CartItemController::class, 'addToCart'])->name('cart.add');
 // Route::get('/cart', [CartItemController::class, 'index'])->name('cart.index');
 // Route::delete('/cart/{id}', [CartItemController::class, 'destroy'])->name('cart.destroy');
 // Route::put('/cart/update', [CartItemController::class, 'updateCart'])->name('cart.update');
@@ -62,8 +62,8 @@ Route::get('/detail/{id}',[DetailController::class, 'indexDetail'])->name('detai
  
 //chỉnh sửa giỏ hàng + thanh toán
 Route::get('/cart', [CartItemController::class, 'index'])->name('cart.index');
-Route::post('/cart', [CartItemController::class, 'addToCart'])->name('cart.add');
-Route::delete('/cart/{id}', [CartItemController::class, 'destroy'])->name('cart.destroy');
+Route::get('/payment', [CartItemController::class, 'payment'])->name('payment');
+ Route::delete('/cart/{id}', [CartItemController::class, 'destroy'])->name('cart.destroy');
 Route::post('/cart/update', [CartItemController::class, 'updateCart'])->name('cart.update');
 
 
@@ -89,3 +89,5 @@ Route::group(['middleware' => 'auth'], function () {
 
 //gọi hàm chức năng thanh toán
 Route::post('/vnpay_payment', [PaymentController::class, 'vnpay_payment'])->name('vnpay_payment');
+ 
+// Route::get('/payment', [PaymentController::class, 'index'])->name('payment');

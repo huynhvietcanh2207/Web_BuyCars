@@ -68,6 +68,7 @@
                                             data-product-id="{{ $product->ProductId }}"></i>
                                     </div>
                                     {{-- <button class="btn-add-to-cart">Thêm vào giỏ hàng</button> --}}
+                                    
                                     <form action="{{ route('cart.add', $product->ProductId) }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="product_id" value="{{ $product->ProductId }}">
@@ -76,6 +77,8 @@
                                         @endif
                                         <button class="btn-add-to-cart" type="submit">Thêm vào giỏ hàng</button>
                                     </form>
+
+
                                 </div>
                             </div>
                         </div>
