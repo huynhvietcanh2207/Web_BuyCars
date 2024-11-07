@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserRoleAssignmentController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login_registerController;
 use App\Http\Controllers\AdminController;
@@ -39,6 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('favorites', FavoriteController::class);
     Route::post('/favorites/add/{productId}', [FavoriteController::class, 'addToFavorites'])->name('favorites.add');
     Route::post('/favorites/remove/{product}', [FavoriteController::class, 'remove'])->name('favorites.remove');
+    Route::get('/account', [UserProfileController::class, 'showProfile'])->name('account.profile');
 });
 
 
@@ -77,5 +82,38 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/change-password', [ChangePasswordController::class, 'showChangePasswordForm'])->name('password.change');
     Route::post('/change-password', [ChangePasswordController::class, 'changePassword'])->name('password.update');
 });
+// Thương hiệu
+Route::get('/brands', [BrandController::class, 'index'])->name('brands.indexBrand');
+Route::get('/brands/{id}', [BrandController::class, 'show'])->name('brands.showBrand');
+// Comment
+Route::get('/detail/{id}', [DetailController::class, 'indexDetail'])->name('detail.index');
+Route::post('/detail/{id}/comment', [DetailController::class, 'addComment'])->name('product.comment');
 
+Route::group(['prefix' => 'account'], function () {
+    Route::post('/update-avatar', [UserProfileController::class, 'updateAvatar'])->name('account.updateAvatar');
+    Route::post('/update-account', [UserProfileController::class, 'updateAccount'])->name('account.updateAccount');
+});
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::group(['prefix' => 'roles'], function () {
+        Route::get('/', [RoleController::class, 'index'])->name('role.index');
+        Route::get('/create', [RoleController::class, 'create'])->name('role.create');
+        Route::post('/', [RoleController::class, 'store'])->name('role.store'); // Thêm mới role
+        Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('role.edit');
+        Route::put('/update/{id}', [RoleController::class, 'update'])->name('role.update'); // Cập nhật role
+        Route::delete('/delete/{id}', [RoleController::class, 'destroy'])->name('role.destroy'); // Xóa role
+
+        Route::get('/assign', [UserRoleAssignmentController::class, 'create'])->name('role.assign');
+        Route::post('/assign', [UserRoleAssignmentController::class, 'store'])->name('role.assign.store');
+        Route::get('/list-assign', [UserRoleAssignmentController::class, 'index'])->name('role.list');
+    });
+
+    //
+    Route::resources([
+        'products' => CrudProductsController::class,
+        'brands' => CrudBrandsController::class,
+        'vouchers' => CrudVoucherController::class,
+        'comments' => CrudCommentController::class,
+    ]);
+});
 

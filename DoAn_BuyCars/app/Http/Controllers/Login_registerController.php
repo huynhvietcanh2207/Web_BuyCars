@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User; // Đảm bảo đã import model User
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class Login_registerController extends Controller
@@ -31,10 +32,12 @@ class Login_registerController extends Controller
             'email' => $request->email,
             'phone_number' => $request->phone_number,
             'password' => Hash::make($request->password),
+            'profile_image' => asset('default-avatar.png'),
         ]);
 
         return redirect()->route('login')->with('success', 'Đăng ký thành công!');
     }
+
 
     public function login(Request $request)
     {
@@ -46,7 +49,7 @@ class Login_registerController extends Controller
         // Đăng nhập
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
-    
+
             // Kiểm tra vai trò của người dùng
             if ($user->roles->contains('RoleName', 'admin')) {
                 // Chuyển hướng đến trang admin nếu là admin
@@ -56,10 +59,10 @@ class Login_registerController extends Controller
                 return redirect()->route('index')->with('success', 'Đăng nhập thành công!');
             }
         }
-    
+
         return redirect()->back()->withErrors(['email' => 'Email hoặc mật khẩu không chính xác.']);
     }
-    
+
 
     public function logout(Request $request)
     {

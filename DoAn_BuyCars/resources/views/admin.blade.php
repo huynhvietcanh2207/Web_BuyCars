@@ -84,10 +84,23 @@
               </a>
             </li>
             <li class="nav-item">
-              <a data-bs-toggle="collapse" href="#">
+              <a data-bs-toggle="collapse" href="#role">
                 <i class="fas fa-bars"></i>
                 <p>Phân quyền</p>
+                <span class="caret"></span>
               </a>
+              <div class="collapse" id="role">
+                <ul class="nav nav-collapse">
+                  <li><a href="{{ route('role.create') }}"><span class="sub-item">Thêm quyền
+                        mới</span></a></li>
+                  <li><a href="{{ route('role.index') }}"><span class="sub-item">Danh sách
+                        quyền</span></a></li>
+                  <li><a href="{{ route('role.assign') }}"><span class="sub-item">Phân quyền người
+                        dùng</span></a></li>
+                  <li><a href="{{ route('role.list') }}"><span class="sub-item">Danh sách người dùng
+                        được phân quyền</span></a></li>
+                </ul>
+              </div>
             </li>
             <li class="nav-item">
               <a data-bs-toggle="collapse" href="#">

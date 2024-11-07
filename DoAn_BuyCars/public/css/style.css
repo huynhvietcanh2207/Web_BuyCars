@@ -791,3 +791,107 @@ footer {
     object-fit: cover;
     object-position: center;
 }
+
+.profile-container {
+    background-color: #fff;
+    color: #000000;
+    width: 80%;
+    max-width: 800px;
+    margin: 80px auto; /* Thêm margin-top để không chạm vào header */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+
+.profile-header {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.profile-sidebar {
+    margin-right: 20px;
+    padding-top: 10px;
+}
+
+.profile-sidebar a {
+    display: block;
+    padding: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+}
+
+.profile-sidebar a:hover {
+    background-color: #f0f0f0;
+}
+
+.profile-form {
+    display: flex;
+    gap: 20px;
+}
+
+.profile-form .form-group {
+    margin-bottom: 15px;
+}
+
+.activity-log {
+    margin-top: 30px;
+}
+
+.avatar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.avatar img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.avatar input[type="file"] {
+    margin-top: 10px;
+}
+
+.table {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 8px 12px;
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+    width: auto;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.profile-main {
+    display: flex;
+    align-items: stretch; /* Đảm bảo các phần tử kéo dài */
+    width: 100%; /* Để chia đều không gian */
+}
+
+.profile-form-container {
+    flex: 1; /* Chiếm đầy chiều rộng còn lại */
+}
+
+.vertical-divider {
+    width: 1px;
+    background-color: #ccc;
+    margin: 0 20px;
+    height: auto;
+    align-self: stretch; /* Kéo dài theo chiều cao phần tử lớn nhất */
+}

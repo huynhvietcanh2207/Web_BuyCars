@@ -52,7 +52,23 @@
             <nav>
                 <a href="{{route('index')}}">Trang Chủ</a>
                 <a href="{{ route('product') }}">Sản Phẩm</a>
-                <a href="#">Thương Hiệu <i class="fas fa-caret-down"></i></a>
+                <div class="dropdown">
+                    <a class="dropdown-toggle" href="#" id="brandDropdown" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Thương Hiệu
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="brandDropdown">
+                        <li>
+                            <a class="dropdown-item" href="/brands">Tất cả thương hiệu</a>
+                        </li>
+                        @foreach ($sidebar_brands as $row)
+                            <li>
+                                <a class="dropdown-item"
+                                    href="{{ route('brands.showBrand', $row->BrandId) }}">{{ $row->BrandName }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
                 <a href="#">Sản Phẩm Mới</a>
                 <a href="#">Giới Thiệu</a>
                 <a href="{{route('favorites.index')}}">Yêu Thích</a>
@@ -64,6 +80,8 @@
                     <a href="#" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></a>
                     <div class="dropdown-menu">
                         @auth
+                         <a href="{{ route('account.profile') }}">Cá nhân</a>
+
                         <a href="{{ route('password.change') }}">Đổi Mật Khẩu</a> 
 
 
@@ -73,7 +91,7 @@
                             @csrf
                         </form>
                         @else
-                        <a href="{{ route('login') }}">Đăng Nhập</a>
+                            <a href="{{ route('login') }}">Đăng Nhập</a>
                         @endauth
                     </div>
                 </div>
@@ -146,8 +164,8 @@
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-L3BL0XgQYuk4S7Np7aANqAc99Z/3hZfPHq7nxDyoe37PMa3hb/jRlQi9lAQzS3t9"
-    crossorigin="anonymous"></script>
+    integrity="sha384-L3BL0XgQYuk4S7Np7aANqAc99Z/3hZfPHq7nxDyoe37PMa3hb/jRlQi9lAQzS3t9" crossorigin="anonymous">
+    </script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>

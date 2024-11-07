@@ -12,10 +12,14 @@ class Brand extends Model
     protected $table = 'brands';
 
     protected $fillable = [
-        'BrandName','image_url',
+        'BrandName',
+        'image_url',
     ];
 
     protected $primaryKey = 'BrandId';
-    
-  
+
+    public function listBrand()
+    {
+        return Brand::orderBy('BrandId', 'desc')->get();
+    }
 }
