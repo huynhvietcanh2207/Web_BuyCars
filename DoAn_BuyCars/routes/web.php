@@ -69,12 +69,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('/chart', [ChartController::class,'index'])->name('admin.chart.index');
     Route::get('/count-users', [ChartController::class, 'countUsersWithRole'])->name('count.users');
 });
-Route::resources([
-    'products' => CrudProductsController::class,
-    'brands' => CrudBrandsController::class,
-    'vouchers' => CrudVoucherController::class,
-    'comments' => CrudCommentController::class,
-]);
 
 Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('subscribe');
 
@@ -109,6 +103,13 @@ Route::group(['prefix' => 'admin'], function () {
     });
 
     //
+
+
+
+
+
+
+    
     Route::resources([
         'products' => CrudProductsController::class,
         'brands' => CrudBrandsController::class,
