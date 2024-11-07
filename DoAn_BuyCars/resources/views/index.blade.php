@@ -9,15 +9,10 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <style>
-
-    </style>
 </head>
 
 <body>
     @section('main')
-    <<<<<<< HEAD
-
         <!-- Thông báo alert cho success -->
         @if (session()->has('success'))
         <script>
@@ -132,7 +127,15 @@
                                 <div class="about">
                                     <p>{{ $products->description }}</p>
                                 </div>
-                                <button class="btn btn-silder btn-primary mt-auto">Thêm vào giỏ hàng</button>
+                                <form action="{{ route('cart.add', $product->ProductId) }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $product->ProductId }}">
+                                        
+                                        @if (auth()->check())
+                                            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                                        @endif
+                                        <button class="btn-add-to-cart" data-id="{{ $product->ProductId }}" data-price="{{ $product->price }}">Thêm vào giỏ hàng</button>
+                                    </form>
                             </div>
                         </div>
                     </div>
