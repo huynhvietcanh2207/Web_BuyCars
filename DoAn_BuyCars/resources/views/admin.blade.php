@@ -68,7 +68,7 @@
               </a>
               <div class="collapse" id="submenu">
                 <ul class="nav nav-collapse">
-                  <li><a href="#"><span class="sub-item">Quản lý Người dùng</span></a></li>
+                  <li><a href="{{ route('users.index') }}"><span class="sub-item">Quản lý người dùng</span></a></li>
                   <li><a href="{{ route('products.index') }}"><span class="sub-item">Quản lý Sản phẩm</span></a></li>
                   <li><a href="{{ route('brands.index') }}"><span class="sub-item">Quản lý Thương hiệu</span></a></li>
                   <li><a href="#"><span class="sub-item">Quản lý Đơn Hàng</span></a></li>

@@ -19,6 +19,7 @@ use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\CrudVoucherController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\CrudCommentController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -108,6 +109,8 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 
+Route::resource('users', UserController::class);
+
 
     
     Route::resources([
@@ -115,6 +118,7 @@ Route::group(['prefix' => 'admin'], function () {
         'brands' => CrudBrandsController::class,
         'vouchers' => CrudVoucherController::class,
         'comments' => CrudCommentController::class,
+        
     ]);
 });
 
