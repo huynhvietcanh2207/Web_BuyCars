@@ -102,6 +102,13 @@ Route::group(['prefix' => 'admin'], function () {
     });
 
     //
+
+
+
+
+
+
+    
     Route::resources([
         'products' => CrudProductsController::class,
         'brands' => CrudBrandsController::class,
