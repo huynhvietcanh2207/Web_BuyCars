@@ -21,7 +21,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone_number',
         'password',
+        'profile_image',
     ];
     //thiết lập quan hệ giữa user_role_assignments
     public function roles(): BelongsToMany

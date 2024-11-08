@@ -39,7 +39,22 @@
         }
     </style>
 </head>
+@if(session()->has('success'))
+    <script>
+        window.onload = function() {
+            alert("{{ session('success') }}");
+        }
+    </script>
+    @endif
 
+    <!-- Thông báo alert cho error -->
+    @if(session()->has('error'))
+    <script>
+        window.onload = function() {
+            alert("{{ session('error') }}");
+        }
+    </script>
+    @endif
 <body>
     <!-- header -->
     <header>
