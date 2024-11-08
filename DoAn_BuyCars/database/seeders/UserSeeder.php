@@ -15,11 +15,11 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         DB::table("users")->insert([
-            ['name'=>'Huỳnh Viết Cảnh','email'=> 'huynhvietcanh@gmail.com','password'=> Hash::make('Canh123@')],
-            ['name'=> 'Trần Bá Triệu','email'=> 'batrieutran43@gmail.com','password'=> Hash::make('Trieu123@')],
-            ['name'=> 'Lê Văn Đức','email'=> 'levanduc@gmail.com','password'=> Hash::make('Duc123@')],
-            ['name'=> 'Lại Phú Quý','email'=> 'laiphuquy@gmail.com','password'=> Hash::make('Quy123@')],
-            ['name'=> 'Lê Anh Khôi','email'=> 'leminhkhoi@gmail.com','password'=> Hash::make('Khoi123@')],
+            ['name'=>'Huỳnh Viết Cảnh','email'=> 'huynhvietcanh@gmail.com','password'=> Hash::make('Canh123@'),'profile_image' => 'default.png'],
+            ['name'=> 'Trần Bá Triệu','email'=> 'batrieutran43@gmail.com','password'=> Hash::make('Trieu123@'), 'profile_image' => 'default.png'],
+            ['name'=> 'Lê Văn Đức','email'=> 'levanduc@gmail.com','password'=> Hash::make('Duc123@'), 'profile_image' => 'default.png'],
+            ['name'=> 'Lại Phú Quý','email'=> 'laiphuquy@gmail.com','password'=> Hash::make('Quy123@'), 'profile_image' => 'default.png'],
+            ['name'=> 'Lê Anh Khôi','email'=> 'leminhkhoi@gmail.com','password'=> Hash::make('Khoi123@'), 'profile_image' => 'default.png'],
         ]);
     }
 }

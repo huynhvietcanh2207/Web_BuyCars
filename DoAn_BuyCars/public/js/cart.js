@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const productItems = document.querySelectorAll('.product_item');
     const totalInput = document.getElementById('total');
     const alertBox = document.getElementById('alert-box');
-    // localStorage.clear();
+    localStorage.clear();
 
     // Hàm lưu giỏ hàng vào localStorage
     function saveCartToLocalStorage(cartItems) {
