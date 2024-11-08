@@ -22,7 +22,6 @@ return new class extends Migration
             // Khóa ngoại
             $table->foreign('UserId')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('ProductId')->references('ProductId')->on('products')->onDelete('cascade');
-            $table->unique(['ProductId']);
         });
     }
 

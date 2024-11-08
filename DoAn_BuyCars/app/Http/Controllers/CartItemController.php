@@ -15,10 +15,12 @@ class CartItemController extends Controller
         if (Auth::check()) {
             $id = Auth::user()->id;
         } else {
-            return redirect("login"); // Đảm bảo trả về redirect
+            return redirect("login");
         }
-        // Lấy tất cả các mục giỏ hàng và phân trang
-        $cartItems = CartItem::with('product')->orderBy('updated_at', 'desc')->paginate(5);
+        $cartItems = CartItem::with('product')
+        ->where('UserId', $id) // Lọc theo UserId của người dùng đang đăng nhập
+            ->orderBy('updated_at', 'desc')
+            ->paginate(5);
 
         return view('cart', ['cartItems' => $cartItems]);
     }
