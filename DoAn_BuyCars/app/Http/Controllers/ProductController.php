@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Favorite;
@@ -64,6 +65,58 @@ class ProductController extends Controller
     {
         //
     }
+    public function search(Request $request)
+    {
+        // Retrieve search inputs
+        $query = $request->input('query');
+        $minPrice = $request->input('min_price');
+        $maxPrice = $request->input('max_price');
+        
+        // Build the query for searching products
+        $products = Product::query();
+    
+        // Filter by name or description if query is provided
+        if ($query) {
+            $products->where(function($q) use ($query) {
+                $q->where('name', 'LIKE', '%' . $query . '%')
+                  ->orWhere('description', 'LIKE', '%' . $query . '%');
+            });
+        }
+    
+        // Filter by price range if min_price or max_price is provided
+        if ($minPrice) {
+            $products->where('price', '>=', $minPrice);
+        }
+        if ($maxPrice) {
+            $products->where('price', '<=', $maxPrice);
+        }
+    
+        // Execute the query and get results
+        $products = $products->get();
+    
+        return view('indexSearch', compact('products', 'query', 'minPrice', 'maxPrice'));
+    }
+    
+
+    // public function search(Request $request)
+    // {
+    //     // Retrieve the search term from the request
+    //     $query = $request->input('query');
+    
+    //     // Search for products that match the query in their name, description, or brand name
+    //     $products = Product::where('name', 'LIKE', "%{$query}%")
+    //         ->orWhere('description', 'LIKE', "%{$query}%")
+    //         ->orWhereHas('brand', function ($q) use ($query) {
+    //             $q->where('name', 'LIKE', "%{$query}%");
+    //         })
+    //         ->paginate(8); // Adjust pagination as needed
+    
+    //     // Pass search results to the 'indexSearch' view
+    //     return view('indexSearch', compact('products', 'query'));
+    // }
+    
+
+    
     public function showProducts()
     {
         // Lấy danh sách sản phẩm với phân trang
@@ -80,7 +133,7 @@ class ProductController extends Controller
         $brands = Brand::all();
         $colors = Product::select('color')->distinct()->pluck('color');
         // Truyền danh sách sản phẩm sang view 'product'
-        return view('product', compact('products','brands','colors'));
+        return view('product', compact('products', 'brands', 'colors'));
     }
     public function filter(Request $request)
     {
@@ -96,7 +149,7 @@ class ProductController extends Controller
         if (!empty($brandIds)) {
             $query->whereIn('BrandId', $brandIds);
         }
-    
+
         // Lọc theo giá
         if ($minPrice) {
             $query->where('price', '>=', $minPrice);
@@ -104,12 +157,12 @@ class ProductController extends Controller
         if ($maxPrice) {
             $query->where('price', '<=', $maxPrice);
         }
-    
+
         // Lọc theo màu sắc
         if ($color) {
             $query->where('color', $color);
         }
-    
+
         // Lấy danh sách sản phẩm đã lọc
         $products = $query->get();
 
@@ -119,7 +172,4 @@ class ProductController extends Controller
             return response()->json(['html' => $view]);
         }
     }
-    
-
-
 }

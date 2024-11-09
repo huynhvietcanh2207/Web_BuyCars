@@ -77,3 +77,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/change-password', [ChangePasswordController::class, 'changePassword'])->name('password.update');
 });
 
+
+//xây dựng tìm kiếm
+Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
+
+

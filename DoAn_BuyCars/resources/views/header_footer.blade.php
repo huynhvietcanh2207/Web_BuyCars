@@ -42,48 +42,47 @@
 
 <body>
     <!-- header -->
-    <header>
-        <div class="container-header header-content">
-            <div class="logo">
-                <img src="banner1.jpg" alt="LOGO"> <!-- Replace with your logo URL -->
-            </div>
-            <nav>
-                <a href="{{route('index')}}">Trang Chủ</a>
-                <a href="{{ route('product') }}">Sản Phẩm</a>
-                <a href="#">Thương Hiệu <i class="fas fa-caret-down"></i></a>
-                <a href="#">Sản Phẩm Mới</a>
-                <a href="#">Giới Thiệu</a>
-                <a href="{{route('favorites.index')}}">Yêu Thích</a>
-            </nav>
-            <div class="icons">
-                <a href="#"><i class="fas fa-search"></i></a>
-                <a href="{{route('cart.index')}}"><i class="fas fa-shopping-cart"></i></a>
-                <div class="dropdown-user">
-                    <a href="#" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></a>
-                    <div class="dropdown-menu">
-                        @auth
-                        <a href="{{ route('password.change') }}">Đổi Mật Khẩu</a> 
-
-
-                        <a href="{{ route('logout') }}"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng Xuất</a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                        @else
-                        <a href="{{ route('login') }}">Đăng Nhập</a>
-                        @endauth
-                    </div>
+  <!-- header -->
+<header>
+    <div class="container-header header-content d-flex align-items-center justify-content-between">
+        <div class="logo">
+            <img src="banner1.jpg" alt="LOGO"> <!-- Replace with your logo URL -->
+        </div>
+        <nav>
+            <a href="{{ route('index') }}">Trang Chủ</a>
+            <a href="{{ route('product') }}">Sản Phẩm</a>
+            <a href="#">Thương Hiệu <i class="fas fa-caret-down"></i></a>
+            <a href="#">Sản Phẩm Mới</a>
+            <a href="#">Giới Thiệu</a>
+            <a href="{{ route('favorites.index') }}">Yêu Thích</a>
+        </nav>
+        <div class="icons d-flex align-items-center">
+            <!-- Search Form -->
+            <form action="{{ route('products.search') }}" method="GET" class="d-flex align-items-center">
+                <input type="text" name="query" placeholder="Tìm kiếm..." class="form-control" style="width: 200px; margin-right: 10px;">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+            <a href="{{ route('cart.index') }}"><i class="fas fa-shopping-cart"></i></a>
+            <div class="dropdown-user">
+                <a href="#" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></a>
+                <div class="dropdown-menu">
+                    @auth
+                    <a href="{{ route('password.change') }}">Đổi Mật Khẩu</a>
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng Xuất</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                    @else
+                    <a href="{{ route('login') }}">Đăng Nhập</a>
+                    @endauth
                 </div>
-
-
-
-
-
-
             </div>
         </div>
-    </header>
+    </div>
+</header>
+
 
 
     @yield('main')
