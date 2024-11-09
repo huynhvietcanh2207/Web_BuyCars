@@ -76,12 +76,12 @@
                         <li>
                             <a class="dropdown-item" href="/brands">Tất cả thương hiệu</a>
                         </li>
-                        {{-- @foreach ($sidebar_brands as $row)
+                        @foreach ($sidebar_brands as $row)
                             <li>
                                 <a class="dropdown-item"
                                     href="{{ route('brands.showBrand', $row->BrandId) }}">{{ $row->BrandName }}</a>
                             </li>
-                        @endforeach --}}
+                        @endforeach
                     </ul>
                 </div>
                 <a href="#">Sản Phẩm Mới</a>
@@ -95,7 +95,7 @@
                     <a href="#" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></a>
                     <div class="dropdown-menu">
                         @auth
-                         {{-- <a href="{{ route('account.profile') }}">Cá nhân</a> --}}
+                         <a href="{{ route('account.profile') }}">Cá nhân</a>
 
                         <a href="{{ route('password.change') }}">Đổi Mật Khẩu</a> 
 
