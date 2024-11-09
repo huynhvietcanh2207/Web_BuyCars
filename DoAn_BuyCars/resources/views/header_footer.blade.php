@@ -89,8 +89,12 @@
                 <a href="{{route('favorites.index')}}">Yêu Thích</a>
             </nav>
             <div class="icons">
-                <a href="#"><i class="fas fa-search"></i></a>
-                <a href="{{route('cart.index')}}"><i class="fas fa-shopping-cart"></i></a>
+<form action="{{ route('search') }}" method="GET" class="d-flex align-items-center">
+                <input type="text" name="query" placeholder="Tìm kiếm..." class="form-control" style="width: 200px; margin-right: 10px;">
+                <button type="submit" class="btn btn-light">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>                <a href="{{route('cart.index')}}"><i class="fas fa-shopping-cart"></i></a>
                 <div class="dropdown-user">
                     <a href="#" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></a>
                     <div class="dropdown-menu">
@@ -113,12 +117,12 @@
 
 
 
-
-
-
+                </div>
             </div>
         </div>
-    </header>
+    </div>
+</header>
+
 
 
     @yield('main')
