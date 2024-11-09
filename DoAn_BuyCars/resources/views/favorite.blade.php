@@ -19,11 +19,11 @@
 
     <!-- thoogn báo alert -->
     @if(session()->has('success'))
-        <script>
-            window.onload = function () {
-                alert("{{ session('success') }}");
-            }
-        </script>
+    <script>
+        window.onload = function() {
+            alert("{{ session('success') }}");
+        }
+    </script>
     @endif
 
 
@@ -33,20 +33,27 @@
         <div class="container">
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 section-products">
                 @foreach($favorites as $item)
-                    <div class="col">
-                        <div class="product-card">
-                            <img class="image-products" src="{{ $item->product->image_url }}" alt="hình ảnh">
-                            <div class="product-title">{{ $item->product->name }}</div>
-                            <div class="product-price">{{ number_format($item->product->price, 0, ',', '.') }} VND</div>
-                            <div class="icon-btn">
-                                <div class="icon-products">
-                                    <i class="{{ $item->product->ProductId ? 'fas fa-heart' : 'far fa-heart' }} favorite-btn"
-                                        data-product-id="{{ $item->product->ProductId }}"></i>
-                                </div>
-                                <button class="btn-add-to-cart">Thêm vào giỏ hàng</button>
+                <div class="col">
+                    <div class="product-card">
+                        <img class="image-products" src="{{ $item->product->image_url }}" alt="hình ảnh">
+                        <div class="product-title">{{ $item->product->name }}</div>
+                        <div class="product-price">{{ number_format($item->product->price, 0, ',', '.') }} VND</div>
+                        <div class="icon-btn">
+                            <div class="icon-products">
+                                <i class="{{ $item->product->ProductId ? 'fas fa-heart' : 'far fa-heart' }} favorite-btn"
+                                    data-product-id="{{ $item->product->ProductId }}"></i>
                             </div>
+                            <form action="{{ route('cart.add', $product->ProductId) }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->ProductId }}">
+                                @if (auth()->check())
+                                <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                                @endif
+                                <button class="btn-add-to-cart" type="submit">Thêm vào giỏ hàng</button>
+                            </form>
                         </div>
                     </div>
+                </div>
                 @endforeach
             </div>
         </div>
@@ -55,12 +62,12 @@
         <div class="pagination">
             <!-- đầu << -->
             @if ($favorites->onFirstPage())
-                <button class="pagination-button" disabled>
-                    << </button>
-            @else
-                <a href="{{ $favorites->url(1) }}" class="pagination-button">
-                    << </a>
-            @endif
+            <button class="pagination-button" disabled>
+                << </button>
+                    @else
+                    <a href="{{ $favorites->url(1) }}" class="pagination-button">
+                        << </a>
+                            @endif
 
 
                             <!-- giữa -->
@@ -69,14 +76,14 @@
                                     class="pagination-button {{ ($favorites->currentPage() == $i) ? 'active' : '' }}">
                                     {{ $i }}
                                 </a>
-                            @endfor
+                                @endfor
 
-                            <!-- cuối >> -->
-                            @if ($favorites->hasMorePages())
+                                <!-- cuối >> -->
+                                @if ($favorites->hasMorePages())
                                 <a href="{{ $favorites->url($favorites->lastPage()) }}" class="pagination-button">>></a>
-                            @else
+                                @else
                                 <button class="pagination-button" disabled>>></button>
-                            @endif
+                                @endif
         </div>
     </section>
     </section>
@@ -134,9 +141,9 @@
                     </div>
 
                     @if (session('success'))
-                        <div class="alert alert-success mt-2">
-                            {{ session('success') }}
-                        </div>
+                    <div class="alert alert-success mt-2">
+                        {{ session('success') }}
+                    </div>
                     @endif
 
                 </div>
@@ -155,10 +162,9 @@
 
 </html>
 <script>
-
     //thêm vào giỏ hàng nhá
     document.querySelectorAll('.btn').forEach(button => {
-        button.addEventListener('click', function () {
+        button.addEventListener('click', function() {
             alert('Sản phẩm đã được thêm vào giỏ hàng!');
         });
     });
