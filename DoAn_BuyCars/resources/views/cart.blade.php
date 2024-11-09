@@ -41,19 +41,8 @@
                                         <tr class="cart-item" data-id="{{ $item->CartItemId }}"
                                             data-updated-at="{{ $item->updated_at }}">
                                             <td>
-                                                @if (file_exists(public_path('images/' . $item->product->image_url . '.png')))
-                                                    <img src="{{ asset('images/' . $item->product->image_url . '.png') }}"
-                                                        alt="{{ $item->product->name }}" class="img-fluid"
-                                                        width="100">
-                                                @elseif(file_exists(public_path('images/' . $item->product->image_url . '.jpg')))
-                                                    <img src="{{ asset('images/' . $item->product->image_url . '.jpg') }}"
-                                                        alt="{{ $item->product->name }}" class="img-fluid"
-                                                        width="100">
-                                                @else
-                                                    <img src="{{ asset('images/default.png') }}"
-                                                        alt="{{ $item->product->name }}" class="img-fluid"
-                                                        width="100">
-                                                @endif
+                                                <img src="{{ asset($item->product->image_url) }}"
+                                                    alt="{{ $item->product->name }}" class="img-fluid" width="100">
                                             </td>
                                             <td>{{ $item->product->name }}</td>
                                             <td class="product-price">
@@ -120,7 +109,6 @@
                             <label for="total" class="text-dark">Tổng tiền thanh toán: </label>
                             <input type="text" id="total" class="form-control d-inline" readonly
                                 style="width: 150px;"><br>
-                                
                             <button type="submit" class="btn btn-danger checkout">TIẾN HÀNH THANH TOÁN</button>
                         </div>
                     </div>

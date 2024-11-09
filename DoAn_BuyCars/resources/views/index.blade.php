@@ -54,7 +54,7 @@
                         <div class="product-card">
                             <div class="item-img">
                                 <a href="{{ route('detail.index', ['id' => $product->ProductId]) }}">
-                                    <img class="image-products" src="{{ asset('images/' . $product->image_url . '.jpg') }}" alt="{{$product->name}}">
+                                    <img class="image-products" src="{{ ($product->image_url) }}" alt="{{$product->name}}">
                                 </a>
                             </div>
                             <div class="product-title">{{ $product->name }}</div>

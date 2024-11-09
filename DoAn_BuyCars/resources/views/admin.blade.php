@@ -68,11 +68,11 @@
               </a>
               <div class="collapse" id="submenu">
                 <ul class="nav nav-collapse">
-                  {{-- <li><a href="{{ route('users.index') }}"><span class="sub-item">Quản lý người dùng</span></a></li> --}}
+                  <li><a href="{{ route('users.index') }}"><span class="sub-item">Quản lý người dùng</span></a></li>
                   <li><a href="{{ route('products.index') }}"><span class="sub-item">Quản lý Sản phẩm</span></a></li>
                   <li><a href="{{ route('brands.index') }}"><span class="sub-item">Quản lý Thương hiệu</span></a></li>
                   <li><a href="#"><span class="sub-item">Quản lý Đơn Hàng</span></a></li>
-                  {{-- <li><a href="{{ route('comments.index') }}"><span class="sub-item">Quản lý Bình luận</span></a></li> --}}
+                  <li><a href="{{ route('comments.index') }}"><span class="sub-item">Quản lý Bình luận</span></a></li>
                   <li><a href="{{ route('vouchers.index') }}"><span class="sub-item">Quản lý Voucher</span></a></li>
                 </ul>
               </div>
@@ -91,14 +91,14 @@
               </a>
               <div class="collapse" id="role">
                 <ul class="nav nav-collapse">
-                  {{-- <li><a href="{{ route('role.create') }}"><span class="sub-item">Thêm quyền
-                        mới</span></a></li> --}}
-                  {{-- <li><a href="{{ route('role.index') }}"><span class="sub-item">Danh sách
-                        quyền</span></a></li> --}}
-                  {{-- <li><a href="{{ route('role.assign') }}"><span class="sub-item">Phân quyền người
+                  <li><a href="{{ route('role.create') }}"><span class="sub-item">Thêm quyền
+                        mới</span></a></li>
+                  <li><a href="{{ route('role.index') }}"><span class="sub-item">Danh sách
+                        quyền</span></a></li>
+                  <li><a href="{{ route('role.assign') }}"><span class="sub-item">Phân quyền người
                         dùng</span></a></li>
                   <li><a href="{{ route('role.list') }}"><span class="sub-item">Danh sách người dùng
-                        được phân quyền</span></a></li> --}}
+                        được phân quyền</span></a></li>
                 </ul>
               </div>
             </li>

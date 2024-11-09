@@ -279,7 +279,7 @@ footer {
         flex-direction: column;
         text-align: center;
     }
-
+ 
     nav {
         flex-direction: column;
     }
@@ -811,7 +811,6 @@ footer {
     justify-content: center;
     overflow: hidden;
     position: relative;
-    margin-bottom: 50px;
 }
 
 .item-img img {

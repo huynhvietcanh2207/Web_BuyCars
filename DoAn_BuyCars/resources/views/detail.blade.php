@@ -18,19 +18,18 @@
                     <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img src="{{ asset('images/' . $product->image_url . '.jpg') }}" class="d-block"
-                                    alt="{{ $product->name }}">
+                                <img src="{{ asset($product->image_url) }}" class="d-block" alt="{{ $product->name }}">
                             </div>
-                            <div class="carousel-item">
+                            {{-- <div class="carousel-item">
                                 <img src="{{ asset('images/lambo.jpg') }}" class="d-block w-100"
                                     alt="Nhớt Castrol Magnatec 10W40 - 2">
                             </div>
                             <div class="carousel-item">
                                 <img src="{{ asset('images/banner1.jpg') }}" class="d-block w-100"
                                     alt="Nhớt Castrol Magnatec 10W40 - 3">
-                            </div>
+                            </div> --}}
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel"
+                        {{-- <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel"
                             data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
@@ -39,17 +38,17 @@
                             data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
-                        </button>
+                        </button> --}}
                     </div>
                     <!-- Thumbnails below the carousel -->
-                    <div class="mt-1 d-flex justify-content-center">
+                    {{-- <div class="mt-1 d-flex justify-content-center">
                         <img src="{{ asset('images/56.jpg') }}" class="img-thumbnail me-2" style="width: 200px;"
                             data-bs-target="#productCarousel" data-bs-slide-to="0" alt="Nhớt Castrol Magnatec 10W40">
                         <img src="{{ asset('images/lambo.jpg') }}" class="img-thumbnail me-2" style="width: 200px;"
                             data-bs-target="#productCarousel" data-bs-slide-to="1" alt="Nhớt Castrol Magnatec 10W40 - 2">
                         <img src="{{ asset('images/banner1.jpg') }}" class="img-thumbnail" style="width: 200px;"
                             data-bs-target="#productCarousel" data-bs-slide-to="2" alt="Nhớt Castrol Magnatec 10W40 - 3">
-                    </div>
+                    </div> --}}
                 </div>
                 <!-- Product Information -->
                 <div class="col-md-6">
@@ -67,12 +66,10 @@
                         <form action="{{ route('cart.add', $product->ProductId) }}" method="POST">
                             @csrf
                             <input type="hidden" name="product_id" value="{{ $product->ProductId }}">
-
                             @if (auth()->check())
                                 <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                             @endif
-                            <button class="btn-add-to-cart" data-id="{{ $product->ProductId }}"
-                                data-price="{{ $product->price }}">Thêm vào giỏ hàng</button>
+                            <button class="btn-add-to-cart" type="submit">Thêm vào giỏ hàng</button>
                         </form>
                         <p>{{ $product->description }}</p>
                     </div>
