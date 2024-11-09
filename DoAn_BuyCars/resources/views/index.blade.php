@@ -52,9 +52,11 @@
                     @foreach ($products as $product)
                     <div class="col">
                         <div class="product-card">
-                            <a href="{{ route('detail.index', ['id' => $product->ProductId]) }}">
-                                <img class="image-products" src="{{ $product->image_url }}" alt="hình ảnh">
-                            </a>
+                            <div class="item-img">
+                                <a href="{{ route('detail.index', ['id' => $product->ProductId]) }}">
+                                    <img class="image-products" src="{{ asset('images/' . $product->image_url . '.jpg') }}" alt="{{$product->name}}">
+                                </a>
+                            </div>
                             <div class="product-title">{{ $product->name }}</div>
                             <div class="product-price">{{ number_format($product->price, 0, ',', '.') }} VND</div>
                             <div class="icon-btn">
