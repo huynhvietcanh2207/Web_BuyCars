@@ -79,6 +79,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 //xây dựng tìm kiếm
-Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
+Route::get('/search', [ProductController::class, 'search'])->name('search');
 
 
