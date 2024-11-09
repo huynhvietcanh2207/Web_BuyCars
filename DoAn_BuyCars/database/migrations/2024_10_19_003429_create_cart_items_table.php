@@ -16,13 +16,12 @@ return new class extends Migration
             $table->unsignedBigInteger('UserId');
             $table->unsignedBigInteger('ProductId');
             $table->integer('quantity');
-            $table->decimal('price', 10, 2); // Thêm cột price với định dạng số thập phân
+            $table->decimal('price', 18, 2); // Thêm cột price với định dạng số thập phân
             $table->timestamp('updated_at')->useCurrent();
 
             // Khóa ngoại
             $table->foreign('UserId')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('ProductId')->references('ProductId')->on('products')->onDelete('cascade');
-            $table->unique(['ProductId']);
         });
     }
 

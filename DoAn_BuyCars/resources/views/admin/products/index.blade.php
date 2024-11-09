@@ -58,7 +58,7 @@
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->BrandId }}</td>
                     <td>{{ $product->price }}</td>
-                    <td><img src="{{ $product->image_url }}" class="d-block w-100 img-fluid"></td>
+                    <td><img src="{{ asset($product->image_url) }}" class="d-block w-50 img-fluid"></td>
                     <td>{{ $product->description }}</td>
                     <td>{{ $product->color }}</td>
                     <td>{{ $product->created_at }}</td>
