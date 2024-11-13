@@ -123,3 +123,8 @@ Route::resource('users', UserController::class);
     ]);
 });
 
+
+//xây dựng tìm kiếm
+Route::get('/search', [ProductController::class, 'search'])->name('search');
+
+

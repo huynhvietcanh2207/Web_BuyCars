@@ -17,7 +17,7 @@
                 <img src="{{ asset('images/banner1.jpg') }}" alt="Banner">
                 <h1>GIỎ HÀNG</h1>
                 <p><span id="hightlight">Trang chủ ></span> Giỏ hàng</p>
-            </div>
+            </div>c
         </div>
         <div class="container my-5">
             <div class="cart">

@@ -37,33 +37,35 @@
         .dropdown-menu a:hover {
             background-color: #f0f0f0;
         }
-   
-
     </style>
 </head>
 @if(session()->has('success'))
-    <script>
-        window.onload = function() {
-            alert("{{ session('success') }}");
-        }
-    </script>
-    @endif
+<script>
+    window.onload = function() {
+        alert("{{ session('success') }}");
+    }
+</script>
+@endif
 
-    <!-- Thông báo alert cho error -->
-    @if(session()->has('error'))
-    <script>
-        window.onload = function() {
-            alert("{{ session('error') }}");
-        }
-    </script>
-    @endif
+<!-- Thông báo alert cho error -->
+@if(session()->has('error'))
+<script>
+    window.onload = function() {
+        alert("{{ session('error') }}");
+    }
+</script>
+@endif
+
 <body>
     <!-- header -->
     <header>
         <div class="container-header header-content">
             <div class="logo">
-                <img src="logoweb.jpg" alt="LOGO"> <!-- Replace with your logo URL -->
+                <a href="{{ route('index') }}">
+                    <img src="logoweb.jpg" alt="LOGO"> <!-- Thay thế với URL logo của bạn -->
+                </a>
             </div>
+
             <nav>
                 <a href="{{route('index')}}">Trang Chủ</a>
                 <a href="{{ route('product') }}">Sản Phẩm</a>
@@ -77,27 +79,38 @@
                             <a class="dropdown-item" href="/brands">Tất cả thương hiệu</a>
                         </li>
                         @foreach ($sidebar_brands as $row)
-                            <li>
-                                <a class="dropdown-item"
-                                    href="{{ route('brands.showBrand', $row->BrandId) }}">{{ $row->BrandName }}</a>
-                            </li>
+                        <li>
+                            <a class="dropdown-item"
+                                href="{{ route('brands.showBrand', $row->BrandId) }}">{{ $row->BrandName }}</a>
+                        </li>
                         @endforeach
                     </ul>
                 </div>
-                <a href="#">Sản Phẩm Mới</a>
-                <a href="#">Giới Thiệu</a>
+                <a href="#new-products">Sản Phẩm Mới</a>
+                <a href="#About">Giới Thiệu</a>
                 <a href="{{route('favorites.index')}}">Yêu Thích</a>
             </nav>
+            <div class="theme-switch">
+                <label class="switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="slider"></span>
+                </label>
+                <span id="themeLabel">Sáng</span>
+            </div>
             <div class="icons">
-                <a href="#"><i class="fas fa-search"></i></a>
-                <a href="{{route('cart.index')}}"><i class="fas fa-shopping-cart"></i></a>
+<form action="{{ route('search') }}" method="GET" class="d-flex align-items-center">
+                <input type="text" name="query" placeholder="Tìm kiếm..." class="form-control" style="width: 200px; margin-right: 10px;">
+                <button type="submit" class="btn btn-light">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>                <a href="{{route('cart.index')}}"><i class="fas fa-shopping-cart"></i></a>
                 <div class="dropdown-user">
                     <a href="#" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></a>
                     <div class="dropdown-menu">
                         @auth
-                         <a href="{{ route('account.profile') }}">Cá nhân</a>
+                        <a href="{{ route('account.profile') }}">Cá nhân</a>
 
-                        <a href="{{ route('password.change') }}">Đổi Mật Khẩu</a> 
+                        <a href="{{ route('password.change') }}">Đổi Mật Khẩu</a>
 
 
                         <a href="{{ route('logout') }}"
@@ -106,19 +119,19 @@
                             @csrf
                         </form>
                         @else
-                            <a href="{{ route('login') }}">Đăng Nhập</a>
+                        <a href="{{ route('login') }}">Đăng Nhập</a>
                         @endauth
                     </div>
                 </div>
 
 
 
-
-
-
+                </div>
             </div>
         </div>
-    </header>
+    </div>
+</header>
+
 
 
     @yield('main')
@@ -180,9 +193,35 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-L3BL0XgQYuk4S7Np7aANqAc99Z/3hZfPHq7nxDyoe37PMa3hb/jRlQi9lAQzS3t9" crossorigin="anonymous">
-    </script>
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+<script src="{{ asset('js/animation.js') }}"></script>
 
 </html>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const themeToggle = document.getElementById('themeToggle');
+        const themeLabel = document.getElementById('themeLabel');
+
+        // Kiểm tra nếu đã lưu theme trong localStorage
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeToggle.checked = true;
+            themeLabel.textContent = 'Tối';
+        }
+
+        themeToggle.addEventListener('change', function() {
+            if (themeToggle.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+                themeLabel.textContent = 'Tối';
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+                themeLabel.textContent = 'Sáng';
+            }
+        });
+    });
+</script>
