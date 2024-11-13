@@ -13,6 +13,22 @@
 </head>
 
 <body class="bg-light">
+@if (session()->has('success'))
+<script>
+    window.onload = function() {
+        alert("{{ session('success') }}");
+    }
+</script>
+@endif
+
+<!-- Thông báo alert cho error -->
+@if (session()->has('error'))
+<script>
+    window.onload = function() {
+        alert("{{ session('error') }}");
+    }
+</script>
+@endif
     <div class="container bg-white p-4 shadow">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h1 class="h4">Quản lý Voucher</h1>
