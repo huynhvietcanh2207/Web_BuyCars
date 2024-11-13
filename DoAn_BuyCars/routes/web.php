@@ -59,7 +59,8 @@ Route::post('logout', [Login_registerController::class, 'logout'])->name('logout
 Route::post('cart/add/{id}', [CartItemController::class, 'addToCart'])->name('cart.add');
 Route::get('/cart', [CartItemController::class, 'index'])->name('cart.index');
 Route::delete('/cart/{id}', [CartItemController::class, 'destroy'])->name('cart.destroy');
-Route::put('/cart/update', [CartItemController::class, 'updateCart'])->name('cart.update');
+Route::post('/cart/update', [CartItemController::class, 'updateCart'])->name('cart.update');
+Route::post('/cart/chooseDelete', [CartItemController::class, 'chooseDelete'])->name('cart.chooseDelete');
 Route::get('/detail/{id}',[DetailController::class, 'indexDetail'])->name('detail.index');
 
 
