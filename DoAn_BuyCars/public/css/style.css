@@ -3,6 +3,68 @@
     padding: 0;
     box-sizing: border-box;
 }
+/*doi giao dien */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #dbdbdb;
+    transition: 0.4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #FFD700;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+
+/* Chế độ tối */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+    --text-gradient: var(--text-color-dark); 
+
+}
+
+
+
+:root {
+    --text-gradient: linear-gradient(80deg, #ffffff, #ffffff);
+    --text-color-dark: #000000;
+    --dark-text-gradient: linear-gradient(80deg, #665e5e, #6a6262); /* Nền tối cho chế độ tối */
+}
 
 body {
     background-color: #ebf0f3;
@@ -20,8 +82,8 @@ header {
     width: 100%;
     z-index: 1000;
     border-bottom: 2px solid #FFD700;
-    background: linear-gradient(80deg, #000000, #dbdf91);
-    color: #FFFFFF;
+    background: linear-gradient(80deg, #000000, #000000);
+    color: #FFD700;
     padding: 15px 0;
 }
 
@@ -48,7 +110,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #ddd;
+    border: 1px solid #FFD700;
     border-radius: 50%;
     overflow: hidden;
 }
@@ -65,15 +127,17 @@ nav {
 }
 
 nav a {
-    color: white;
+    color: #FFD700;
     text-decoration: none;
     font-size: 20px;
-    transition: color 0.3s;
+    transition: color 0.3s, transform 0.3s; 
 }
 
 nav a:hover {
-    color: #d7c842;
+    color: #ffffff; 
+    transform: scale(1.2); 
 }
+
 
 .icons {
     display: flex;
@@ -81,14 +145,14 @@ nav a:hover {
 }
 
 .icons a {
-    color: white;
+    color: #FFD700;
     font-size: 22px;
     text-decoration: none;
     transition: color 0.3s;
 }
 
 .icons a:hover {
-    color: #000000;
+    color: #ffffff;
 }
 
 /*banner*/
@@ -110,11 +174,13 @@ nav a:hover {
     font-weight: bold;
     margin: 3rem 0;
     text-align: center;
-    background: linear-gradient(80deg, #000000, #dbdf91);
+    background: #FFD700;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-left: 15px;
-
+}
+body.dark-mode .products h1 span {
+    color: #ffffff;
 }
 
 .products h1 {
@@ -123,7 +189,7 @@ nav a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: black;
+    background-color: #665e5e;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-transform: uppercase;
@@ -135,12 +201,12 @@ nav a:hover {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 1px solid #ddd;
+    border: 1px solid #FFD700;
     padding: 1rem;
-    background: linear-gradient(120deg, #403737);
-    color: rgb(0, 0, 0);
+    background:  var(--text-gradient);;
+    color: #FFD700;
     transition: background 0.3s;
-    box-shadow: 0 0 8px #523c3c;
+    box-shadow: 0 0 10px #030303;
 }
 
 .product-card:hover {
@@ -149,7 +215,7 @@ nav a:hover {
 
 .product-image {
     height: 12rem;
-    background-color: #ddd;
+    background-color: #9a7f7f;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -158,16 +224,16 @@ nav a:hover {
 .product-title {
     font-weight: bold;
     margin: 0.5rem 0;
-    color: #000000;
+    color: #FFD700;
 }
 
 .product-title:hover {
 
-    color: #e9da64;
+    color: #ebeae6;
 }
 
 .product-price {
-    color: #000000;
+    color: #FFD700;
 }
 
 .product-price:hover {
@@ -185,7 +251,7 @@ nav a:hover {
 }
 
 .btn-add-to-cart {
-    background-color: #000000;
+    background-color: #24c9c9;
     color: #F8F8F8;
     padding: 0.5rem 1rem;
     border: none;
@@ -210,14 +276,18 @@ nav a:hover {
     display: flex;
     justify-content: center;
     margin-top: 2rem;
+    text-decoration: none;
+
 }
 
 .pagination-button {
     padding: 0.5rem 1rem;
     border: 1px solid #ddd;
     margin: 0 0.5rem;
-    background-color: #ffffff;
+    background-color: #665e5e;
     cursor: pointer;
+    text-decoration: none;
+color: #FFD700;
     transition: background-color 0.3s;
 }
 
@@ -249,11 +319,11 @@ nav a:hover {
 }
 
 .icon-footer p {
-    color: #000000;
+    color: #665e5e;
 }
 
 .icon-footer a i {
-    color: #000000;
+    color: #665e5e;
 }
 
 hr {
@@ -370,16 +440,31 @@ footer {
 
 .carousel {
     margin: 70px 0 120px 0;
+    text-decoration: none;
 
 }
+.item-products {
+    color: #FFD700;
+}
+.item-products h1 a{
+    font-size: 30px;
+    color: #FFD700;
 
+
+}
+.item-products a{
+    text-decoration: none;
+    font-size: 20px;
+    color: red;
+
+}
 .carousel h1 {
     font-size: 60px;
     margin-top: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: black;
+    background: #665e5e;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-transform: uppercase;
@@ -393,7 +478,7 @@ footer {
     font-size: 60px;
     font-weight: bold;
 
-    background: linear-gradient(80deg, #000000, #dbdf91);
+    background: #FFD700;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-left: 15px;
@@ -445,7 +530,7 @@ footer {
     border: 3px solid #e9da64;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    background-color: rgb(255, 255, 255);
+    background:  var(--text-gradient);;
 
 }
 
@@ -496,17 +581,21 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: black;
+    background: #665e5e;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-transform: uppercase;
+
 }
 
 .about h1 span {
-    background: linear-gradient(80deg, #000000, #dbdf91);
+    background:#665e5e;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-left: 15px;
+    font-size: 60px;
+    font-weight: bold;
+
 }
 
 .about .about_main {
@@ -556,7 +645,7 @@ footer {
 }
 
 .about .about_main .image_contaner img {
-    border: 3px solid #e9da64;
+    border: 3px solid #FFD700;
     border-radius: 20px;
     height: 430px;
     padding: 10px;
@@ -569,7 +658,7 @@ footer {
 }
 
 .about .about_main .about_text p {
-    background: linear-gradient(80deg, #000000, #dbdf91);
+    background: #FFD700;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     line-height: 22px;
@@ -582,16 +671,17 @@ footer {
 }
 
 .about .about_btn {
-    color: black;
+    color: #665e5e;
+
     background: none;
     position: relative;
     top: 10%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 10px 25px;
-    border: 2px solid #e9da64;
+    border: 2px solid #FFD700;
     text-decoration: none;
-    box-shadow: 0 0 8px #e9da64;
+    box-shadow: 0 0 8px #FFD700;
     transition: 0.5s;
 }
 
