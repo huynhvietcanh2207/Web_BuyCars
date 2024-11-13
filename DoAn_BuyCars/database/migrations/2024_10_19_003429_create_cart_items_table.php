@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('cart_items', function (Blueprint $table) {
             $table->id('CartItemId');
-            $table->unsignedBigInteger('CartId');
+            $table->unsignedBigInteger('UserId');
             $table->unsignedBigInteger('ProductId');
             $table->integer('quantity');
-        
+            $table->decimal('price', 18, 2); // Thêm cột price với định dạng số thập phân
+            $table->timestamp('updated_at')->useCurrent();
+
             // Khóa ngoại
-            $table->foreign('CartId')->references('CartId')->on('cart')->onDelete('cascade');
+            $table->foreign('UserId')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('ProductId')->references('ProductId')->on('products')->onDelete('cascade');
         });
-        
-        
     }
 
     /**

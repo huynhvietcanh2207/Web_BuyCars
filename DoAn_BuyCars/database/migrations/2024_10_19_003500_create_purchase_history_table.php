@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('purchase_history', function (Blueprint $table) {
             $table->id('PurchaseId');
-            $table->unsignedBigInteger('UserId');
+            $table->unsignedBigInteger('id');
             $table->unsignedBigInteger('OrderId');
             $table->timestamp('PurchaseDate')->useCurrent();
             $table->decimal('TotalAmount', 18, 2);
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('OrderStatus', 50);
         
             // Khóa ngoại
-            $table->foreign('UserId')->references('UserId')->on('users')->onDelete('cascade');
+            $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('OrderId')->references('OrderId')->on('orders')->onDelete('cascade');
         });
         

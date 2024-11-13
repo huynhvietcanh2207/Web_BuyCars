@@ -1,5 +1,4 @@
- 
- * {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -20,17 +19,20 @@ header {
     left: 0;
     width: 100%;
     z-index: 1000;
-    border-bottom: 2px solid #FFD700; 
+    border-bottom: 2px solid #FFD700;
     background: linear-gradient(80deg, #000000, #dbdf91);
     color: #FFFFFF;
     padding: 15px 0;
 }
 
-
-
 .container-header {
     width: 90%;
     margin: 0 auto;
+}
+
+.favorite-btn {
+    cursor: pointer;
+    color: red;
 }
 
 .header-content {
@@ -88,6 +90,7 @@ nav a:hover {
 .icons a:hover {
     color: #000000;
 }
+
 /*banner*/
 .main-banner {
     text-align: center;
@@ -102,17 +105,18 @@ nav a:hover {
 
 
 /* sản phẩm */
-.products h1 span{
+.products h1 span {
     font-size: 60px;
     font-weight: bold;
     margin: 3rem 0;
     text-align: center;
     background: linear-gradient(80deg, #000000, #dbdf91);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;     
-            margin-left: 15px;
- 
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-left: 15px;
+
 }
+
 .products h1 {
     font-size: 60px;
     margin-top: 20px;
@@ -124,14 +128,16 @@ nav a:hover {
     -webkit-text-fill-color: transparent;
     text-transform: uppercase;
 }
+
 .product-card {
     display: flex;
+    position: relative;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     border: 1px solid #ddd;
     padding: 1rem;
-    background: linear-gradient(120deg,  #403737);
+    background: linear-gradient(120deg, #403737);
     color: rgb(0, 0, 0);
     transition: background 0.3s;
     box-shadow: 0 0 8px #523c3c;
@@ -154,16 +160,20 @@ nav a:hover {
     margin: 0.5rem 0;
     color: #000000;
 }
+
 .product-title:hover {
-   
+
     color: #e9da64;
 }
+
 .product-price {
     color: #000000;
 }
+
 .product-price:hover {
     color: #e9da64;
 }
+
 .icon-btn {
     display: flex;
     align-items: center;
@@ -188,10 +198,13 @@ nav a:hover {
     background-color: #e9da64;
     color: black;
 }
+
 .image-products {
     width: 100%;
     height: 250px;
+    object-fit: cover;
 }
+
 /*phân trang */
 .pagination {
     display: flex;
@@ -224,23 +237,29 @@ nav a:hover {
     text-align: center;
     padding: 1rem;
 }
+
 .qq {
     margin-top: 50px;
     color: #e4250b;
 }
+
 .social-icons i {
     margin: 0 10px;
     font-size: 2rem;
 }
-.icon-footer p{
+
+.icon-footer p {
     color: #000000;
 }
-.icon-footer a i{
+
+.icon-footer a i {
     color: #000000;
 }
-hr{
+
+hr {
     color: #000000;
 }
+
 /* footer */
 footer {
     padding: 2rem 0;
@@ -260,7 +279,7 @@ footer {
         flex-direction: column;
         text-align: center;
     }
-
+ 
     nav {
         flex-direction: column;
     }
@@ -348,11 +367,13 @@ footer {
     height: 100%;
 
 }
-.carousel{
+
+.carousel {
     margin: 70px 0 120px 0;
 
 }
-.carousel h1{
+
+.carousel h1 {
     font-size: 60px;
     margin-top: 20px;
     display: flex;
@@ -364,7 +385,8 @@ footer {
     text-transform: uppercase;
 
 }
-.carousel h1 span{
+
+.carousel h1 span {
     text-align: center;
     align-items: center;
     justify-content: center;
@@ -372,9 +394,9 @@ footer {
     font-weight: bold;
 
     background: linear-gradient(80deg, #000000, #dbdf91);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-left: 15px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-left: 15px;
 }
 
 .carousel-item h3 {
@@ -390,16 +412,18 @@ footer {
 .btn-silder {
     color: rgb(255, 255, 255);
     background: #0c4985;
-    
+
     border: 2px solid #0c4985;
     box-shadow: 0 0 8px #0c4985;
     align-self: center;
 }
-.btn-silder:hover{
+
+.btn-silder:hover {
     border: 2px solid transparent;
     background: #96bfc4;
     color: rgb(0, 0, 0);
 }
+
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
     background-color: rgba(0, 0, 0, 0.7);
@@ -493,7 +517,8 @@ footer {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    flex-wrap: wrap; /* Add this for responsiveness */
+    flex-wrap: wrap;
+    /* Add this for responsiveness */
 }
 
 .about .about_main .about_image {
@@ -512,7 +537,7 @@ footer {
     height: 92px;
     margin: 5px 0;
     cursor: pointer;
-    background:linear-gradient(80deg, #000000, #dbdf91);
+    background: linear-gradient(80deg, #000000, #dbdf91);
     display: block;
     border-radius: 6px;
     padding: 5px 5px;
@@ -581,11 +606,11 @@ footer {
     .about h1 {
         font-size: 50px;
     }
-    
+
     .about .about_main .about_text p {
         width: 400px;
     }
-    
+
     .about .about_main .image_contaner img {
         width: 450px;
         height: 350px;
@@ -651,11 +676,103 @@ footer {
         margin-top: 20px;
     }
 }
+
+.d-flex {
+    display: flex;
+    /* Sử dụng flexbox để sắp xếp các phần tử theo hàng */
+}
+
+.sidebar {
+    width: 200px;
+    /* Chiều rộng của sidebar */
+    margin-right: 20px;
+    /* Khoảng cách bên phải */
+    padding: 20px;
+    /* Padding bên trong */
+    background-color: #f8f9fa;
+    /* Màu nền */
+    border: 1px solid #ccc;
+    /* Viền */
+    margin-top: 150px;
+}
+
+.products {
+    flex-grow: 1;
+    /* Cho phép phần sản phẩm chiếm không gian còn lại */
+}
+
+/* Định dạng cho sidebar có ID filter-form */
+#filter-form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* Tiêu đề trong sidebar */
+#filter-form h4 {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+/* Tiêu đề cho từng phần lọc */
+#filter-form h5 {
+    margin: 10px 0;
+    font-size: 1.2rem;
+    color: #555;
+}
+
+/* Định dạng cho select và input */
+#filter-form select,
+#filter-form input[type="text"],
+#filter-form input[type="range"] {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+/* Hiệu ứng khi hover vào select và input */
+#filter-form select:hover,
+#filter-form input[type="text"]:hover,
+#filter-form input[type="range"]:hover {
+    border-color: #007bff;
+}
+
+/* Nút Lọc */
+#filter-form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+/* Hiệu ứng khi hover vào nút */
+#filter-form button:hover {
+    background-color: #0056b3;
+}
+
+/* Định dạng cho nhãn input range */
+#filter-form label {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
+}
+
 .main-banner video {
     width: 100%;
     height: 600px;
     object-fit: cover;
 }
+
 .main-banner {
     position: relative;
 }
@@ -684,4 +801,130 @@ footer {
 .banner-text p {
     font-size: 1.2em;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.item-img {
+    width: 250px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.item-img img {
+    width: 250px;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.profile-container {
+    background-color: #fff;
+    color: #000000;
+    width: 80%;
+    max-width: 800px;
+    margin: 80px auto;
+    /* Thêm margin-top để không chạm vào header */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+
+.profile-header {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.profile-sidebar {
+    margin-right: 20px;
+    padding-top: 10px;
+}
+
+.profile-sidebar a {
+    display: block;
+    padding: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+}
+
+.profile-sidebar a:hover {
+    background-color: #f0f0f0;
+}
+
+.profile-form {
+    display: flex;
+    gap: 20px;
+}
+
+.profile-form .form-group {
+    margin-bottom: 15px;
+}
+
+.activity-log {
+    margin-top: 30px;
+}
+
+.avatar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.avatar img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.avatar input[type="file"] {
+    margin-top: 10px;
+}
+
+.table {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 8px 12px;
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+    width: auto;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.profile-main {
+    display: flex;
+    align-items: stretch;
+    /* Đảm bảo các phần tử kéo dài */
+    width: 100%;
+    /* Để chia đều không gian */
+}
+
+.profile-form-container {
+    flex: 1;
+    /* Chiếm đầy chiều rộng còn lại */
+}
+
+.vertical-divider {
+    width: 1px;
+    background-color: #ccc;
+    margin: 0 20px;
+    height: auto;
+    align-self: stretch;
+    /* Kéo dài theo chiều cao phần tử lớn nhất */
 }

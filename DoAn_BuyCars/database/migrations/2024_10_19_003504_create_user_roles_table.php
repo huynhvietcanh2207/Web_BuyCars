@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_roles', function (Blueprint $table) {
-            $table->id('RoleId');
+            $table->id();
             $table->string('RoleName', 50);
             $table->string('Description')->nullable();
             $table->timestamps();

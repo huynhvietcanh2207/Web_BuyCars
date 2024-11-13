@@ -1,0 +1,74 @@
+.carousel-inner {
+    height: 100%;
+    width: 1000px;
+}
+
+.carousel-item {
+    border: 2px solid rgba(211, 211, 211, 0.5);
+    background-color: azure;
+}
+
+.carousel-inner img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.row .col-md-6 .detailinfo {
+    margin-top: 80px;
+}
+
+.detailinfo {
+    line-height: 50px;
+}
+
+.detailinfo h3 {
+    font-family: sans-serif;
+    font-weight: bolder;
+    font-size: 50px;
+    color: red;
+}
+
+.detailinfo p {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    color: black;
+}
+
+.pricedetail {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 30px;
+    color: black;
+}
+
+.btn-add-to-cart {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 30px;
+    color: black;
+}
+
+.nav-link.active {
+    font-size: 1.5rem;
+}
+
+h5 {
+    font-size: 1.5rem;
+}
+
+ul li {
+    font-size: 1.1rem;
+}
+
+.detailinfoproduct {
+    line-height: 50px;
+}
+
+.detailinfoproduct h5 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 30px;
+    color: red;
+}
+
+.detailinfoproduct ul li{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: black;
+}
