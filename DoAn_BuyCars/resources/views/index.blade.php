@@ -87,10 +87,10 @@
             <!-- đầu << -->
             @if ($products->onFirstPage())
             <button class="pagination-button" disabled>
-                <<< /button>
+                <<</button>
                     @else
                     <a href="{{ $products->url(1) }}" class="pagination-button">
-                        <<< /a>
+                        <<</a>
                             @endif
                             <!-- giữa -->
                             @for ($i = 1; $i <= $products->lastPage(); $i++)
@@ -124,11 +124,14 @@
                             <img src="{{ $products->image_url }}" class="d-block  img-fluid"
                                 alt="Slide {{ $index + 1 }}">
                         </div>
-                        <div class="col-lg-5 col-md-6 col-sm-12 d-flex flex-column justify-content-center">
-                            <h3>{{ $products->name }}</h3>
+                        <div class="col-lg-5 col-md-6 col-sm-12 d-flex flex-column justify-content-center carousel-item-text">
+                        <div class="name-newProducts">
+                                <h1><a href="#">{{ $products->name }}</a></h1>
+                            </div>
                             <p>Giới thiệu sương sương</p>
-                            <div class="name-newProducts">
-                                Name: <a href="#">{{ $products->name }}</a>
+                           
+                            <div class="price-newProducts">
+                                Giá: <a href="#">{{ $products->price }} VND</a>
                             </div>
                             <div class="about">
                                 <p>{{ $products->description }}</p>
@@ -278,7 +281,6 @@
     <!-- footer -->
 
 </body>
->>>>>>> 10x-laravel-1-TrangChu
 
 </body>
 
