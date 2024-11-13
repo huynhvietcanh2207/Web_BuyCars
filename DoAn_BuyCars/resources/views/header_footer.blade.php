@@ -61,8 +61,11 @@
     <header>
         <div class="container-header header-content">
             <div class="logo">
-                <img src="logoweb.jpg" alt="LOGO"> <!-- Replace with your logo URL -->
+                <a href="{{ route('index') }}">
+                    <img src="logoweb.jpg" alt="LOGO"> <!-- Thay thế với URL logo của bạn -->
+                </a>
             </div>
+
             <nav>
                 <a href="{{route('index')}}">Trang Chủ</a>
                 <a href="{{ route('product') }}">Sản Phẩm</a>
@@ -83,17 +86,17 @@
                         @endforeach
                     </ul>
                 </div>
-                <a href="#">Sản Phẩm Mới</a>
-                <a href="#">Giới Thiệu</a>
+                <a href="#new-products">Sản Phẩm Mới</a>
+                <a href="#About">Giới Thiệu</a>
                 <a href="{{route('favorites.index')}}">Yêu Thích</a>
             </nav>
             <div class="theme-switch">
-                    <label class="switch">
-                        <input type="checkbox" id="themeToggle">
-                        <span class="slider"></span>
-                    </label>
-                    <span id="themeLabel">Sáng</span>
-                </div>
+                <label class="switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="slider"></span>
+                </label>
+                <span id="themeLabel">Sáng</span>
+            </div>
             <div class="icons">
                 <a href="#"><i class="fas fa-search"></i></a>
                 <a href="{{route('cart.index')}}"><i class="fas fa-shopping-cart"></i></a>
@@ -117,7 +120,7 @@
                     </div>
                 </div>
 
-            
+
 
 
 

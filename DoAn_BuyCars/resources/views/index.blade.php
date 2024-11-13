@@ -111,7 +111,7 @@
     </section>
 
     <!-- Sản phẩm mới -->
-    <div class="section-newProducts">
+    <div class="section-newProducts" id="new-products">
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
             <div class="text-product-new">
                 <h1>Sản Phẩm <span>Mới</span></h1>
