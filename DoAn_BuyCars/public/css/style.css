@@ -928,3 +928,117 @@ footer {
     align-self: stretch;
     /* Kéo dài theo chiều cao phần tử lớn nhất */
 }
+/*animation*/
+.text-banner {
+    opacity: 0;
+    transform: translateY(50px); 
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.text-banner.active {
+    opacity: 1; 
+    transform: translateY(0px); 
+}
+.container-products {
+    opacity: 0;
+    transform: translateY(50px); 
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.container-products.active {
+    opacity: 1; 
+    transform: translateY(0px); 
+}
+.product-pagination {
+    opacity: 0;
+    transform: translateY(50px); 
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.product-pagination.active {
+    opacity: 1; 
+    transform: translateY(0px); 
+}
+
+.text-product-new {
+    opacity: 0;
+    transform: translateY(50px); 
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.text-product-new.active {
+    opacity: 1; 
+    transform: translateY(0px); 
+}
+.product-news {
+    opacity: 0;
+    transform: translateY(50px); 
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.product-news.active {
+    opacity: 1; 
+    transform: translateY(0px); 
+}
+.text-about {
+    opacity: 0;
+    transform: translateY(50px); 
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.text-about.active {
+    opacity: 1; 
+    transform: translateY(0px); 
+}
+.about-footerr {
+    opacity: 0;
+    transform: translateY(50px); 
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.about-footerr.active {
+    opacity: 1; 
+    transform: translateY(0px); 
+}
+
+.about-footerrr {
+    opacity: 0;
+    transform: translateY(50px); 
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.about-footerrr.active {
+    opacity: 1; 
+    transform: translateY(0px); 
+}
+
+.btn-footerr {
+    opacity: 0;
+    transform: translateY(50px); 
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.btn-footerr.active {
+    opacity: 1; 
+    transform: translateY(0px); 
+}
+.qq {
+    opacity: 0;
+    transform: translateY(50px); 
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.qq.active {
+    opacity: 1; 
+    transform: translateY(0px); 
+}
+.icon-footer {
+    opacity: 0;
+    transform: translateY(50px); 
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.icon-footer.active {
+    opacity: 1; 
+    transform: translateY(0px); 
+}
