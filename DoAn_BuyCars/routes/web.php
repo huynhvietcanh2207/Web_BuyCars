@@ -63,7 +63,6 @@ Route::post('/cart/update', [CartItemController::class, 'updateCart'])->name('ca
 Route::post('/cart/chooseDelete', [CartItemController::class, 'chooseDelete'])->name('cart.chooseDelete');
 Route::get('/detail/{id}',[DetailController::class, 'indexDetail'])->name('detail.index');
 
-
 // Route cho admin
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('/', [AdminController::class, 'indexAdmin'])->name('admin');

@@ -55,7 +55,8 @@
                                                 <input type="text"
                                                     class="form-control d-inline text-center quantity-input"
                                                     style="width: 60px;" value="{{ $item->quantity }}"
-                                                    data-price="{{ $item->product->price }}" min="1">
+                                                    data-price="{{ $item->product->price }}" min="1"
+                                                    data-max="{{ $item->product->quantity }}">
                                                 <button
                                                     class="btn btn-outline-secondary quantity-btn increase-btn">+</button>
                                             </td>
@@ -123,13 +124,19 @@
                     const quantityInput = row.find('.quantity-input');
                     let quantity = parseInt(quantityInput.val());
 
-                    if ($(this).hasClass('increase-btn')) {
+                    // if ($(this).hasClass('increase-btn')) {
+                    //     quantity++;
+                    // } else if ($(this).hasClass('decrease-btn') && quantity > 1) {
+                    //     quantity--;
+                    // }
+
+                    if ($(this).hasClass('increase-btn') && quantity < quantityInput.data('max')) {
                         quantity++;
                     } else if ($(this).hasClass('decrease-btn') && quantity > 1) {
                         quantity--;
                     }
                     quantityInput.val(quantity);
-
+                    updateButtonStates(quantityInput);
                     updateCart(cartItemId, quantity);
                     updateTotal();
                 });
@@ -237,6 +244,38 @@
                     }
                 }
                 updateTotal()
+
+                //Hàm checkButton
+                function updateButtonStates(quantityInput) {
+                    const quantity = parseInt(quantityInput.val());
+                    const maxQuantity = parseInt(quantityInput.data('max'));
+                    const increaseBtn = quantityInput.siblings('.increase-btn');
+                    const decreaseBtn = quantityInput.siblings('.decrease-btn');
+
+                    increaseBtn.prop('disabled', quantity >= maxQuantity);
+                    decreaseBtn.prop('disabled', quantity <= 1);
+                }
+
+                $('.quantity-input').each(function() {
+                    updateButtonStates($(this));
+                });
+
+                $('.quantity-input').on('input', function() {
+                    const quantityInput = $(this);
+                    let quantity = parseInt(quantityInput.val());
+                    const maxQuantity = parseInt(quantityInput.data('max'));
+
+                    if (quantity > maxQuantity) {
+                        quantity = maxQuantity;
+                    } else if (quantity < 1 || isNaN(quantity)) {
+                        quantity = 1;
+                    }
+
+                    quantityInput.val(quantity);
+                    updateButtonStates(quantityInput); // Update button states
+                    updateCart(quantityInput.closest('tr').data('id'), quantity);
+                    updateTotal();
+                });
             });
         </script>
     </body>

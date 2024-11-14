@@ -28,9 +28,11 @@
             <div class="row">
                 <div class="col-md-6 imgdetail">
                     <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
+                        <div class="carousel-inner zoom-container">
                             <div class="carousel-item active">
-                                <img src="{{ asset($product->image_url) }}" class="d-block" alt="{{ $product->name }}">
+                                <img src="{{ asset($product->image_url) }}" class="d-block" alt="{{ $product->name }}"
+                                    id="zoomedImage">
+                                <div class="magnifier" id="magnifier"></div>
                             </div>
                         </div>
                     </div>
@@ -40,17 +42,22 @@
                 <div class="col-md-5">
                     <div class="detailinfo">
                         <h3>{{ $product->name }}</h3>
-                        <p>Thương hiệu: Đang cập nhật...</p>
+                        <p style="color: #FFD700"><strong>Thương hiệu:</strong> {{ $product->brand->BrandName ?? 'N/A' }}
+                        </p>
                         <h4 class="text-danger pricedetail">{{ number_format($product->price, 0, ',', '.') }} VNĐ</h4>
+                        <p style="color: #FFD700"><strong>Số lượng:</strong> {{ $product->quantity }}</p>
+
                         <div class="input-group mb-3">
-                            <button class="btn btn-outline-secondary" type="button">-</button>
-                            <input type="text" class="form-control text-center" value="1" style="max-width: 60px;"
-                                min="1">
-                            <button class="btn btn-outline-secondary" type="button">+</button>
+                            <button class="btn btn-outline-secondary" type="button" id="decreaseQuantity">-</button>
+                            <input type="text" class="form-control text-center" name="quantity" id="productQuantity"
+                                value="1" style="max-width: 60px;" min="1" data-max="{{ $product->quantity }}">
+                            <button class="btn btn-outline-secondary" type="button" id="increaseQuantity">+</button>
                         </div>
+
                         <form action="{{ route('cart.add', $product->ProductId) }}" method="POST">
                             @csrf
                             <input type="hidden" name="product_id" value="{{ $product->ProductId }}">
+                            <input type="hidden" name="quantity" id="cartQuantity" value="1">
                             @if (auth()->check())
                                 <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                             @endif
@@ -87,7 +94,7 @@
             const shortDescription = document.querySelector(".short-description");
             const fullDescription = document.querySelector(".full-description");
 
-             if (shortDescription.innerText.length < 250) {
+            if (shortDescription.innerText.length < 250) {
                 toggleButton.style.display = "none";
             }
 
@@ -100,6 +107,79 @@
                     toggleButton.textContent = "Xem thêm...";
                 }
             });
+
+            const increaseButton = document.getElementById("increaseQuantity");
+            const decreaseButton = document.getElementById("decreaseQuantity");
+            const quantityInput = document.getElementById("productQuantity");
+            const cartQuantityInput = document.getElementById("cartQuantity");
+
+            const maxQuantity = parseInt(quantityInput.dataset.max);
+
+            function updateButtonStates(quantity) {
+                increaseButton.disabled = (quantity >= maxQuantity);
+                decreaseButton.disabled = (quantity <= 1);
+            }
+
+            updateButtonStates(parseInt(quantityInput.value));
+
+            increaseButton.addEventListener("click", function() {
+                let quantity = parseInt(quantityInput.value);
+                if (quantity < maxQuantity) {
+                    quantityInput.value = quantity + 1;
+                    cartQuantityInput.value = quantityInput.value;
+                    updateButtonStates(quantity + 1);
+                }
+            });
+
+            decreaseButton.addEventListener("click", function() {
+                let quantity = parseInt(quantityInput.value);
+                if (quantity > 1) {
+                    quantityInput.value = quantity - 1;
+                    cartQuantityInput.value = quantityInput.value;
+                    updateButtonStates(quantity - 1);
+                }
+            });
+
+            quantityInput.addEventListener("input", function() {
+                let quantity = parseInt(quantityInput.value);
+                if (quantity > maxQuantity) {
+                    quantityInput.value = maxQuantity;
+                } else if (quantity < 1 || isNaN(quantity)) {
+                    quantityInput.value = 1;
+                }
+                cartQuantityInput.value = quantityInput.value;
+                updateButtonStates(parseInt(quantityInput.value));
+            });
+
+            // Hiệu ứng phóng to hình ảnh
+            const zoomedImage = document.getElementById("zoomedImage");
+            const magnifier = document.getElementById("magnifier");
+            const zoomLevel = 2;
+
+            if (zoomedImage && magnifier) {
+                zoomedImage.addEventListener("mousemove", function(event) {
+                    const {
+                        left,
+                        top,
+                        width,
+                        height
+                    } = zoomedImage.getBoundingClientRect();
+                    const x = event.clientX - left;
+                    const y = event.clientY - top;
+
+                    magnifier.style.backgroundImage = `url(${zoomedImage.src})`;
+                    magnifier.style.backgroundSize = `${width * zoomLevel}px ${height * zoomLevel}px`;
+                    magnifier.style.backgroundPosition =
+                        `-${x * zoomLevel - magnifier.offsetWidth / 2}px -${y * zoomLevel - magnifier.offsetHeight / 2}px`;
+                    magnifier.style.left = `${x - magnifier.offsetWidth / 2}px`;
+                    magnifier.style.top = `${y - magnifier.offsetHeight / 2}px`;
+                    magnifier.style.display = "block";
+                });
+
+                zoomedImage.addEventListener("mouseleave", function() {
+                    magnifier.style.display = "none";
+                });
+            }
         });
     </script>
 
