@@ -17,7 +17,7 @@
                 <img src="{{ asset('images/banner1.jpg') }}" alt="Banner">
                 <h1>GIỎ HÀNG</h1>
                 <p><span id="hightlight">Trang chủ ></span> Giỏ hàng</p>
-            </div>
+            </div>c
         </div>
         <div class="container my-5">
             <div class="cart">
@@ -26,40 +26,43 @@
                         <table class="cart-table table text-center" id="cartTable">
                             <thead>
                                 <tr>
+                                    <th></th>
                                     <th>Ảnh sản phẩm</th>
                                     <th>Tên sản phẩm</th>
                                     <th>Đơn giá</th>
-                                    <th>Số lượng</th>
+                                    <th style="width: 200px">Số lượng</th>
                                     <th>Thành tiền</th>
-                                    <th>Cập nhật lúc</th>
                                     <th>Xóa</th>
                                 </tr>
                             </thead>
                             <tbody id="cartItemsBody">
                                 @if ($cartItems->count() > 0)
                                     @foreach ($cartItems as $item)
-                                        <tr class="cart-item" data-id="{{ $item->CartItemId }}"
-                                            data-updated-at="{{ $item->updated_at }}">
+                                        <tr class="cart-item" data-id="{{ $item->CartItemId }}">
+                                            <td class="checkbox"><input type="checkbox" class="remove-item"
+                                                    data-id="{{ $item->CartItemId }}"></td>
                                             <td>
                                                 <img src="{{ asset($item->product->image_url) }}"
                                                     alt="{{ $item->product->name }}" class="img-fluid" width="100">
                                             </td>
                                             <td>{{ $item->product->name }}</td>
                                             <td class="product-price">
-                                                {{ number_format($item->product->price, 0, ',', '.') }}₫</td>
+                                                {{ number_format($item->product->price, 0, ',', '.') }}₫
+                                            </td>
                                             <td>
                                                 <button
                                                     class="btn btn-outline-secondary quantity-btn decrease-btn">-</button>
                                                 <input type="text"
                                                     class="form-control d-inline text-center quantity-input"
                                                     style="width: 60px;" value="{{ $item->quantity }}"
-                                                    data-price="{{ $item->product->price }}" min="1">
+                                                    data-price="{{ $item->product->price }}" min="1"
+                                                    data-max="{{ $item->product->quantity }}">
                                                 <button
                                                     class="btn btn-outline-secondary quantity-btn increase-btn">+</button>
                                             </td>
-                                            <td class="product_item">{{ number_format($item->price, 0, ',', '.') }}₫
+                                            <td class="product_item">
+                                                {{ number_format($item->product->price * $item->quantity, 0, ',', '.') }}₫
                                             </td>
-                                            <td>{{ $item->updated_at }}</td>
                                             <td>
                                                 <form action="{{ route('cart.destroy', $item->CartItemId) }}"
                                                     method="POST">
@@ -82,29 +85,15 @@
                         </table>
                     </div>
                 </div>
-
-                <!-- Phân trang -->
-                @if ($cartItems->count() > 0)
-                    <div id="pagination" class="d-flex justify-content-center mt-3">
-                        {{ $cartItems->links('pagination::bootstrap-4') }}
-                    </div>
-                @endif
-
-                <!-- Form để cập nhật số lượng và tổng tiền -->
-                <form action="{{ route('cart.update') }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    @foreach ($cartItems as $item)
-                        <input type="hidden" name="cartItems[{{ $item->CartItemId }}][quantity]"
-                            value="{{ $item->quantity }}">
-                        <input type="hidden" name="cartItems[{{ $item->CartItemId }}][price]"
-                            value="{{ $item->price }}">
-                    @endforeach
+                <div id="checkall"><input type="checkbox" id="selectAll" class="me-2" value="">Chọn tất cả sản phẩm
+                </div>
+                <form>
                     <div class="cart-footer d-flex justify-content-between align-items-center mt-4">
                         <button type="button" class="btn btn-outline-danger continue-shopping"
                             onclick="window.location.href='{{ route('index') }}'">
                             TIẾP TỤC MUA HÀNG
                         </button>
+                        <button type="button" id="delete-selected" class="btn btn-danger">Xóa các mục đã chọn</button>
                         <div class="total text-end">
                             <label for="total" class="text-dark">Tổng tiền thanh toán: </label>
                             <input type="text" id="total" class="form-control d-inline" readonly
@@ -116,7 +105,179 @@
             </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="{{ asset('/js/cart.js') }}"></script>
+        <script>
+            $(document).ready(function() {
+                $('.remove-item').on('change', function() {
+                    updateTotal();
+                });
+
+                $('#selectAll').on('change', function() {
+                    let isChecked = $(this).prop('checked');
+                    $('.remove-item').prop('checked', isChecked);
+                    updateTotal();
+                });
+
+                $('.quantity-btn').on('click', function(e) {
+                    e.preventDefault();
+                    const row = $(this).closest('tr');
+                    const cartItemId = row.data('id');
+                    const quantityInput = row.find('.quantity-input');
+                    let quantity = parseInt(quantityInput.val());
+
+                    // if ($(this).hasClass('increase-btn')) {
+                    //     quantity++;
+                    // } else if ($(this).hasClass('decrease-btn') && quantity > 1) {
+                    //     quantity--;
+                    // }
+
+                    if ($(this).hasClass('increase-btn') && quantity < quantityInput.data('max')) {
+                        quantity++;
+                    } else if ($(this).hasClass('decrease-btn') && quantity > 1) {
+                        quantity--;
+                    }
+                    quantityInput.val(quantity);
+                    updateButtonStates(quantityInput);
+                    updateCart(cartItemId, quantity);
+                    updateTotal();
+                });
+
+                $('#delete-selected').on('click', function() {
+                    let selectedItems = [];
+                    $('.remove-item:checked').each(function() {
+                        selectedItems.push($(this).data('id'));
+                    });
+
+                    if (selectedItems.length > 0) {
+                        if (confirm('Bạn có chắc chắn muốn xóa các sản phẩm đã chọn không?')) {
+                            $.ajax({
+                                url: "{{ route('cart.chooseDelete') }}",
+                                type: "POST",
+                                data: {
+                                    _token: "{{ csrf_token() }}",
+                                    cartItemIds: selectedItems
+                                },
+                                success: function(response) {
+                                    selectedItems.forEach(id => {
+                                        $('tr[data-id="' + id + '"]').remove();
+                                    });
+                                    updateTotal();
+                                },
+                                error: function(xhr) {
+                                    alert('Đã xảy ra lỗi khi xóa. Vui lòng thử lại.');
+                                    console.error(xhr.responseText);
+                                }
+                            });
+                        }
+                    } else {
+                        alert('Vui lòng chọn ít nhất một sản phẩm để xóa.');
+                    }
+                });
+
+                $('.delete-btn').on('click', function(e) {
+                    e.preventDefault();
+                    if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')) {
+                        $(this).closest('form').submit();
+                    }
+                });
+
+                function updateCart(cartItemId, quantity) {
+                    $.ajax({
+                        url: "{{ route('cart.update') }}",
+                        type: "POST",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            cartItemId: cartItemId,
+                            quantity: quantity
+                        },
+                        success: function(response) {
+                            const productRow = $('tr[data-id="' + cartItemId + '"]');
+                            productRow.find('.product_item').text(response.updatedItemPrice);
+                            updateTotal();
+                        },
+                        error: function(xhr) {
+                            alert('Đã xảy ra lỗi. Vui lòng thử lại.');
+                            console.error(xhr.responseText);
+                        }
+                    });
+                }
+
+                function updateTotal() {
+                    let total = 0;
+                    const selectedItems = $('.remove-item:checked');
+
+                    //Tổng giá theo sản phẩm được check
+                    if (selectedItems.length > 0) {
+                        selectedItems.each(function() {
+                            const row = $(this).closest('tr');
+                            const priceText = row.find('.product_item').text();
+                            const price = parseFloat(priceText.replace(/\./g, '').replace('₫', '')
+                                .replace(',',
+                                    '.'));
+                            total += price;
+                        });
+                    } else {
+                        //Tổng giá theo không có sản phẩm nào được check cả
+                        $('.product_item').each(function() {
+                            const priceText = $(this).text();
+                            const price = parseFloat(priceText.replace(/\./g, '').replace('₫', '')
+                                .replace(',',
+                                    '.'));
+                            total += price;
+                        });
+                    }
+                    $('#total').val(total.toLocaleString('vi-VN', {
+                        style: 'currency',
+                        currency: 'VND'
+                    }));
+
+                    //Nút button hiển thị ra khi có ít nhất 1 sản phẩm được chọn
+                    if (selectedItems.length > 0) {
+                        $('#delete-selected').show();
+                        $('#selectAll').show();
+                        if ($('.cart-item').length > 1) {
+                            $('#checkall').show();
+                        }
+                    } else {
+                        $('#delete-selected').hide();
+                        $('#selectAll').hide();
+                        $('#checkall').hide();
+                    }
+                }
+                updateTotal()
+
+                //Hàm checkButton
+                function updateButtonStates(quantityInput) {
+                    const quantity = parseInt(quantityInput.val());
+                    const maxQuantity = parseInt(quantityInput.data('max'));
+                    const increaseBtn = quantityInput.siblings('.increase-btn');
+                    const decreaseBtn = quantityInput.siblings('.decrease-btn');
+
+                    increaseBtn.prop('disabled', quantity >= maxQuantity);
+                    decreaseBtn.prop('disabled', quantity <= 1);
+                }
+
+                $('.quantity-input').each(function() {
+                    updateButtonStates($(this));
+                });
+
+                $('.quantity-input').on('input', function() {
+                    const quantityInput = $(this);
+                    let quantity = parseInt(quantityInput.val());
+                    const maxQuantity = parseInt(quantityInput.data('max'));
+
+                    if (quantity > maxQuantity) {
+                        quantity = maxQuantity;
+                    } else if (quantity < 1 || isNaN(quantity)) {
+                        quantity = 1;
+                    }
+
+                    quantityInput.val(quantity);
+                    updateButtonStates(quantityInput); // Update button states
+                    updateCart(quantityInput.closest('tr').data('id'), quantity);
+                    updateTotal();
+                });
+            });
+        </script>
     </body>
 
     </html>

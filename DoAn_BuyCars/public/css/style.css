@@ -1001,14 +1001,11 @@ footer {
 .profile-main {
     display: flex;
     align-items: stretch;
-    /* Đảm bảo các phần tử kéo dài */
     width: 100%;
-    /* Để chia đều không gian */
 }
 
 .profile-form-container {
     flex: 1;
-    /* Chiếm đầy chiều rộng còn lại */
 }
 
 .vertical-divider {
@@ -1017,6 +1014,7 @@ footer {
     margin: 0 20px;
     height: auto;
     align-self: stretch;
+}
     /* Kéo dài theo chiều cao phần tử lớn nhất */
 }
 /*animation*/
@@ -1133,3 +1131,4 @@ footer {
     opacity: 1; 
     transform: translateY(0px); 
 }
+

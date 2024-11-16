@@ -88,9 +88,11 @@
         margin: 0;
         border: 1px solid black;
     }
-    #cartItemsBody tr{
+
+    #cartItemsBody tr {
         border: 1px solid black;
     }
+
     .cart-table img {
         width: 100px;
     }
@@ -183,12 +185,6 @@
         color: rgb(126, 239, 126);
     }
 
-    th:nth-child(6),
-    td:nth-child(6) {
-        display: none;
-    }
-
-
     /* Phân trang */
     #pagination {
         margin-top: 50px;
@@ -220,4 +216,23 @@
         background-color: #007bff;
         color: white;
         border: 1px solid #007bff;
+    }
+
+
+    input[type="checkbox"].remove-item {
+        transform: scale(1);
+        width: 20px;
+        height: 20px;
+        margin-top: 20px;
+    }
+
+    input[type="checkbox"]#selectAll {
+        transform: scale(1);
+        width: 20px;
+        height: 20px;
+        margin-right: 100spx;
+    }
+
+    #checkall{
+        color: black;
     }

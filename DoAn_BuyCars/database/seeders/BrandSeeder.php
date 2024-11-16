@@ -18,21 +18,21 @@ class BrandSeeder extends Seeder
 
         // Chèn dữ liệu vào bảng brands
         DB::table('brands')->insert([
-            ['BrandName' => 'Toyota', 'image_url' => 'https://example.com/toyota.png'],
-            ['BrandName' => 'Honda', 'image_url' => 'https://example.com/honda.png'],
-            ['BrandName' => 'Ford', 'image_url' => 'https://example.com/ford.png'],
-            ['BrandName' => 'Chevrolet', 'image_url' => 'https://example.com/chevrolet.png'],
-            ['BrandName' => 'Nissan', 'image_url' => 'https://example.com/nissan.png'],
-            ['BrandName' => 'BMW', 'image_url' => 'https://example.com/bmw.png'],
-            ['BrandName' => 'Mercedes-Benz', 'image_url' => 'https://example.com/mercedes.png'],
-            ['BrandName' => 'Volkswagen', 'image_url' => 'https://example.com/volkswagen.png'],
-            ['BrandName' => 'Hyundai', 'image_url' => 'https://example.com/hyundai.png'],
-            ['BrandName' => 'Kia', 'image_url' => 'https://example.com/kia.png'],
-            ['BrandName' => 'Subaru', 'image_url' => 'https://example.com/subaru.png'],
-            ['BrandName' => 'Lexus', 'image_url' => 'https://example.com/lexus.png'],
-            ['BrandName' => 'Mazda', 'image_url' => 'https://example.com/mazda.png'],
-            ['BrandName' => 'Porsche', 'image_url' => 'https://example.com/porsche.png'],
-            ['BrandName' => 'Jaguar', 'image_url' => 'https://example.com/jaguar.png'],
+            ['BrandName' => 'Toyota', 'image_url' => 'mec 001.jpg'],
+            ['BrandName' => 'Honda', 'image_url' => 'mec 001.jpg'],
+            ['BrandName' => 'Ford', 'image_url' => 'mec 001.jpg'],
+            ['BrandName' => 'Chevrolet', 'image_url' => 'mec 001.jpg'],
+            ['BrandName' => 'Nissan', 'image_url' => 'mec 001.jpg'],
+            ['BrandName' => 'BMW', 'image_url' => 'mec 001.jpg'],
+            ['BrandName' => 'Mercedes-Benz', 'image_url' => 'mec 001.jpg'],
+            ['BrandName' => 'Volkswagen', 'image_url' => 'mec 001.jpg'],
+            ['BrandName' => 'Hyundai', 'image_url' => 'mec 001.jpg'],
+            ['BrandName' => 'Kia', 'image_url' => 'mec 001.jpg'],
+            ['BrandName' => 'Subaru', 'image_url' => 'mec 001.jpg'],
+            ['BrandName' => 'Lexus', 'image_url' => 'mec 001.jpg'],
+            ['BrandName' => 'Mazda', 'image_url' => 'mec 001.jpg'],
+            ['BrandName' => 'Porsche', 'image_url' => 'mec 001.jpg'],
+            ['BrandName' => 'Jaguar', 'image_url' => 'mec 001.jpg'],
         ]);
     }
 }

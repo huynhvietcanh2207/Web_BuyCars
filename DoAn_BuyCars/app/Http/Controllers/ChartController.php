@@ -85,12 +85,14 @@ class ChartController extends Controller
     //Lượng thu và chi
     public function calculateIncome()
     {
+        // dd('Income:', CartItem::sum(DB::raw('quantity * price')));
         return CartItem::sum(DB::raw('quantity * price'));
     }
 
     public function calculateExpenses()
     {
-        return Product::sum('price');
+        // dd('Expensess:', Product::sum(DB::raw('quantity * price')));
+        return Product::sum(DB::raw('quantity * price'));
     }
 
     //Số lượng người dùng theo tháng

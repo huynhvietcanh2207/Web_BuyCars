@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Favorite;
@@ -64,6 +65,7 @@ class ProductController extends Controller
     {
         //
     }
+
     public function showProducts()
     {
         // Lấy danh sách sản phẩm với phân trang
@@ -80,7 +82,7 @@ class ProductController extends Controller
         $brands = Brand::all();
         $colors = Product::select('color')->distinct()->pluck('color');
         // Truyền danh sách sản phẩm sang view 'product'
-        return view('product', compact('products','brands','colors'));
+        return view('product', compact('products', 'brands', 'colors'));
     }
     public function filter(Request $request)
     {
@@ -96,7 +98,7 @@ class ProductController extends Controller
         if (!empty($brandIds)) {
             $query->whereIn('BrandId', $brandIds);
         }
-    
+
         // Lọc theo giá
         if ($minPrice) {
             $query->where('price', '>=', $minPrice);
@@ -104,12 +106,12 @@ class ProductController extends Controller
         if ($maxPrice) {
             $query->where('price', '<=', $maxPrice);
         }
-    
+
         // Lọc theo màu sắc
         if ($color) {
             $query->where('color', $color);
         }
-    
+
         // Lấy danh sách sản phẩm đã lọc
         $products = $query->get();
         $userId = Auth::id();
@@ -125,7 +127,4 @@ class ProductController extends Controller
             return response()->json(['html' => $view]);
         }
     }
-    
-
-
 }

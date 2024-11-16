@@ -14,4 +14,10 @@ class Product extends Model
 
     // Các trường có thể được thêm hoặc chỉnh sửa
     protected $fillable = ['name', 'BrandId', 'price', 'description', 'image_url', 'color'];
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class, 'BrandId');
+    }   
+
 }

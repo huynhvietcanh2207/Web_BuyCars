@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedBigInteger('BrandId');
             $table->decimal('price', 18, 2);
+            $table->integer('quantity');
             $table->text('description')->nullable();
             $table->string('image_url')->nullable();
             $table->string('color', 50)->nullable();
