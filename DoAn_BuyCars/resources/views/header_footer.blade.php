@@ -39,21 +39,21 @@
         }
     </style>
 </head>
-@if(session()->has('success'))
-<script>
-    window.onload = function() {
-        alert("{{ session('success') }}");
-    }
-</script>
+@if (session()->has('success'))
+    <script>
+        window.onload = function() {
+            alert("{{ session('success') }}");
+        }
+    </script>
 @endif
 
 <!-- Thông báo alert cho error -->
-@if(session()->has('error'))
-<script>
-    window.onload = function() {
-        alert("{{ session('error') }}");
-    }
-</script>
+@if (session()->has('error'))
+    <script>
+        window.onload = function() {
+            alert("{{ session('error') }}");
+        }
+    </script>
 @endif
 
 <body>
@@ -67,11 +67,11 @@
             </div>
 
             <nav>
-                <a href="{{route('index')}}">Trang Chủ</a>
+                <a href="{{ route('index') }}">Trang Chủ</a>
                 <a href="{{ route('product') }}">Sản Phẩm</a>
                 <div class="dropdown">
-                    <a class="dropdown-toggle" href="#" id="brandDropdown" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                    <a class="dropdown-toggle" href="#" id="brandDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
                         Thương Hiệu
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="brandDropdown">
@@ -79,16 +79,16 @@
                             <a class="dropdown-item" href="/brands">Tất cả thương hiệu</a>
                         </li>
                         @foreach ($sidebar_brands as $row)
-                        <li>
-                            <a class="dropdown-item"
-                                href="{{ route('brands.showBrand', $row->BrandId) }}">{{ $row->BrandName }}</a>
-                        </li>
+                            <li>
+                                <a class="dropdown-item"
+                                    href="{{ route('brands.showBrand', $row->BrandId) }}">{{ $row->BrandName }}</a>
+                            </li>
                         @endforeach
                     </ul>
                 </div>
                 <a href="#new-products">Sản Phẩm Mới</a>
                 <a href="#About">Giới Thiệu</a>
-                <a href="{{route('favorites.index')}}">Yêu Thích</a>
+                <a href="{{ route('favorites.index') }}">Yêu Thích</a>
             </nav>
             <div class="theme-switch">
                 <label class="switch">
@@ -98,39 +98,36 @@
                 <span id="themeLabel">Sáng</span>
             </div>
             <div class="icons">
-<form action="{{ route('search') }}" method="GET" class="d-flex align-items-center">
-                <input type="text" name="query" placeholder="Tìm kiếm..." class="form-control" style="width: 200px; margin-right: 10px;">
-                <button type="submit" class="btn btn-light">
-                    <i class="fas fa-search"></i>
-                </button>
-            </form>                <a href="{{route('cart.index')}}"><i class="fas fa-shopping-cart"></i></a>
+                <a href="#"><i class="fas fa-search"></i></a>
+                <a href="{{ route('cart.index') }}"><i class="fas fa-shopping-cart"></i></a>
                 <div class="dropdown-user">
                     <a href="#" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></a>
                     <div class="dropdown-menu">
                         @auth
-                        <a href="{{ route('account.profile') }}">Cá nhân</a>
+                            <a href="{{ route('account.profile') }}">Cá nhân</a>
 
-                        <a href="{{ route('password.change') }}">Đổi Mật Khẩu</a>
+                            <a href="{{ route('password.change') }}">Đổi Mật Khẩu</a>
 
 
-                        <a href="{{ route('logout') }}"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng Xuất</a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
+                            <a href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng
+                                Xuất</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
                         @else
-                        <a href="{{ route('login') }}">Đăng Nhập</a>
+                            <a href="{{ route('login') }}">Đăng Nhập</a>
                         @endauth
                     </div>
                 </div>
 
 
 
-                </div>
             </div>
         </div>
-    </div>
-</header>
+        </div>
+        </div>
+    </header>
 
 
 
@@ -155,9 +152,12 @@
                     <h5>Kết Nối Với Chúng Tôi</h5>
                     <p>Theo dõi chúng tôi trên các nền tảng mạng xã hội để không bỏ lỡ bất kỳ thông tin nào!</p>
                     <div class="social-icons">
-                        <a href="#" class="text-white me-3" title="Facebook"><i class="fab fa-facebook fa-2x"></i></a>
-                        <a href="#" class="text-white me-3" title="Instagram"><i class="fab fa-instagram fa-2x"></i></a>
-                        <a href="#" class="text-white me-3" title="Twitter"><i class="fab fa-twitter fa-2x"></i></a>
+                        <a href="#" class="text-white me-3" title="Facebook"><i
+                                class="fab fa-facebook fa-2x"></i></a>
+                        <a href="#" class="text-white me-3" title="Instagram"><i
+                                class="fab fa-instagram fa-2x"></i></a>
+                        <a href="#" class="text-white me-3" title="Twitter"><i
+                                class="fab fa-twitter fa-2x"></i></a>
                         <a href="#" class="text-white" title="YouTube"><i class="fab fa-youtube fa-2x"></i></a>
                     </div>
                     <p class="mt-3">Hoặc quét mã QR bên dưới để theo dõi ngay:</p>
@@ -176,10 +176,13 @@
                             <button class="btn btn-primary" type="submit" style="width: 200px;">Đăng Nhập</button>
                         </div>
                     </form>
-                    <p class="mt-3"><i class="fas fa-user-lock"></i> Chúng tôi cam kết bảo mật thông tin của bạn.</p>
-                    <p><i class="fas fa-info-circle"></i> Nếu bạn quên mật khẩu, <a href="#" class="text-white">nhấp vào
+                    <p class="mt-3"><i class="fas fa-user-lock"></i> Chúng tôi cam kết bảo mật thông tin của bạn.
+                    </p>
+                    <p><i class="fas fa-info-circle"></i> Nếu bạn quên mật khẩu, <a href="#"
+                            class="text-white">nhấp vào
                             đây để khôi phục</a>.</p>
-                    <p><i class="fas fa-user-plus"></i> Chưa có tài khoản? <a href="#" class="text-white">Đăng ký
+                    <p><i class="fas fa-user-plus"></i> Chưa có tài khoản? <a href="#" class="text-white">Đăng
+                            ký
                             ngay</a>.</p>
                 </div>
             </div>
