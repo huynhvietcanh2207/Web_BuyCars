@@ -12,38 +12,28 @@ class CartItemController extends Controller
 {
     public function index()
     {
-        if (Auth::check()) {
-            $id = Auth::user()->id;
-        } else {
-            return redirect("login");
+        if (!Auth::check()) {
+            return redirect('login');
         }
-        $cartItems = CartItem::with('product')
-        ->where('UserId', $id) // Lọc theo UserId của người dùng đang đăng nhập
-            ->orderBy('updated_at', 'desc')
-            ->paginate(5);
+
+        $userId = Auth::id();
+        $cartItems = CartItem::getUserCartItems($userId)->paginate(5);
 
         return view('cart', ['cartItems' => $cartItems]);
     }
 
-    // public function destroy($id)
-    // {
-    //     $cartItem = DB::table('cart_items')->where('CartItemId', $id)->delete();
-    //     return view('cart', ['cartItems' => $cartItem]);
-    // }
     public function destroy($id)
     {
-        DB::table('cart_items')->where('CartItemId', $id)->delete();
+        CartItem::deleteProductID($id);
         return redirect()->route('cart.index')->with('success', 'Sản phẩm đã được xóa thành công.');
     }
 
-    //Xóa sản phẩm chọn
     public function chooseDelete(Request $request)
     {
         $cartItemIds = $request->input('cartItemIds', []);
 
-        if (count($cartItemIds) > 0
-        ) {
-            CartItem::whereIn('CartItemId', $cartItemIds)->delete();
+        if (!empty($cartItemIds)) {
+            CartItem::deleteProductListID($cartItemIds);
         }
 
         return response()->json(['message' => 'Các mục đã được xóa thành công.']);
@@ -54,141 +44,44 @@ class CartItemController extends Controller
         $cartItemId = $request->cartItemId;
         $quantity = $request->quantity;
 
-        $cartItem = CartItem::find($cartItemId);
-        if ($cartItem) {
-            $cartItem->quantity = $quantity;
-            $cartItem->price = $cartItem->product->price * $cartItem->quantity;
-            $cartItem->save();
+        $cartItem = CartItem::updateCartItem($cartItemId, $quantity);
 
+        if ($cartItem) {
             $updatedItemPrice = number_format($cartItem->price, 0, ',', '.') . '₫';
-            // Return JSON response instead of dumping
             return response()->json(['updatedItemPrice' => $updatedItemPrice]);
         }
 
         return response()->json(['error' => 'Không tìm thấy sản phẩm.'], 404);
     }
 
-    // public function addToCart(Request $request)
-    // {
-    //     if (Auth::check()) {
-    //         $id = Auth::user()->id;
-    //     } else {
-    //         return redirect("login"); // Đảm bảo trả về redirect
-    //     }
-    //     $validatedData = $request->validate([
-    //         'product_id' => 'required|exists:products,ProductId',
-    //         'user_id' => 'required|exists:users,id',
-    //     ]);
-
-    //     $productId = $validatedData['product_id'];
-    //     $userId = $validatedData['user_id'];
-
-    //     $cartItem = CartItem::where('UserId', $userId)
-    //         ->where('ProductId', $productId)
-    //         ->first();
-
-    //     if ($cartItem) {
-    //         $cartItem->quantity += 1;
-    //         $product = Product::find($productId);
-    //         $cartItem->price = $product->price * $cartItem->quantity;
-    //         $cartItem->save();
-    //     } else {
-    //         $product = Product::find($productId);
-    //         CartItem::create([
-    //             'UserId' => $userId,
-    //             'ProductId' => $productId,
-    //             'quantity' => 1,
-    //             'price' => $product->price,
-    //         ]);
-    //     }
-    //     return redirect()->route('index')->with('success', 'Sản phẩm đã được thêm vào giỏ hàng.');
-    // }
-
-    // public function addToCart(Request $request)
-    // {
-    //     if (!Auth::check()) {
-    //         return redirect("login");
-    //     }
-
-    //     $validatedData = $request->validate([
-    //         'product_id' => 'required|exists:products,ProductId',
-    //         'user_id' => 'required|exists:users,id',
-    //         'quantity' => 'required|integer|min:1',
-    //     ]);
-
-    //     $productId = $validatedData['product_id'];
-    //     $userId = $validatedData['user_id'];
-    //     $quantity = $validatedData['quantity'];
-
-    //     $cartItem = CartItem::where('UserId', $userId)
-    //         ->where('ProductId', $productId)
-    //         ->first();
-
-    //     if ($cartItem) {
-    //         $cartItem->quantity += $quantity;
-    //         $cartItem->price = $cartItem->product->price * $cartItem->quantity;
-    //         $cartItem->save();
-    //     } else {
-    //         $product = Product::find($productId);
-    //         CartItem::create([
-    //             'UserId' => $userId,
-    //             'ProductId' => $productId,
-    //             'quantity' => $quantity,
-    //             'price' => $product->price * $quantity,
-    //         ]);
-    //     }
-
-    //     return redirect()->route('index')->with('success', 'Sản phẩm đã được thêm vào giỏ hàng.');
-    // }
-
     public function addToCart(Request $request)
     {
         if (!Auth::check()) {
-            return redirect("login");
+            return redirect('login');
         }
 
         $validatedData = $request->validate([
             'product_id' => 'required|exists:products,ProductId',
-            'user_id' => 'required|exists:users,id',
         ]);
 
         $productId = $validatedData['product_id'];
-        $userId = $validatedData['user_id'];
-        $quantity = $request->input('quantity', 1); // Nếu không có input quantity, mặc định là 1
+        $userId = Auth::id();
+        $quantity = $request->input('quantity', 1);
 
-        $cartItem = CartItem::where('UserId', $userId)
-        ->where('ProductId', $productId)
-        ->first();
-
-        if ($cartItem) {
-            $cartItem->quantity += $quantity;
-            $cartItem->price = $cartItem->product->price * $cartItem->quantity;
-            $cartItem->save();
-        } else {
-            $product = Product::find($productId);
-            CartItem::create([
-                'UserId' => $userId,
-                'ProductId' => $productId,
-                'quantity' => $quantity,
-                'price' => $product->price * $quantity,
-            ]);
-        }
+        CartItem::addOrUpdateCartItem($userId, $productId, $quantity);
 
         return redirect()->route('index')->with('success', 'Sản phẩm đã được thêm vào giỏ hàng.');
     }
 
-    public function showCart($userId)
-    {
-        $cartItems = CartItem::where('UserId', $userId)->get();
+    // public function showCart($userId)
+    // {
+    //     $cartItems = CartItem::getUserCartItems($userId)->get();
+    //     $totalPrice = CartItem::calculateTotalPrice($userId);
 
-        $totalPrice = 0;
-        foreach ($cartItems as $item) {
-            $totalPrice += $item->quantity * $item->price;
-        }
-        return view('cart', [
-            'cartItems' => $cartItems,
-            'totalPrice' => $totalPrice,
-        ]);
-    }
+    //     return view('cart', [
+    //         'cartItems' => $cartItems,
+    //         'totalPrice' => $totalPrice,
+    //     ]);
+    // }
     
 }

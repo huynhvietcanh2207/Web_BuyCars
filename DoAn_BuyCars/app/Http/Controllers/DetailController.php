@@ -13,7 +13,4 @@ class DetailController extends Controller
         $product = Product::with('brand')->where("ProductId", $id)->firstOrFail();
         return view("detail", compact("product"));
     }
-
-    
-
 }
