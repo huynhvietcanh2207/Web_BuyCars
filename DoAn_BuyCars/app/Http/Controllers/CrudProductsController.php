@@ -16,7 +16,7 @@ class CrudProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::paginate(6);
 
         return view('admin.products.index', compact('products'));
     }

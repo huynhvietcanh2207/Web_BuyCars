@@ -59,7 +59,7 @@
         <div class="icons d-flex align-items-center">
             <!-- Search Form -->
             <form action="{{ route('search') }}" method="GET" class="d-flex align-items-center">
-                <input type="text" name="query" placeholder="Tìm kiếm..." class="form-control" style="width: 200px; margin-right: 10px;">
+                <!-- <input type="text" name="query" placeholder="Tìm kiếm..." class="form-control" style="width: 200px; margin-right: 10px;"> -->
                 <button type="submit" class="btn btn-light">
                     <i class="fas fa-search"></i>
                 </button>

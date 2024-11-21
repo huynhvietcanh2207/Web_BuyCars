@@ -62,17 +62,8 @@
                 @endforeach
             </tbody>
         </table>
-        <div class="d-flex justify-content-center mt-3">
-            <nav>
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">«</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">»</a></li>
-                </ul>
-            </nav>
+        <div class="mt-4">
+            {{ $products->links('pagination::bootstrap-4') }}
         </div>
     </div>
 
