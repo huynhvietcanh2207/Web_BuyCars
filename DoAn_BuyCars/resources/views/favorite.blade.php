@@ -35,7 +35,11 @@
                 @foreach($favorites as $item)
                 <div class="col">
                     <div class="product-card">
-                        <img class="image-products" src="{{ $item->product->image_url }}" alt="hình ảnh">
+                    <div class="item-img">
+                            <a href="{{ route('detail.index', ['id' => $item->product->ProductId]) }}">
+                                <img class="image-products" src="{{ ($item->product->image_url) }}" alt="{{$item->product->name}}">
+                            </a>
+                        </div>
                         <div class="product-title">{{ $item->product->name }}</div>
                         <div class="product-price">{{ number_format($item->product->price, 0, ',', '.') }} VND</div>
                         <div class="icon-btn">

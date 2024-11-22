@@ -44,21 +44,23 @@
                 <h5>Thương Hiệu</h5>
                 @foreach($brands as $item)
                     <div>
-                        <input type="checkbox" name="brand[]" value="{{ $item->BrandId }}" id="brand_{{ $item->BrandId }}">
+                        <input type="checkbox" name="brand[]" value="{{ $item->BrandId }}" id="brand_{{ $item->BrandId }}"
+                            style="margin-right: 5px;">
                         <label for="brand_{{ $item->BrandId }}" style="display: inline;">{{ $item->BrandName }}</label>
                     </div>
                 @endforeach
+
 
                 <hr>
                 <!-- Giá từ - đến -->
                 <h5>Giá</h5>
                 <label for="minPrice">Giá Từ: </label>
                 <input type="text" id="minPriceInput" value="0" placeholder="0" />VND
-                <input type="range" min="0" max="1000000000" step="1000000" name="min_price" id="minPrice" value="0">
+                <input type="range" min="0" max="1000000000" step="0" name="min_price" id="minPrice" value="0">
                 <br>
                 <label for="maxPrice">Đến: </label>
                 <input type="text" id="maxPriceInput" value="1,000,000,000" placeholder="1000000000" />VND
-                <input type="range" min="0" max="1000000000" step="1000000" name="max_price" id="maxPrice"
+                <input type="range" min="0" max="1000000000" step="0" name="max_price" id="maxPrice"
                     value="1000000000">
                 <hr>
                 <!-- Màu Sắc -->
@@ -83,7 +85,12 @@
                     @foreach($products as $product)
                         <div class="col">
                             <div class="product-card">
-                                <img class="image-products" src="{{ $product->image_url }}" alt="hình ảnh">
+                                <div class="item-img">
+                                    <a href="{{ route('detail.index', ['id' => $product->ProductId]) }}">
+                                        <img class="image-products" src="{{ ($product->image_url) }}"
+                                            alt="{{$product->name}}">
+                                    </a>
+                                </div>
                                 <div class="product-title">{{ $product->name }}</div>
                                 <div class="product-price">{{ number_format($product->price, 0, ',', '.') }} VND</div>
                                 <div class="icon-btn">
@@ -338,15 +345,20 @@
         }
 
         // Cập nhật thanh trượt khi thay đổi ô input
-        $(document).on('input', '#minPriceInput', function () {
+        $('#minPriceInput').on('input', function () {
             let value = $(this).val().replace(/[^0-9]/g, ''); // Chỉ lấy số
+            if (parseInt(value) > parseInt($('#minPrice').attr('max'))) {
+                value = $('#minPrice').attr('max');
+            }
             $(this).val(formatNumber(value));
             $('#minPrice').val(value);
         });
 
-        // Khi nhập vào trường maxPriceInput
-        $(document).on('input', '#maxPriceInput', function () {
+        $('#maxPriceInput').on('input', function () {
             let value = $(this).val().replace(/[^0-9]/g, ''); // Chỉ lấy số
+            if (parseInt(value) > parseInt($('#maxPrice').attr('max'))) {
+                value = $('#maxPrice').attr('max');
+            }
             $(this).val(formatNumber(value));
             $('#maxPrice').val(value);
         });
