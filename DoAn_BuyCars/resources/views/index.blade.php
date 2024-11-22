@@ -1,57 +1,45 @@
 @extends('header_footer')
 
-<!DOCTYPE html>
-<html>
-
-<head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/style.css">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-</head>
-
-<body>
-    @section('main')
-    <!-- Thông báo alert cho success -->
-    @if (session()->has('success'))
+@section('main')
+<!-- Thông báo alert cho success -->
+@if (session()->has('success'))
     <script>
-        window.onload = function() {
+        window.onload = function () {
             alert("{{ session('success') }}");
         }
     </script>
-    @endif
+@endif
 
-    <!-- Thông báo alert cho error -->
-    @if (session()->has('error'))
+<!-- Thông báo alert cho error -->
+@if (session()->has('error'))
     <script>
-        window.onload = function() {
+        window.onload = function () {
             alert("{{ session('error') }}");
         }
     </script>
-    @endif
-    <!-- Hiển thị thông tin người dùng -->
-    @if (auth()->check())
+@endif
+<!-- Hiển thị thông tin người dùng -->
+@if (auth()->check())
     <input type="hidden" name="user_id" value="{{ auth()->id() }}">
-    @endif
-    <main class="main-banner">
-        <video src="review.mp4" autoplay muted loop></video>
-        <div class="banner-text ">
-            <h1>Trải nghiệm đỉnh cao tốc độ và thiết kế!</h1>
-            <p>Vượt qua mọi giới hạn với siêu phẩm này</p>
-            <p>Thiết kế hiện đại, hiệu suất tối đa.
-                Siêu xe – Định nghĩa mới của tốc độ.
-            </p>
-        </div>
-    </main>
-    <!-- sản phẩm -->
-    <section class="products">
-        <div class="text-banner">
-            <h1>Sản <span>Phẩm</span></h1>
-        </div>
-        <div class="container container-products">
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 section-products">
-                @foreach ($products as $product)
+@endif
+<main class="main-banner">
+    <video src="review.mp4" autoplay muted loop></video>
+    <div class="banner-text ">
+        <h1>Trải nghiệm đỉnh cao tốc độ và thiết kế!</h1>
+        <p>Vượt qua mọi giới hạn với siêu phẩm này</p>
+        <p>Thiết kế hiện đại, hiệu suất tối đa.
+            Siêu xe – Định nghĩa mới của tốc độ.
+        </p>
+    </div>
+</main>
+<!-- sản phẩm -->
+<section class="products">
+    <div class="text-banner">
+        <h1>Sản <span>Phẩm</span></h1>
+    </div>
+    <div class="container container-products">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 section-products">
+            @foreach ($products as $product)
                 <div class="col">
                     <div class="product-card">
                         <div class="item-img">
@@ -71,69 +59,69 @@
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $product->ProductId }}">
                                 @if (auth()->check())
-                                <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                                    <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                                 @endif
                                 <button class="btn-add-to-cart" type="submit">Thêm vào giỏ hàng</button>
                             </form>
                         </div>
                     </div>
                 </div>
-                @endforeach
-            </div>
+            @endforeach
         </div>
+    </div>
 
-        <!-- Phân trang -->
-        <div class="pagination product-pagination">
-            <!-- đầu << -->
-            @if ($products->onFirstPage())
+    <!-- Phân trang -->
+    <div class="pagination product-pagination">
+        <!-- đầu << -->
+        @if ($products->onFirstPage())
             <button class="pagination-button" disabled>
-                <<</button>
-                    @else
-                    <a href="{{ $products->url(1) }}" class="pagination-button">
-                        <<</a>
-                            @endif
-                            <!-- giữa -->
-                            @for ($i = 1; $i <= $products->lastPage(); $i++)
-                                <a href="{{ $products->url($i) }}"
-                                    class="pagination-button {{ $products->currentPage() == $i ? 'active' : '' }}">
-                                    {{ $i }}
-                                </a>
-                                @endfor
+                << </button>
+        @else
+            <a href="{{ $products->url(1) }}" class="pagination-button">
+                << </a>
+        @endif
+                        <!-- giữa -->
+                        @for ($i = 1; $i <= $products->lastPage(); $i++)
+                            <a href="{{ $products->url($i) }}"
+                                class="pagination-button {{ $products->currentPage() == $i ? 'active' : '' }}">
+                                {{ $i }}
+                            </a>
+                        @endfor
 
-                                <!-- cuối >> -->
-                                @if ($products->hasMorePages())
-                                <a href="{{ $products->url($products->lastPage()) }}" class="pagination-button">>></a>
-                                @else
-                                <button class="pagination-button" disabled>>></button>
-                                @endif
+                        <!-- cuối >> -->
+                        @if ($products->hasMorePages())
+                            <a href="{{ $products->url($products->lastPage()) }}" class="pagination-button">>></a>
+                        @else
+                            <button class="pagination-button" disabled>>></button>
+                        @endif
+    </div>
+</section>
+</section>
+
+<!-- Sản phẩm mới -->
+<div class="section-newProducts" id="new-products">
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+        <div class="text-product-new">
+            <h1>Sản Phẩm <span>Mới</span></h1>
         </div>
-    </section>
-    </section>
-
-    <!-- Sản phẩm mới -->
-    <div class="section-newProducts" id="new-products">
-        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-            <div class="text-product-new">
-                <h1>Sản Phẩm <span>Mới</span></h1>
-            </div>
-            <div class="carousel-inner product-news">
-                @foreach ($newProducts as $index => $products)
+        <div class="carousel-inner product-news">
+            @foreach ($newProducts as $index => $products)
                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                     <div class="row item-products">
                         <div class="col-lg-7 col-md-6 col-sm-12">
-                            <img src="{{ $products->image_url }}" class="d-block  img-fluid"
-                                alt="Slide {{ $index + 1 }}">
+                            <img src="{{ $products->image_url }}" class="d-block  img-fluid" alt="Slide {{ $index + 1 }}">
                         </div>
-                        <div class="col-lg-5 col-md-6 col-sm-12 d-flex flex-column justify-content-center carousel-item-text">
-                        <div class="name-newProducts">
+                        <div
+                            class="col-lg-5 col-md-6 col-sm-12 d-flex flex-column justify-content-center carousel-item-text">
+                            <div class="name-newProducts">
                                 <h1><a href="#">{{ $products->name }}</a></h1>
                             </div>
                             <p>Giới thiệu sương sương</p>
-                           
+
                             <div class="price-newProducts">
                                 Giá: <a href="#">{{ $products->price }} VND</a>
                             </div>
-                            <div class="about">
+                            <div class="description">
                                 <p>{{ $products->description }}</p>
                             </div>
                             <form action="{{ route('cart.add', $product->ProductId) }}" method="POST">
@@ -141,146 +129,133 @@
                                 <input type="hidden" name="product_id" value="{{ $product->ProductId }}">
 
                                 @if (auth()->check())
-                                <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                                    <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                                 @endif
-                                <button class="btn-add-to-cart" data-id="{{ $product->ProductId }}" data-price="{{ $product->price }}">Thêm vào giỏ hàng</button>
+                                <button class="btn-add-to-cart" data-id="{{ $product->ProductId }}"
+                                    data-price="{{ $product->price }}">Thêm vào giỏ hàng</button>
                             </form>
                         </div>
                     </div>
                 </div>
-                @endforeach
-                <!-- Bootstrap Carousel controls -->
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-
-
+            @endforeach
+            <!-- Bootstrap Carousel controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
+
+
     </div>
+</div>
 
-    <!-- about -->
-    <div class="about" id="About">
-        <div class="text-about">
-            <h1>Web<span>About</span></h1>
-
-        </div>
-
-        <div class="about_main">
-            <div class="about_image about-footerr">
-                <div class="about_small_image">
-                    <img src="banner2.jpg" onclick="functio(this)">
-                    <img src="banner1.jpg" onclick="functio(this)">
-                    <img src="banner2.jpg" onclick="functio(this)">
-                    <img src="banner1.jpg" onclick="functio(this)">
-                </div>
-
-                <div class="image_contaner">
-                    <img src="banner2.jpg" id="imagebox">
-                </div>
-
-            </div>
-
-            <div class="about_text about-footerrr">
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet fugit provident suscipit
-                    reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
-                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Eveniet fugit provident suscipit
-                    reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
-                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Eveniet fugit provident suscipit
-                    reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
-                    non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Eveniet fugit provident suscipit
-                    reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
-                    non voluptatem illum aut expedita nisi.
-                </p>
-            </div>
-
-        </div>
-
-        <a href="#" class="about_btn btn-footerr">Shop Now</a>
-
-        <script>
-            function functio(small) {
-                var full = document.getElementById("imagebox")
-                full.src = small.src
-            }
-        </script>
+<!-- about -->
+<div class="about" id="About">
+    <div class="text-about">
+        <h1>Web<span>About</span></h1>
 
     </div>
 
-    <!-- icon-footer -->
-    <section>
-        <div class="container">
-            <div class="row justify-content-around qq">
-                <div class="col text-center icon-container">
-                    <i class="fas fa-shipping-fast fa-4x"></i>
-                    <p class="mt-2">Giao Hàng Nhanh</p>
-                </div>
-                <div class="col text-center icon-container">
-                    <i class="fas fa-award fa-4x"></i>
-                    <p class="mt-2">Dải hàng và đảm bảo nhất</p>
-                </div>
-                <div class="col text-center icon-container">
-                    <i class="fas fa-headset fa-4x"></i>
-                    <p class="mt-2">Hỗ trợ tư vấn 24/24</p>
-                </div>
+    <div class="about_main">
+        <div class="about_image about-footerr">
+            <div class="about_small_image">
+                <img src="banner2.jpg" onclick="functio(this)">
+                <img src="banner1.jpg" onclick="functio(this)">
+                <img src="banner2.jpg" onclick="functio(this)">
+                <img src="banner1.jpg" onclick="functio(this)">
             </div>
 
-            <hr class="my-4">
-
-            <div class="icon-footer icon-footer">
-                <div class="row justify-content-between align-items-center">
-                    <div class="col-lg-3 social-icons">
-                        <a href=""><i class="fab fa-google"></i></a>
-                        <a href=""><i class="fab fa-facebook"></i></a>
-                        <a href=""><i class="fab fa-instagram"></i></a>
-                        <a href=""><i class="fab fa-youtube"></i></a>
-                    </div>
-
-                    <div class="col-lg-9">
-                        <form action="{{ route('subscribe') }}" method="POST">
-                            @csrf
-                            <div class="d-flex align-items-center">
-                                <p>Đăng Ký Nhận Tin<br>Nhận thông tin mới nhất về siêu xe và ưu đãi đặc biệt:</p>
-                                <input type="email" name="email" placeholder="Email của bạn"
-                                    class="form-control mx-2" style="width: auto;" required>
-                                <button type="submit" class="btn btn-dark">ĐĂNG KÝ</button>
-                            </div>
-
-                            @if (session('success'))
-                            <div class="alert alert-success mt-2">{{ session('success') }}</div>
-                            @endif
-
-                            @if ($errors->any())
-                            <div class="alert alert-danger mt-2">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            @endif
-                        </form>
-                    </div>
-                </div>
+            <div class="image_contaner">
+                <img src="banner2.jpg" id="imagebox">
             </div>
 
+        </div>
+
+        <div class="about_text about-footerrr">
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet fugit provident suscipit
+                reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
+                non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Eveniet fugit provident suscipit
+                reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
+                non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Eveniet fugit provident suscipit
+                reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
+                non voluptatem illum aut expedita nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Eveniet fugit provident suscipit
+                reprehenderit labore mollitia, placeat esse quas, nesciunt itaque deleniti earum adipisci repellat
+                non voluptatem illum aut expedita nisi.
+            </p>
+        </div>
+
+    </div>
+
+    <a href="#" class="about_btn btn-footerr">Shop Now</a>
+
+    <script>
+        function functio(small) {
+            var full = document.getElementById("imagebox")
+            full.src = small.src
+        }
+    </script>
+
+</div>
+
+<!-- icon-footer -->
+<section>
+    <div class="container">
+        <div class="row justify-content-around qq">
+            <div class="col text-center icon-container">
+                <i class="fas fa-shipping-fast fa-4x"></i>
+                <p class="mt-2">Giao Hàng Nhanh</p>
+            </div>
+            <div class="col text-center icon-container">
+                <i class="fas fa-award fa-4x"></i>
+                <p class="mt-2">Dải hàng và đảm bảo nhất</p>
+            </div>
+            <div class="col text-center icon-container">
+                <i class="fas fa-headset fa-4x"></i>
+                <p class="mt-2">Hỗ trợ tư vấn 24/24</p>
+            </div>
         </div>
 
         <hr class="my-4">
-        </div>
-    </section>
-    <!-- footer -->
 
-</body>
+        <div class="icon-footer icon-footer">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-lg-3 social-icons">
+                    <a href=""><i class="fab fa-google"></i></a>
+                    <a href=""><i class="fab fa-facebook"></i></a>
+                    <a href=""><i class="fab fa-instagram"></i></a>
+                    <a href=""><i class="fab fa-youtube"></i></a>
+                </div>
+
+                <div class="col-lg-9">
+                    <form action="{{ route('subscribe') }}" method="POST">
+                        @csrf
+                        <div class="d-flex align-items-center">
+                            <p>Đăng Ký Nhận Tin<br>Nhận thông tin mới nhất về siêu xe và ưu đãi đặc biệt:</p>
+                            <input type="email" name="email" placeholder="Email của bạn" class="form-control mx-2"
+                                style="width: auto;" required>
+                            <button type="submit" class="btn btn-dark">ĐĂNG KÝ</button>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <hr class="my-4">
+    </div>
+</section>
+<!-- footer -->
 
 </body>
 
