@@ -16,9 +16,9 @@
                     @foreach($products as $product)
                         <div class="col-md-3">
                             <div class="product-card">
-                                <img class="image-products" src="{{ $product->ImageUrl }}" alt="{{ $product->Name }}">
-                                <div class="product-title">{{ $product->Name }}</div>
-                                <div class="product-price">Giá: {{ number_format($product->Price, 2) }} VNĐ</div>
+                                <img class="image-products" src="{{ asset($product->image_url) }}" alt="{{ $product->name }}">
+                                <div class="product-title">{{ $product->name }}</div>
+                                <div class="product-price">Giá: {{ number_format($product->price, 2) }} VNĐ</div>
                                 <div class="icon-btn">
                                     <div class="icon-products">
                                         <i class="fas fa-heart"></i>

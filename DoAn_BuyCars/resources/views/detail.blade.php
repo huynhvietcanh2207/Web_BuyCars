@@ -108,7 +108,11 @@
         <!-- Comments -->
         <div class="row mt-5">
             <div class="col-md-12">
-                <h5>Bình luận</h5>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Bình Luận</a>
+                    </li>
+                </ul>
 
                 @if (auth()->check())
                     @if (auth()->user()->roles->contains('RoleName', 'comment'))
@@ -136,18 +140,22 @@
 
         <!-- List Comments -->
         <div class="comments-section mt-4">
-            <h4>Danh sách các bình luận:</h4>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Danh sách đã bình luận</a>
+                </li>
+            </ul>
 
             @forelse ($comments as $comment)
                 <div class="comment-item mb-3 p-3 border rounded">
-                    <strong>
+                    <strong style="color: #ff0000">
                         {{ $comment->user->name ?? 'Người dùng ẩn danh' }}
                         <!-- Tên người dùng -->
                     </strong>
-                    <small class="text-muted">
+                    <small style="color: #837171">
                         - {{ \Carbon\Carbon::parse($comment->CreatedAt)->format('d/m/Y H:i') }}
                     </small>
-                    <p>{{ $comment->CommentText }}</p>
+                    <p style="color: #837171">{{ $comment->CommentText }}</p>
                 </div>
             @empty
                 <p>Chưa có bình luận nào. Hãy là người đầu tiên bình luận!</p>
