@@ -124,11 +124,6 @@
                     const quantityInput = row.find('.quantity-input');
                     let quantity = parseInt(quantityInput.val());
 
-                    // if ($(this).hasClass('increase-btn')) {
-                    //     quantity++;
-                    // } else if ($(this).hasClass('decrease-btn') && quantity > 1) {
-                    //     quantity--;
-                    // }
 
                     if ($(this).hasClass('increase-btn') && quantity < quantityInput.data('max')) {
                         quantity++;
