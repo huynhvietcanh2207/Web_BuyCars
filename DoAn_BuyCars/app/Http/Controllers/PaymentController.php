@@ -48,8 +48,8 @@ class PaymentController extends Controller
                 ->with('error', 'Thanh toán không thành công, vui lòng thử lại.');
         }
     } else {
-        return redirect()->route('cart.index')
-            ->with('error', 'Xác thực không thành công!');
+        return redirect()->route('index')
+            ->with('error', 'Vui lòng thử lại!');
     }
 }
 
@@ -138,7 +138,7 @@ class PaymentController extends Controller
 // Url thanh toán môi trường TEST (vnp_Url): https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
 
 // Thẻ test 
-// Ngân hàng	NCB
+// Ngân hàngNC	B
 // Số thẻ	    9704198526191432198
 // Tên chủ thẻ	NGUYEN VAN A
 // Ngày phát hành	07/15
