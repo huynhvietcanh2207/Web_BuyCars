@@ -12,7 +12,7 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('ProductId'); // Khóa chính
             $table->string('name');
             $table->unsignedBigInteger('BrandId');
-            $table->foreign('BrandId')->references('id')->on('brands')->onDelete('cascade');
+            // $table->foreign('BrandId')->references('id')->on('brands')->onDelete('cascade');
             $table->decimal('price', 10, 2);
             $table->integer('quantity')->default(0); // Thêm trường số lượng
             $table->string('image_url')->nullable();
