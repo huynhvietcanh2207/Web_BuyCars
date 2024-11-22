@@ -87,8 +87,11 @@
                 </div>
                 <div id="checkall"><input type="checkbox" id="selectAll" class="me-2" value="">Chọn tất cả sản phẩm
                 </div>
-                <form>
-                    <div class="cart-footer d-flex justify-content-between align-items-center mt-4">
+
+                <form action="{{ url('/vnpay_payment') }}" method="POST">
+                @csrf
+
+                <div class="cart-footer d-flex justify-content-between align-items-center mt-4">
                         <button type="button" class="btn btn-outline-danger continue-shopping"
                             onclick="window.location.href='{{ route('index') }}'">
                             TIẾP TỤC MUA HÀNG
@@ -98,13 +101,30 @@
                             <label for="total" class="text-dark">Tổng tiền thanh toán: </label>
                             <input type="text" id="total" class="form-control d-inline" readonly
                                 style="width: 150px;"><br>
-                            <button type="submit" class="btn btn-danger checkout">TIẾN HÀNH THANH TOÁN</button>
+                                <input type="hidden" name="total" id="hiddenTotal">
+                             <button type="submit" name="redirect" class="btn btn-danger checkout">TIẾN HÀNH THANH TOÁN</button>
                         </div>
                     </div>
                 </form>
+
             </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                function updateTotal() {
+                    let total = 0;
+                    $('.product_item').each(function() {
+                        const priceText = $(this).text();
+                        const price = parseFloat(priceText.replace(/\./g, '').replace('₫', '').replace(',', '.'));
+                        total += price;
+                    });
+                    $('#total').val(total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+                    $('#hiddenTotal').val(total); // Gán tổng tiền vào input ẩn
+                }
+                updateTotal();
+            });
+        </script>
         <script>
             $(document).ready(function() {
                 $('.remove-item').on('change', function() {
