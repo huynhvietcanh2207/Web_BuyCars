@@ -125,6 +125,79 @@
                 updateTotal();
             });
         </script>
+
+         <script>
+        $(document).ready(function() {
+            function updateTotal() {
+                let totalPrice = 0;
+                $('.cart-item').each(function() {
+                    const price = parseFloat($(this).find('.product-price').text().replace('₫', '').replace(/\./g, '').trim());
+                    const quantity = parseInt($(this).find('.quantity-input').val());
+                    const itemTotal = price * quantity;
+
+                    // Làm tròn giá trị thành tiền
+                    totalPrice += itemTotal;
+                    $(this).find('.product_item').text(numberWithCommas(itemTotal.toFixed(0)) + '₫');
+                });
+                $('#total').val(numberWithCommas(totalPrice.toFixed(0)) + '₫');
+            }
+
+            function numberWithCommas(x) {
+                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
+
+            function updateCart(productId, quantity) {
+                $.ajax({
+                    url: '{{ route("cart.update") }}', // Ensure this route exists in your web.php
+                    method: 'POST',
+                    data: {
+                        cartItems: JSON.stringify({
+                            [productId]: {
+                                quantity: quantity
+                            }
+                        }),
+                        _token: '{{ csrf_token() }}', // CSRF token for security
+                    },
+                    success: function(response) {
+                        console.log(response.message); // Log response message for debugging
+                    },
+                    error: function(xhr) {
+                        console.error('Error updating cart:', xhr);
+                    }
+                });
+            }
+
+            // Event listeners for quantity changes
+            $('.quantity-input').on('change', function() {
+                const input = $(this);
+                const productId = input.closest('.cart-item').data('id');
+                const quantity = parseInt(input.val());
+                updateTotal();
+                updateCart(productId, quantity); // Call to update the cart on the server
+            });
+
+            // $('.increase-btn').on('click', function() {
+            //     const input = $(this).siblings('.quantity-input');
+            //     input.val(parseInt(input.val()) + 1);
+            //     const productId = input.closest('.cart-item').data('id');
+            //     updateTotal();
+            //     updateCart(productId, parseInt(input.val())); // Call to update the cart on the server
+            // });
+
+            // $('.decrease-btn').on('click', function() {
+            //     const input = $(this).siblings('.quantity-input');
+            //     if (parseInt(input.val()) > 1) {
+            //         input.val(parseInt(input.val()) - 1);
+            //         const productId = input.closest('.cart-item').data('id');
+            //         updateTotal();
+            //         updateCart(productId, parseInt(input.val())); // Call to update the cart on the server
+            //     }
+            // });
+
+            updateTotal(); // Initial total calculation
+        });
+    </script>
+
         <script>
             $(document).ready(function() {
                 $('.remove-item').on('change', function() {
