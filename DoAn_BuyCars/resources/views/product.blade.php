@@ -363,20 +363,21 @@
             $('#maxPrice').val(value);
         });
 
-        // Cập nhật ô input khi thay đổi thanh trượt
-        $('#minPrice').on('input', function () {
+        // Cập nhật ô input khi thay đổi thanh trượt minPrice
+        $(document).on('input', '#minPrice', function () {
             let value = $(this).val();
             $('#minPriceInput').val(formatNumber(value));
         });
 
-        $('#maxPrice').on('input', function () {
+        // Cập nhật ô input khi thay đổi thanh trượt maxPrice
+        $(document).on('input', '#maxPrice', function () {
             let value = $(this).val();
             $('#maxPriceInput').val(formatNumber(value));
         });
 
         // Khởi tạo giá trị mặc định
         $('#minPriceInput').val(formatNumber(0));
-        $('#maxPriceInput').val(formatNumber(1000000000));
+        $('#maxPriceInput').val(formatNumber(10000000));
     });
 
 
