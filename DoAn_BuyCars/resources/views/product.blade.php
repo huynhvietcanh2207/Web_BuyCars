@@ -44,10 +44,12 @@
                 <h5>Thương Hiệu</h5>
                 @foreach($brands as $item)
                     <div>
-                        <input type="checkbox" name="brand[]" value="{{ $item->BrandId }}" id="brand_{{ $item->BrandId }}">
+                        <input type="checkbox" name="brand[]" value="{{ $item->BrandId }}" id="brand_{{ $item->BrandId }}"
+                            style="margin-right: 5px;">
                         <label for="brand_{{ $item->BrandId }}" style="display: inline;">{{ $item->BrandName }}</label>
                     </div>
                 @endforeach
+
 
                 <hr>
                 <!-- Giá từ - đến -->

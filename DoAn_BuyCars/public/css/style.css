@@ -858,6 +858,25 @@ footer {
     color: #666;
 }
 
+/* Sử dụng flex và cho phép xuống dòng */
+#filter-form div {
+    display: flex;
+    flex-wrap: wrap; /* Cho phép các phần tử xuống dòng khi hết không gian */
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Đảm bảo tên thương hiệu không bị tràn */
+#filter-form label {
+    display: inline-block;
+    flex: 1;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: normal; /* Cho phép xuống dòng khi quá dài */
+    text-overflow: ellipsis; /* Thay thế phần dư bằng dấu ba chấm */
+}
+
+
 .main-banner video {
     width: 100%;
     height: 600px;
