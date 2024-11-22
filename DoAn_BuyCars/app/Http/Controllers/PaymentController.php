@@ -16,7 +16,7 @@ class PaymentController extends Controller
         // Retrieve product names and quantities from the cart items in session
         $cartItems = session()->get('cart.items', []);
         $productDetails = implode(", ", array_map(fn($item) => $item['name'] . "\t" . " số lượng: " . $item['quantity'], $cartItems));
- 
+
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         $vnp_Returnurl = "http://127.0.0.1:8000/cart";
         $vnp_TmnCode = "DH781HO6"; // VNPAY Website Code
