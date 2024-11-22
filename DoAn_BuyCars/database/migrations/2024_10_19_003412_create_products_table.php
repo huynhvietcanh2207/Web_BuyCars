@@ -4,35 +4,26 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateProductsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id('ProductId');
+            $table->bigIncrements('ProductId'); // Khóa chính
             $table->string('name');
             $table->unsignedBigInteger('BrandId');
-            $table->decimal('price', 18, 2);
-            $table->integer('quantity');
-            $table->text('description')->nullable();
+            $table->foreign('BrandId')->references('id')->on('brands')->onDelete('cascade');
+            $table->decimal('price', 10, 2);
+            $table->integer('quantity')->default(0); // Thêm trường số lượng
             $table->string('image_url')->nullable();
-            $table->string('color', 50)->nullable();
+            $table->text('description')->nullable();
+            $table->string('color')->nullable();
             $table->timestamps();
-        
-            // Khóa ngoại tham chiếu đến bảng brands
-            $table->foreign('BrandId')->references('BrandId')->on('brands')->onDelete('cascade');
         });
-        
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('products');
     }
-};
+}
