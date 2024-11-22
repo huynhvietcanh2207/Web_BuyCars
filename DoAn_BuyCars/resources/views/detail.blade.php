@@ -114,13 +114,23 @@
             const cartQuantityInput = document.getElementById("cartQuantity");
 
             const maxQuantity = parseInt(quantityInput.dataset.max);
+            let isInitialLoad = true;
 
             function updateButtonStates(quantity) {
+                if (!isInitialLoad) {
+                    if (quantity >= maxQuantity) {
+                        alert("Số lượng đạt giới hạn tối đa!");
+                    }
+                    if (quantity <= 1) {
+                        alert("Số lượng không được nhỏ hơn 1!");
+                    }
+                }
                 increaseButton.disabled = (quantity >= maxQuantity);
                 decreaseButton.disabled = (quantity <= 1);
             }
 
             updateButtonStates(parseInt(quantityInput.value));
+            isInitialLoad = false;
 
             increaseButton.addEventListener("click", function() {
                 let quantity = parseInt(quantityInput.value);
@@ -144,8 +154,10 @@
                 let quantity = parseInt(quantityInput.value);
                 if (quantity > maxQuantity) {
                     quantityInput.value = maxQuantity;
+                    alert("Số lượng sản phẩm đã đạt giới hạn tối đa!");
                 } else if (quantity < 1 || isNaN(quantity)) {
                     quantityInput.value = 1;
+                    alert("Số lượng sản phẩm không được nhỏ hơn 1!");
                 }
                 cartQuantityInput.value = quantityInput.value;
                 updateButtonStates(parseInt(quantityInput.value));
