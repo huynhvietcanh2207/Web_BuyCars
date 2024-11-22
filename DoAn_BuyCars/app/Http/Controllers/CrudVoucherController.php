@@ -12,9 +12,14 @@ class CrudVoucherController extends Controller
      */
     public function index()
     {
-        $vouchers = Voucher::paginate(4); // Phân trang, 4 bản ghi mỗi trang
-        return view('admin.vouchers.index', compact('vouchers'));
+        $sort_by = request()->input('sort_by', 'asc');
+
+        $vouchers = Voucher::orderBy('VoucherId', $sort_by)->paginate(4);
+
+        return view('admin.vouchers.index', compact('vouchers', 'sort_by'));
     }
+
+
 
     /**
      * Hiển thị form tạo voucher mới.

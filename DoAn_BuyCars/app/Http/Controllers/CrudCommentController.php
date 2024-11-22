@@ -12,10 +12,16 @@ class CrudCommentController extends Controller
      */
     public function index()
     {
-        // Sử dụng phân trang cho danh sách bình luận
-        $comments = Comment::paginate(4);
-        return view('admin.comments.index', compact('comments'));
+        // Lấy giá trị lọc từ query string, mặc định là 'asc'
+        $sort_by = request('sort_by', 'asc');
+
+        // Lấy danh sách bình luận và sắp xếp theo ID
+        $comments = Comment::orderBy('CommentId', $sort_by)->paginate(4);
+
+        // Truyền dữ liệu ra view
+        return view('admin.comments.index', compact('comments', 'sort_by'));
     }
+
 
     /**
      * Hiển thị form tạo bình luận mới.

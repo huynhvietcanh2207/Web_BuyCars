@@ -11,20 +11,29 @@
         <div class="form-group">
             <label for="VoucherCode">Mã Voucher</label>
             <input type="text" name="VoucherCode" id="VoucherCode" class="form-control"
-                value="{{ old('VoucherCode', $voucher->VoucherCode) }}" required>
+                value="{{ old('VoucherCode', $voucher->VoucherCode ?? '') }}" required minlength="5" maxlength="20"
+                pattern="^[A-Za-z0-9]+$" title="Mã voucher chỉ được chứa chữ và số, không chứa ký tự đặc biệt.">
+            <small class="form-text text-muted">Mã voucher phải từ 5 đến 20 ký tự, chỉ bao gồm chữ và
+                số.</small>
             @if ($errors->has('VoucherCode'))
-                <span class="text-danger">{{ $errors->first('VoucherCode') }}</span>
+                <small class="form-text text-danger">
+                    {{ $errors->first('VoucherCode') }}
+                </small>
             @endif
         </div>
 
         <div class="form-group">
             <label for="DiscountPercentage">Giảm giá (%)</label>
-            <input type="number" name="DiscountPercentage" id="DiscountPercentage" class="form-control"
-                value="{{ old('DiscountPercentage', $voucher->DiscountPercentage) }}" min="0" max="100" required>
+            <input type="number" class="form-control" id="DiscountPercentage" name="DiscountPercentage" step="0.01"
+                min="0" max="100" value="{{ old('DiscountPercentage', $voucher->DiscountPercentage ?? '') }}" required>
+            <!-- Thêm old() để giữ lại giá trị cũ nếu có lỗi -->
+            <small class="form-text text-muted">Giảm giá phải từ 0 đến 100%.</small>
+            <!-- Thêm thông báo cho giảm giá -->
             @if ($errors->has('DiscountPercentage'))
                 <span class="text-danger">{{ $errors->first('DiscountPercentage') }}</span>
             @endif
         </div>
+
 
         <div class="form-group">
             <label for="ExpirationDate">Ngày hết hạn</label>
