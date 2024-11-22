@@ -135,4 +135,4 @@ Route::get('/order/{id}', [OrderController::class, 'show'])->name('order.info');
 Route::get('/order-history', [OrderController::class, 'history'])->name('order.history');
 
 
- Route::get('/order/{id}', [OrderController::class, 'info'])->name('order.info');
+ 
