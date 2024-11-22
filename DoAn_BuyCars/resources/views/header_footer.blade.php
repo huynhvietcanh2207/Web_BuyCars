@@ -40,20 +40,20 @@
     </style>
 </head>
 @if (session()->has('success'))
-    <script>
-        window.onload = function() {
-            alert("{{ session('success') }}");
-        }
-    </script>
+<script>
+    window.onload = function() {
+        alert("{{ session('success') }}");
+    }
+</script>
 @endif
 
 <!-- Thông báo alert cho error -->
 @if (session()->has('error'))
-    <script>
-        window.onload = function() {
-            alert("{{ session('error') }}");
-        }
-    </script>
+<script>
+    window.onload = function() {
+        alert("{{ session('error') }}");
+    }
+</script>
 @endif
 
 <body>
@@ -79,10 +79,10 @@
                             <a class="dropdown-item" href="/brands">Tất cả thương hiệu</a>
                         </li>
                         @foreach ($sidebar_brands as $row)
-                            <li>
-                                <a class="dropdown-item"
-                                    href="{{ route('brands.showBrand', $row->BrandId) }}">{{ $row->BrandName }}</a>
-                            </li>
+                        <li>
+                            <a class="dropdown-item"
+                                href="{{ route('brands.showBrand', $row->BrandId) }}">{{ $row->BrandName }}</a>
+                        </li>
                         @endforeach
                     </ul>
                 </div>
@@ -98,25 +98,32 @@
                 <span id="themeLabel">Sáng</span>
             </div>
             <div class="icons">
-                <a href="#"><i class="fas fa-search"></i></a>
+                <!-- Search Form -->
+                <form action="{{ route('search') }}" method="GET" class="d-flex align-items-center">
+                    <!-- <input type="text" name="query" placeholder="Tìm kiếm..." class="form-control" style="width: 200px; margin-right: 10px;"> -->
+                    <button type="submit" class="btn btn-light">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+
                 <a href="{{ route('cart.index') }}"><i class="fas fa-shopping-cart"></i></a>
                 <div class="dropdown-user">
                     <a href="#" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></a>
                     <div class="dropdown-menu">
                         @auth
-                            <a href="{{ route('account.profile') }}">Cá nhân</a>
+                        <a href="{{ route('account.profile') }}">Cá nhân</a>
 
-                            <a href="{{ route('password.change') }}">Đổi Mật Khẩu</a>
+                        <a href="{{ route('password.change') }}">Đổi Mật Khẩu</a>
 
 
-                            <a href="{{ route('logout') }}"
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng
-                                Xuất</a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
+                        <a href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng
+                            Xuất</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
                         @else
-                            <a href="{{ route('login') }}">Đăng Nhập</a>
+                        <a href="{{ route('login') }}">Đăng Nhập</a>
                         @endauth
                     </div>
                 </div>
