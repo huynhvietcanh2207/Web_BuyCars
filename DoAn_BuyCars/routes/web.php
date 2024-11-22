@@ -20,8 +20,7 @@ use App\Http\Controllers\CrudVoucherController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\CrudCommentController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\PaymentController;
-
+ 
 
 /*
 |--------------------------------------------------------------------------
@@ -122,5 +121,7 @@ Route::resource('users', UserController::class);
         
     ]);
 });
-//goi ham thanh toan
-Route::post('/vnpay_payment', [PaymentController::class, 'vnpay_payment'])->name('vnpay_payment');
+ 
+
+//xây dựng tìm kiếm
+Route::get('/search', [ProductController::class, 'search'])->name('search');
