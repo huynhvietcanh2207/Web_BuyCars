@@ -48,8 +48,8 @@ class PaymentController extends Controller
                 ->with('error', 'Thanh toán không thành công, vui lòng thử lại.');
         }
     } else {
-        return redirect()->route('index')
-            ->with('error', 'Vui lòng thử lại!');
+        return redirect()->route('order.history')
+            ->with('message', 'Cám ơn bạn đã ủng hộ');
     }
 }
 

@@ -130,3 +130,9 @@ Route::get('/vnpay_return', [PaymentController::class, 'vnpay_return'])->name('v
 
 //hien thi don hang
 Route::get('/order/{id}', [OrderController::class, 'show'])->name('order.info');
+
+//lich su thanh toan
+Route::get('/order-history', [OrderController::class, 'history'])->name('order.history');
+
+
+ Route::get('/order/{id}', [OrderController::class, 'info'])->name('order.info');

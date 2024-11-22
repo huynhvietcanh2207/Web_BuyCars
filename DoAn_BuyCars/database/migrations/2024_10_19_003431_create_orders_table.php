@@ -12,15 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id('OrderId');
-            $table->unsignedBigInteger('id');
-            $table->timestamp('OrderDate')->useCurrent();
-            $table->decimal('TotalAmount', 18, 2);
-            $table->string('OrderStatus', 50);
+            $table->id();
+            $table->string('order_code')->unique();
+            $table->decimal('total', 10, 2);
+            $table->string('status'); // Ví dụ: 'Đã thanh toán', 'Đang xử lý'
+            $table->timestamp('payment_date')->nullable();
+            $table->unsignedBigInteger('user_id'); // Liên kết với bảng users
             $table->timestamps();
-        
-            // Khóa ngoại
-            $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
         });
         
         
