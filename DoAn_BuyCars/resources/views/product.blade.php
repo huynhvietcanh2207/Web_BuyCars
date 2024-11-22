@@ -345,34 +345,38 @@
         }
 
         // Cập nhật thanh trượt khi thay đổi ô input
-        $(document).on('input', '#minPriceInput', function () {
+        $('#minPriceInput').on('input', function () {
             let value = $(this).val().replace(/[^0-9]/g, ''); // Chỉ lấy số
+            if (parseInt(value) > parseInt($('#minPrice').attr('max'))) {
+                value = $('#minPrice').attr('max');
+            }
             $(this).val(formatNumber(value));
             $('#minPrice').val(value);
         });
 
-        // Khi nhập vào trường maxPriceInput
-        $(document).on('input', '#maxPriceInput', function () {
+        $('#maxPriceInput').on('input', function () {
             let value = $(this).val().replace(/[^0-9]/g, ''); // Chỉ lấy số
+            if (parseInt(value) > parseInt($('#maxPrice').attr('max'))) {
+                value = $('#maxPrice').attr('max');
+            }
             $(this).val(formatNumber(value));
             $('#maxPrice').val(value);
         });
 
-        // Cập nhật ô input khi thay đổi thanh trượt minPrice
-        $(document).on('input', '#minPrice', function () {
+        // Cập nhật ô input khi thay đổi thanh trượt
+        $('#minPrice').on('input', function () {
             let value = $(this).val();
             $('#minPriceInput').val(formatNumber(value));
         });
 
-        // Cập nhật ô input khi thay đổi thanh trượt maxPrice
-        $(document).on('input', '#maxPrice', function () {
+        $('#maxPrice').on('input', function () {
             let value = $(this).val();
             $('#maxPriceInput').val(formatNumber(value));
         });
 
         // Khởi tạo giá trị mặc định
         $('#minPriceInput').val(formatNumber(0));
-        $('#maxPriceInput').val(formatNumber(10000000));
+        $('#maxPriceInput').val(formatNumber(1000000000));
     });
 
 
