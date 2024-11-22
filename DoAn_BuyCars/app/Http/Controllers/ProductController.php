@@ -65,18 +65,48 @@ class ProductController extends Controller
     {
         //
     }
+    // public function search(Request $request)
+    // {
+    //     // Lấy dữ liệu từ request
+    //     $query = $request->input('query'); // Từ khóa tìm kiếm
+    //     $brandId = $request->input('brand'); // ID thương hiệu
+
+    //     // Khởi tạo query
+    //     $products = Product::query();
+
+    //     // Tìm kiếm Full-Text
+    //     if ($query) {
+    //         $products->whereRaw("MATCH(name, description) AGAINST(? IN NATURAL LANGUAGE MODE)", [$query]);
+    //     }
+
+    //     // Lọc theo thương hiệu nếu có
+    //     if ($brandId) {
+    //         $products->where('brand_id', $brandId);
+    //     }
+
+    //     // Phân trang kết quả
+    //     $products = $products->paginate(6);
+
+    //     // Lấy danh sách thương hiệu cho dropdown
+    //     $brands = Brand::all();
+
+    //     // Trả về view với dữ liệu
+    //     return view('indexSearch', compact('products', 'brands', 'query', 'brandId'));
+    // }
     public function search(Request $request)
     {
-        // Lấy dữ liệu từ request
         $query = $request->input('query'); // Từ khóa tìm kiếm
         $brandId = $request->input('brand'); // ID thương hiệu
 
         // Khởi tạo query
         $products = Product::query();
 
-        // Tìm kiếm Full-Text
+        // Tìm kiếm bằng LIKE
         if ($query) {
-            $products->whereRaw("MATCH(name, description) AGAINST(? IN NATURAL LANGUAGE MODE)", [$query]);
+            $products->where(function ($q) use ($query) {
+                $q->where('name', 'LIKE', '%' . $query . '%')
+                    ->orWhere('description', 'LIKE', '%' . $query . '%');
+            });
         }
 
         // Lọc theo thương hiệu nếu có
