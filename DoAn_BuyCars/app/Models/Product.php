@@ -13,10 +13,10 @@ class Product extends Model
     protected $primaryKey = 'ProductId';
 
     // Các trường có thể được thêm hoặc chỉnh sửa
-    protected $fillable = ['name', 'BrandId', 'price', 'description', 'image_url', 'color'];
+    protected $fillable = ['name', 'BrandId', 'price','quantity','description', 'image_url', 'color'];
 
     public function brand()
-    {
+    {   
         return $this->belongsTo(Brand::class, 'BrandId');
     }   
 
