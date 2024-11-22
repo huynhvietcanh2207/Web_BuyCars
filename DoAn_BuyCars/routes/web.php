@@ -21,6 +21,8 @@ use App\Http\Controllers\DetailController;
 use App\Http\Controllers\CrudCommentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\OrderController;
+
 
 
 /*
@@ -123,4 +125,8 @@ Route::resource('users', UserController::class);
     ]);
 });
 //goi ham thanh toan
-Route::post('/vnpay_payment', [PaymentController::class, 'vnpay_payment'])->name('vnpay_payment');
+Route::post('/vnpay_payment', [PaymentController::class, 'vnpay_payment'])->name('vnpay.payment');
+Route::get('/vnpay_return', [PaymentController::class, 'vnpay_return'])->name('vnpay.return');
+
+//hien thi don hang
+Route::get('/order/{id}', [OrderController::class, 'show'])->name('order.info');

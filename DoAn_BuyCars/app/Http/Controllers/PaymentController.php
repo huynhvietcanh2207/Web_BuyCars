@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Order;
 
 use Illuminate\Http\Request;
 
@@ -11,6 +12,47 @@ class PaymentController extends Controller
     //     // Xử lý logic thanh toán tại đây
     //     return view('payment');
     // }
+    public function vnpay_return(Request $request)
+{
+    $vnp_SecureHash = $request->vnp_SecureHash;
+    $inputData = $request->except(['vnp_SecureHashType', 'vnp_SecureHash']);
+
+    ksort($inputData);
+    $hashdata = urldecode(http_build_query($inputData));
+    $secureHash = hash_hmac('sha512', $hashdata, "UTFZMU0T1KQVLG5WFAIRN1G09RAG8MQH"); // Secret Key
+
+    if ($vnp_SecureHash === $secureHash) {
+        if ($request->vnp_ResponseCode == '00') {
+            // Lưu thông tin đơn hàng
+            $order = Order::create([
+                'order_code' => $request->vnp_TxnRef,
+                'total' => $request->vnp_Amount / 100,
+                'status' => 'Đã thanh toán',
+                'payment_date' => now(),
+            ]);
+
+            foreach (session('cart.items', []) as $item) {
+                $order->items()->create([
+                    'product_id' => $item['id'],
+                    'quantity' => $item['quantity'],
+                    'price' => $item['price'],
+                ]);
+            }
+
+            session()->forget('cart.index'); // Xóa giỏ hàng sau khi thanh toán
+
+            return redirect()->route('order.info', ['id' => $order->id])
+                ->with('success', 'Thanh toán thành công!');
+        } else {
+            return redirect()->route('cart.index')
+                ->with('error', 'Thanh toán không thành công, vui lòng thử lại.');
+        }
+    } else {
+        return redirect()->route('cart.index')
+            ->with('error', 'Xác thực không thành công!');
+    }
+}
+
     public function vnpay_payment(Request $request)
     {
         // Retrieve product names and quantities from the cart items in session
@@ -18,7 +60,7 @@ class PaymentController extends Controller
         $productDetails = implode(", ", array_map(fn($item) => $item['name'] . "\t" . " số lượng: " . $item['quantity'], $cartItems));
  
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "http://127.0.0.1:8000/cart";
+        $vnp_Returnurl = route('vnpay.return'); // URL callback sau khi thanh toán
         $vnp_TmnCode = "DH781HO6"; // VNPAY Website Code
         $vnp_HashSecret = "UTFZMU0T1KQVLG5WFAIRN1G09RAG8MQH"; // Secret Key
 
@@ -97,7 +139,7 @@ class PaymentController extends Controller
 
 // Thẻ test 
 // Ngân hàng	NCB
-// Số thẻ	    
+// Số thẻ	    9704198526191432198
 // Tên chủ thẻ	NGUYEN VAN A
 // Ngày phát hành	07/15
 // Mật khẩu OTP	123456
