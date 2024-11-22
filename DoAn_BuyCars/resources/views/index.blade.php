@@ -131,8 +131,12 @@
                                 @if (auth()->check())
                                     <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                                 @endif
-                                <button class="btn-add-to-cart" data-id="{{ $product->ProductId }}"
-                                    data-price="{{ $product->price }}">Thêm vào giỏ hàng</button>
+                                @if (auth()->user()->roles->contains('RoleName', 'cart'))
+                                    <button class="btn-add-to-cart">Bạn đã bị cấm thêm vào giỏ hàng</button>
+                                @else
+                                    <button class="btn-add-to-cart" data-id="{{ $product->ProductId }}"
+                                        data-price="{{ $product->price }}">Thêm vào giỏ hàng</button>
+                                @endif
                             </form>
                         </div>
                     </div>
