@@ -56,11 +56,11 @@
                 <h5>Giá</h5>
                 <label for="minPrice">Giá Từ: </label>
                 <input type="text" id="minPriceInput" value="0" placeholder="0" />VND
-                <input type="range" min="0" max="1000000000" step="1000000" name="min_price" id="minPrice" value="0">
+                <input type="range" min="0" max="1000000000" step="0" name="min_price" id="minPrice" value="0">
                 <br>
                 <label for="maxPrice">Đến: </label>
                 <input type="text" id="maxPriceInput" value="1,000,000,000" placeholder="1000000000" />VND
-                <input type="range" min="0" max="1000000000" step="1000000" name="max_price" id="maxPrice"
+                <input type="range" min="0" max="1000000000" step="0" name="max_price" id="maxPrice"
                     value="1000000000">
                 <hr>
                 <!-- Màu Sắc -->
