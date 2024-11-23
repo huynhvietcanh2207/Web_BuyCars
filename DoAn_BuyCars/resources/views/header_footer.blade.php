@@ -108,12 +108,21 @@
                 <span id="themeLabel">Sáng</span>
             </div>
             <div class="icons">
-                <a href="#"><i class="fas fa-search"></i></a>
+                <!-- Search Form -->
+                <form action="{{ route('search') }}" method="GET" class="d-flex align-items-center">
+                    <!-- <input type="text" name="query" placeholder="Tìm kiếm..." class="form-control" style="width: 200px; margin-right: 10px;"> -->
+                    <button type="submit" class="btn btn-light">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+
                 <a href="{{ route('cart.index') }}"><i class="fas fa-shopping-cart"></i></a>
                 <div class="dropdown-user">
                     <a href="#" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></a>
                     <div class="dropdown-menu">
                         @auth
+                        <a href="{{ route('account.profile') }}">Cá nhân</a>
+
                             <a href="{{ route('account.profile') }}">Cá nhân</a>
 
                             <a href=" {{ route('password.change') }}">Đổi Mật Khẩu</a>
@@ -126,7 +135,7 @@
                                     @csrf
                                 </form>
                         @else
-                            <a href="{{ route('login') }}">Đăng Nhập</a>
+                        <a href="{{ route('login') }}">Đăng Nhập</a>
                         @endauth
                     </div>
                 </div>
