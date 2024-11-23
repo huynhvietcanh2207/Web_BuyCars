@@ -136,8 +136,114 @@
         </div>
 
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const toggleButton = document.querySelector(".toggle-description");
+            const shortDescription = document.querySelector(".short-description");
+            const fullDescription = document.querySelector(".full-description");
 
-</html>
+            if (shortDescription.innerText.length < 250) {
+                toggleButton.style.display = "none";
+            }
+
+            toggleButton.addEventListener("click", function() {
+                if (fullDescription.style.display === "none") {
+                    fullDescription.style.display = "inline";
+                    toggleButton.textContent = "Thu gọn";
+                } else {
+                    fullDescription.style.display = "none";
+                    toggleButton.textContent = "Xem thêm...";
+                }
+            });
+
+            const increaseButton = document.getElementById("increaseQuantity");
+            const decreaseButton = document.getElementById("decreaseQuantity");
+            const quantityInput = document.getElementById("productQuantity");
+            const cartQuantityInput = document.getElementById("cartQuantity");
+
+            const maxQuantity = parseInt(quantityInput.dataset.max);
+            let isInitialLoad = true;
+
+            function updateButtonStates(quantity) {
+                if (!isInitialLoad) {
+                    if (quantity >= maxQuantity) {
+                        alert("Số lượng đạt giới hạn tối đa!");
+                    }
+                    if (quantity <= 1) {
+                        alert("Số lượng không được nhỏ hơn 1!");
+                    }
+                }
+                increaseButton.disabled = (quantity >= maxQuantity);
+                decreaseButton.disabled = (quantity <= 1);
+            }
+
+            updateButtonStates(parseInt(quantityInput.value));
+            isInitialLoad = false;
+
+            increaseButton.addEventListener("click", function() {
+                let quantity = parseInt(quantityInput.value);
+                if (quantity < maxQuantity) {
+                    quantityInput.value = quantity + 1;
+                    cartQuantityInput.value = quantityInput.value;
+                    updateButtonStates(quantity + 1);
+                }
+            });
+
+            decreaseButton.addEventListener("click", function() {
+                let quantity = parseInt(quantityInput.value);
+                if (quantity > 1) {
+                    quantityInput.value = quantity - 1;
+                    cartQuantityInput.value = quantityInput.value;
+                    updateButtonStates(quantity - 1);
+                }
+            });
+
+            quantityInput.addEventListener("input", function() {
+                let quantity = parseInt(quantityInput.value);
+                if (quantity > maxQuantity) {
+                    quantityInput.value = maxQuantity;
+                    alert("Số lượng sản phẩm đã đạt giới hạn tối đa!");
+                } else if (quantity < 1 || isNaN(quantity)) {
+                    quantityInput.value = 1;
+                    alert("Số lượng sản phẩm không được nhỏ hơn 1!");
+                }
+                cartQuantityInput.value = quantityInput.value;
+                updateButtonStates(parseInt(quantityInput.value));
+            });
+
+            // Hiệu ứng phóng to hình ảnh
+            const zoomedImage = document.getElementById("zoomedImage");
+            const magnifier = document.getElementById("magnifier");
+            const zoomLevel = 2;
+
+            if (zoomedImage && magnifier) {
+                zoomedImage.addEventListener("mousemove", function(event) {
+                    const {
+                        left,
+                        top,
+                        width,
+                        height
+                    } = zoomedImage.getBoundingClientRect();
+                    const x = event.clientX - left;
+                    const y = event.clientY - top;
+
+                    magnifier.style.backgroundImage = `url(${zoomedImage.src})`;
+                    magnifier.style.backgroundSize = `${width * zoomLevel}px ${height * zoomLevel}px`;
+                    magnifier.style.backgroundPosition =
+                        `-${x * zoomLevel - magnifier.offsetWidth / 2}px -${y * zoomLevel - magnifier.offsetHeight / 2}px`;
+                    magnifier.style.left = `${x - magnifier.offsetWidth / 2}px`;
+                    magnifier.style.top = `${y - magnifier.offsetHeight / 2}px`;
+                    magnifier.style.display = "block";
+                });
+
+                zoomedImage.addEventListener("mouseleave", function() {
+                    magnifier.style.display = "none";
+                });
+            }
+        });
+    </script>
+
+    </html>
 @endsection

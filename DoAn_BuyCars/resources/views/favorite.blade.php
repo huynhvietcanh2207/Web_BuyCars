@@ -35,17 +35,23 @@
                 @foreach($favorites as $item)
                 <div class="col">
                     <div class="product-card">
-                        <img class="image-products" src="{{ $item->product->image_url }}" alt="hình ảnh">
+                    <div class="item-img">
+ <a href="{{ route('detail.index', ['id' => \App\Helpers\IdEncoder::encodeId($item->ProductId)]) }}">
+
+                           
+                                <img class="image-products" src="{{ ($item->product->image_url) }}" alt="{{$item->product->name}}">
+                            </a>
+                        </div>
                         <div class="product-title">{{ $item->product->name }}</div>
                         <div class="product-price">{{ number_format($item->product->price, 0, ',', '.') }} VND</div>
                         <div class="icon-btn">
                             <div class="icon-products">
-                                <i class="{{ $item->product->ProductId ? 'fas fa-heart' : 'far fa-heart' }} favorite-btn"
-                                    data-product-id="{{ $item->product->ProductId }}"></i>
+                                <i class="{{ $item->ProductId ? 'fas fa-heart' : 'far fa-heart' }} favorite-btn"
+                                    data-product-id="{{ $item->ProductId }}"></i>
                             </div>
-                            <form action="{{ route('cart.add', $item->product->ProductId) }}" method="POST">
+                            <form action="{{ route('cart.add', $item->ProductId) }}" method="POST">
                                 @csrf
-                                <input type="hidden" name="product_id" value="{{ $item->product->ProductId }}">
+                                <input type="hidden" name="product_id" value="{{ $item->ProductId }}">
                                 @if (auth()->check())
                                 <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                                 @endif
