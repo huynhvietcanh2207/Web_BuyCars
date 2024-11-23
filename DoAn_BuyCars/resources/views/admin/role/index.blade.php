@@ -15,7 +15,7 @@
             <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h1 class="h4">Quản lý Sản phẩm</h1>
+            <h1 class="h4">Quản lý Role</h1>
             <a href="{{ route('role.create') }}" class="btn btn-primary">Thêm</a>
         </div>
         <table class="table table-bordered">

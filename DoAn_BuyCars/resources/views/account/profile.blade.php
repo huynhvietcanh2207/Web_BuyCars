@@ -31,10 +31,9 @@
 
     <div class="d-flex">
         <!-- Sidebar -->
-        <div class="sidebar">
-            <a href="#">Đổi mật khẩu</a>
-            <a href="#">Cập nhật thông tin</a>
-            <a href="#">Danh sách địa chỉ</a>
+        <div class="profile-sidebar">
+            <a href="{{ route('password.change') }}">Đổi mật khẩu</a>
+            <a href="{{ route('account.profile') }}">Cập nhật thông tin</a>
             <a href="#">Lịch sử đơn hàng</a>
         </div>
 
@@ -110,8 +109,7 @@
             <div class="avatar text-center">
                 <form action="{{ route('account.updateAvatar') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <img src="{{ $user->profile_image ? Storage::url($user->profile_image) : asset('default-avatar.png') }}"
-                        alt="Avatar" width="100" class="mb-2">
+                    <img src="{{ asset($user->profile_image) }}" alt="Avatar" width="100" class="mb-2">
                     <div class="mt-2">
                         <label class="custom-file-upload">
                             Chọn Ảnh

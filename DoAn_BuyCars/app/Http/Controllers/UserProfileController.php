@@ -48,19 +48,28 @@ class UserProfileController extends Controller
 
         $user = auth()->user();
 
-        // Xóa ảnh cũ nếu có
-        if ($user->profile_image) {
-            Storage::delete('public/' . $user->profile_image);
+        // Xóa ảnh cũ nếu tồn tại
+        if ($user->profile_image && file_exists(public_path($user->profile_image))) {
+            unlink(public_path($user->profile_image));
         }
 
-        // Lưu ảnh mới vào thư mục avatars trong storage
-        $path = $request->file('avatar')->store('avatars', 'public');
+        // Lưu ảnh mới vào thư mục public/avatars
+        $filename = uniqid() . '.' . $request->file('avatar')->getClientOriginalExtension();
+        $path = public_path('avatars');
 
-        // Cập nhật đường dẫn ảnh trong cơ sở dữ liệu
-        $user->profile_image = $path;
+        // Tạo thư mục nếu chưa tồn tại
+        if (!file_exists($path)) {
+            mkdir($path, 0755, true);
+        }
+
+        // Lưu ảnh vào thư mục
+        $request->file('avatar')->move($path, $filename);
+
+        // Lưu đường dẫn ảnh vào cơ sở dữ liệu
+        $user->profile_image = 'avatars/' . $filename;
         $user->save();
 
-        // Ghi nhật ký
+        // Ghi nhật ký hoạt động
         ActivityLog::create([
             'user_id' => $user->id,
             'action' => 'Đã cập nhật ảnh đại diện.',
