@@ -20,6 +20,7 @@ use App\Http\Controllers\CrudVoucherController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\CrudCommentController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
 
 
 /*
@@ -118,6 +119,7 @@ Route::resource('users', UserController::class);
         'brands' => CrudBrandsController::class,
         'vouchers' => CrudVoucherController::class,
         'comments' => CrudCommentController::class,
-        
+        'orders' => OrderController::class,
+
     ]);
 });
