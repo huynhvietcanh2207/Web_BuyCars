@@ -1,4 +1,5 @@
 @extends('admin')
+
 @section('main')
 
 <!DOCTYPE html>
@@ -22,7 +23,6 @@
     </script>
     @endif
 
-    <!-- Thông báo alert cho error -->
     @if (session()->has('error'))
     <script>
         window.onload = function() {
@@ -31,24 +31,25 @@
     </script>
     @endif
 
-    <div class="container bg-white p-4  shadow">
+    <div class="container bg-white p-4 shadow">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h1 class="h4">Quản lý Sản phẩm</h1>
-            <a href="{{ route('products.create') }}" class="btn btn-primary">Thêm</a>
+            <a href="{{ route('products.create') }}" class="btn btn-primary">Thêm mới</a>
         </div>
-      
+
         <table class="table table-bordered">
             <thead class="thead-light">
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Tên sản phẩm</th>
-                    <th scope="col">ID thương hiệu</th>
+                    <th scope="col">Thương hiệu</th>
                     <th scope="col">Giá</th>
+                    <th scope="col">Số lượng</th>
                     <th scope="col">Hình ảnh</th>
                     <th scope="col">Mô tả</th>
-                    <th scope="col">Màu</th>
-                    <th scope="col">Created_at</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Màu sắc</th>
+                    <th scope="col">Ngày tạo</th>
+                    <th scope="col">Hành động</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,51 +57,38 @@
                 <tr>
                     <td>{{ $product->ProductId }}</td>
                     <td>{{ $product->name }}</td>
-                    <td>{{ $product->BrandId }}</td>
-                    <td>{{ $product->price }}</td>
-                    <td><img src="{{ asset($product->image_url) }}" class="d-block w-50 img-fluid"></td>
+                    <td>{{ $product->brand->BrandName }}</td> <!-- Hiển thị tên thương hiệu -->
+                     <td>{{ number_format($product->price, 0, ',', '.') }} VND</td>
+                    <td>{{ $product->quantity }}</td>
+                    <td>
+                        @if ($product->image_url)
+                        <img src="{{ asset($product->image_url) }}" class="img-fluid" style="max-width: 100px; height: auto;">
+                        @else
+                        <span>Không có hình ảnh</span>
+                        @endif
+                    </td>
                     <td>{{ $product->description }}</td>
                     <td>{{ $product->color }}</td>
-                    <td>{{ $product->created_at }}</td>
+                    <td>{{ $product->created_at->format('d-m-Y H:i') }}</td>
                     <td class="text-center">
-                        <a href="{{ route('products.edit', $product->ProductId) }}" class="text-primary">
-                        <i class="fas fa-edit"></i>
+                        <a href="{{ route('products.edit', $product->ProductId) }}" class="text-primary mx-1">
+                            <i class="fas fa-edit"></i>
                         </a>
                         <form action="{{ route('products.destroy', $product->ProductId) }}" method="POST" style="display:inline-block;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-link text-danger p-0 m-0" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này không?');">
-                            <i class="fas fa-trash-alt"></i>
+                            <button type="submit" class="btn btn-link text-danger p-0" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này không?');">
+                                <i class="fas fa-trash-alt"></i>
                             </button>
                         </form>
                     </td>
-
                 </tr>
                 @endforeach
             </tbody>
         </table>
+
         <div class="d-flex justify-content-center mt-3">
-            <nav>
-                <ul class="pagination">
-                    <li class="page-item {{ $products->onFirstPage() ? 'disabled' : '' }}">
-                        <a class="page-link" href="{{ $products->previousPageUrl() }}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-
-                    @foreach ($products->getUrlRange(1, $products->lastPage()) as $page => $url)
-                    <li class="page-item {{ $page == $products->currentPage() ? 'active' : '' }}">
-                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
-                    </li>
-                    @endforeach
-
-                    <li class="page-item {{ $products->hasMorePages() ? '' : 'disabled' }}">
-                        <a class="page-link" href="{{ $products->nextPageUrl() }}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+            {{ $products->links() }}
         </div>
     </div>
 
@@ -110,4 +98,5 @@
 </body>
 
 </html>
+
 @endsection
