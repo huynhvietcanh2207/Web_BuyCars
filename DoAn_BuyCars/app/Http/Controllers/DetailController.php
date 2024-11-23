@@ -23,32 +23,44 @@ class DetailController extends Controller
 
         if ($decodedId === null) {
             // Nếu ID không hợp lệ
-            return redirect()->route('home')->with('error', 'ID không hợp lệ!');
+            return redirect()->route('home')->with('error', 'ID sản phẩm không hợp lệ!');
         }
-        $comments = Comment::getCommentsByProductId($encodedId);
 
-        // Lấy thông tin sản phẩm từ database bằng ID đã giải mã
+        // Lấy thông tin sản phẩm và bình luận từ database
         $product = Product::find($decodedId);
+        $comments = Comment::where('ProductId', $decodedId)->orderBy('CreatedAt', 'desc')->get();
 
         if (!$product) {
             return redirect()->route('home')->with('error', 'Sản phẩm không tồn tại!');
         }
 
-        return view('detail', compact('product','comments'));
+        return view('detail', compact('product', 'comments'));
     }
- public function addComment(Request $request, $id)
+
+    public function addComment(Request $request, $encodedId)
     {
+        // Giải mã ID từ URL
+        $decodedId = IdEncoder::decodeId($encodedId);
+
+        if ($decodedId === null) {
+            // Nếu ID không hợp lệ
+            return redirect()->back()->with('error', 'ID sản phẩm không hợp lệ!');
+        }
+
+        // Kiểm tra người dùng đã đăng nhập chưa
         if (!auth()->check()) {
             return redirect()->back()->with('error', 'Vui lòng đăng nhập để bình luận.');
         }
 
+        // Validate dữ liệu đầu vào
         $request->validate([
             'CommentText' => 'required|string|max:500',
         ]);
 
+        // Thêm bình luận vào cơ sở dữ liệu
         Comment::create([
-            'ProductId' => $id,
-            'id' => auth()->user()->id, // Đảm bảo user đã đăng nhập
+            'ProductId' => $decodedId, // Lưu ProductId đã giải mã
+            'id' => auth()->user()->id, // Lấy ID người dùng từ phiên đăng nhập
             'CommentText' => $request->CommentText,
             'CreatedAt' => now(),
         ]);

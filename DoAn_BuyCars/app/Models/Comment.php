@@ -29,9 +29,6 @@ class Comment extends Model
 
     public static function getCommentsByProductId($productId)
     {
-        return self::with('user')
-            ->where('ProductId', $productId)
-            ->latest('CreatedAt')
-            ->get();
+        return self::where('ProductId', $productId)->orderBy('CreatedAt', 'desc')->get();
     }
 }

@@ -95,7 +95,7 @@
                         </div>
                     @else
                         <!-- Hiển thị form bình luận -->
-                        <form action="{{ route('product.comment', $product->ProductId) }}" method="POST">
+                        <form action="{{ route('product.comment', $product->getEncodedId()) }}" method="POST">
                             @csrf
                             <div class="mb-3">
                                 <textarea name="CommentText" class="form-control" rows="4"

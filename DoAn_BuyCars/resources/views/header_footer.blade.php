@@ -123,7 +123,7 @@
                         @auth
                         <a href="{{ route('account.profile') }}">Cá nhân</a>
 
-                            <a href="{{ route('account.profile') }}">Cá nhân</a>
+                           
 
                             <a href=" {{ route('password.change') }}">Đổi Mật Khẩu</a>
 
