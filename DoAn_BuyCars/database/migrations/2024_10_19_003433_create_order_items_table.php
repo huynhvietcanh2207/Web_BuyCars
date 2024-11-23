@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('order_items', function (Blueprint $table) {
-            $table->id('OrderItemId');
-            $table->unsignedBigInteger('OrderId');
-            $table->unsignedBigInteger('ProductId');
+            $table->id('OrderItemId'); 
+            $table->unsignedBigInteger('OrderId'); 
+            $table->unsignedBigInteger('ProductId');  
             $table->integer('quantity');
             $table->decimal('price', 18, 2);
         
@@ -22,7 +22,6 @@ return new class extends Migration
             $table->foreign('OrderId')->references('OrderId')->on('orders')->onDelete('cascade');
             $table->foreign('ProductId')->references('ProductId')->on('products')->onDelete('cascade');
         });
-        
         
     }
 
