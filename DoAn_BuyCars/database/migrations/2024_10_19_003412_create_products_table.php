@@ -13,7 +13,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->unsignedBigInteger('BrandId');
             // $table->foreign('BrandId')->references('id')->on('brands')->onDelete('cascade');
-            $table->decimal('price', 10, 2);
+            $table->decimal('price', 18, 2);
             $table->integer('quantity')->default(0); // Thêm trường số lượng
             $table->string('image_url')->nullable();
             $table->text('description')->nullable();
