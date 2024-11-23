@@ -196,6 +196,7 @@
                     });
                 }
 
+                
                 function updateTotal() {
                     let total = 0;
                     const selectedItems = $('.remove-item:checked');
