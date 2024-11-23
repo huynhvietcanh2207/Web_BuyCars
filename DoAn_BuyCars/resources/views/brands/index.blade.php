@@ -14,7 +14,7 @@
                 @foreach ($brands as $brand)
                     <div class="col-4">
                         <div class="product-card">
-                            <img class="image-products" src="{{ $brand->image_url }}" alt="{{ $brand->BrandName }}">
+                            <img class="image-products" src="{{ asset($brand->image_url) }}" alt="{{ $brand->BrandName }}">
                             <div class="product-title">
                                 <a href="{{ route('brands.showBrand', $brand->BrandId) }}">{{ $brand->BrandName }}</a>
                             </div>
