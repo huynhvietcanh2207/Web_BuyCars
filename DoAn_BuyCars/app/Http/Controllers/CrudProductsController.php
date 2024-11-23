@@ -67,7 +67,12 @@ class CrudProductsController extends Controller
             'description' => $request->description,
             'color' => $request->color,
         ]);
-
+        //cacsh 1
+        // Gửi email thông báo đến người dùng đã đăng ký
+        $subscribers = Subscription::all();
+        foreach ($subscribers as $subscriber) {
+            Mail::to($subscriber->email)->send(new \App\Mail\ProductAdded($product));
+        }
         return redirect()->route('products.index')->with('success', 'Sản phẩm đã được thêm thành công!');
     }
 
@@ -96,37 +101,37 @@ class CrudProductsController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
-{
-    $product = Product::findOrFail($id);
+    {
+        $product = Product::findOrFail($id);
 
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'BrandId' => 'required|integer',
-        'price' => 'required|numeric',
-        'quantity' => 'required|integer|min:0',
-        'file_upload' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        'description' => 'nullable|string',
-        'color' => 'nullable|string|max:255',
-    ]);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'BrandId' => 'required|integer',
+            'price' => 'required|numeric',
+            'quantity' => 'required|integer|min:0',
+            'file_upload' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'description' => 'nullable|string',
+            'color' => 'nullable|string|max:255',
+        ]);
 
-    if ($request->hasFile('file_upload')) {
-        $originalFilename = $request->file('file_upload')->getClientOriginalName();
-        $destinationPath = public_path('images');
-        $request->file('file_upload')->move($destinationPath, $originalFilename);
-        $product->image_url = 'images/' . $originalFilename;
+        if ($request->hasFile('file_upload')) {
+            $originalFilename = $request->file('file_upload')->getClientOriginalName();
+            $destinationPath = public_path('images');
+            $request->file('file_upload')->move($destinationPath, $originalFilename);
+            $product->image_url = 'images/' . $originalFilename;
+        }
+
+        $product->update([
+            'name' => $request->name,
+            'BrandId' => $request->BrandId,
+            'price' => $request->price,
+            'quantity' => $request->quantity,
+            'description' => $request->description,
+            'color' => $request->color,
+        ]);
+
+        return redirect()->route('products.index')->with('success', 'Sản phẩm đã được cập nhật thành công!');
     }
-
-    $product->update([
-        'name' => $request->name,
-        'BrandId' => $request->BrandId,
-        'price' => $request->price,
-        'quantity' => $request->quantity,
-        'description' => $request->description,
-        'color' => $request->color,
-    ]);
-
-    return redirect()->route('products.index')->with('success', 'Sản phẩm đã được cập nhật thành công!');
-}
 
 
     /**
