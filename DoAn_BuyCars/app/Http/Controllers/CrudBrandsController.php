@@ -15,14 +15,20 @@ class CrudBrandsController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-{
-    $sortBy = request()->get('sort_by', 'asc'); // Mặc định là sắp xếp tăng dần
-
-    // Lấy các thương hiệu, sắp xếp theo sort_by
-    $brands = Brand::orderBy('created_at', $sortBy)->paginate(4);
-
-    return view('admin.brands.index', compact('brands'));
-}
+    {
+        $sortBy = request()->get('sort_by', 'asc'); 
+        $searchTerm = request()->get('search'); 
+    
+        $brands = Brand::query()
+            ->when($searchTerm, function ($query, $searchTerm) {
+                $query->whereFullText('BrandName', $searchTerm); // Sử dụng Fulltext search
+            })
+            ->orderBy('created_at', $sortBy)
+            ->paginate(4);
+    
+        return view('admin.brands.index', compact('brands'));
+    }
+    
 
 
 
