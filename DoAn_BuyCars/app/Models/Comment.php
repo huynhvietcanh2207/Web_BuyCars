@@ -17,8 +17,18 @@ class Comment extends Model
         'ProductId',
         'id',
         'CommentText',
-        'CreatedAt'
+        'CreatedAt',
     ];
 
     public $timestamps = false;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id', 'id'); // 'id' là cột liên kết
+    }
+
+    public static function getCommentsByProductId($productId)
+    {
+        return self::where('ProductId', $productId)->orderBy('CreatedAt', 'desc')->get();
+    }
 }

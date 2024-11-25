@@ -20,7 +20,7 @@ use App\Http\Controllers\CrudVoucherController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\CrudCommentController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\OrderController;
+ use App\Http\Controllers\OrderController;
 
 
 /*
@@ -123,3 +123,7 @@ Route::resource('users', UserController::class);
 
     ]);
 });
+ 
+
+//xây dựng tìm kiếm
+Route::get('/search', [ProductController::class, 'search'])->name('search');

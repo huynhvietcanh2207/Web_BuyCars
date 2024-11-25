@@ -22,6 +22,8 @@ class Brand extends Model
     {
         return Brand::orderBy('BrandId', 'desc')->get();
     }
-
-    
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'BrandId');
+    }
 }

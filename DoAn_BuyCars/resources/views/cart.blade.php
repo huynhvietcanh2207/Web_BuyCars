@@ -12,100 +12,102 @@
 
 <body>
     @section('main')
-        <div class="banner">
-            <div class="cart-header text-center">
-                <img src="{{ asset('images/banner1.jpg') }}" alt="Banner">
-                <h1>GIỎ HÀNG</h1>
-                <p><span id="hightlight">Trang chủ ></span> Giỏ hàng</p>
-            </div>c
-        </div>
-        <div class="container my-5">
-            <div class="cart">
-                <div class="table-responsive">
-                    <div class="cart-table-wrapper">
-                        <table class="cart-table table text-center" id="cartTable">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Ảnh sản phẩm</th>
-                                    <th>Tên sản phẩm</th>
-                                    <th>Đơn giá</th>
-                                    <th style="width: 200px">Số lượng</th>
-                                    <th>Thành tiền</th>
-                                    <th>Xóa</th>
-                                </tr>
-                            </thead>
-                            <tbody id="cartItemsBody">
-                                @if ($cartItems->count() > 0)
-                                    @foreach ($cartItems as $item)
-                                        <tr class="cart-item" data-id="{{ $item->CartItemId }}">
-                                            <td class="checkbox"><input type="checkbox" class="remove-item"
-                                                    data-id="{{ $item->CartItemId }}"></td>
-                                            <td>
-                                                <img src="{{ asset($item->product->image_url) }}"
-                                                    alt="{{ $item->product->name }}" class="img-fluid" width="100">
-                                            </td>
-                                            <td>{{ $item->product->name }}</td>
-                                            <td class="product-price">
-                                                {{ number_format($item->product->price, 0, ',', '.') }}₫
-                                            </td>
-                                            <td>
-                                                <button
-                                                    class="btn btn-outline-secondary quantity-btn decrease-btn">-</button>
-                                                <input type="text"
-                                                    class="form-control d-inline text-center quantity-input"
-                                                    style="width: 60px;" value="{{ $item->quantity }}"
-                                                    data-price="{{ $item->product->price }}" min="1"
-                                                    data-max="{{ $item->product->quantity }}">
-                                                <button
-                                                    class="btn btn-outline-secondary quantity-btn increase-btn">+</button>
-                                            </td>
-                                            <td class="product_item">
-                                                {{ number_format($item->product->price * $item->quantity, 0, ',', '.') }}₫
-                                            </td>
-                                            <td>
-                                                <form action="{{ route('cart.destroy', $item->CartItemId) }}"
-                                                    method="POST">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <button class="btn btn-outline-danger delete-btn">🗑️</button>
-                                                    <div id="alert-box"
-                                                        style="display:none; position:fixed; top:20px; right:20px; z-index: 1050;"
-                                                        class="alert alert-success" role="alert"></div>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td colspan="7">Giỏ hàng của bạn hiện đang trống.</td>
+    <div class="banner">
+        <div class="cart-header text-center">
+            <img src="{{ asset('images/banner1.jpg') }}" alt="Banner">
+            <h1>GIỎ HÀNG</h1>
+            <p><span id="hightlight">Trang chủ ></span> Giỏ hàng</p>
+        </div>c
+    </div>
+    <div class="container my-5">
+        <div class="cart">
+            <div class="table-responsive">
+                <div class="cart-table-wrapper">
+                    <table class="cart-table table text-center" id="cartTable">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Ảnh sản phẩm</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Đơn giá</th>
+                                <th style="width: 200px">Số lượng</th>
+                                <th>Thành tiền</th>
+                                <th>Xóa</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cartItemsBody">
+                            @if ($cartItems->count() > 0)
+                                @foreach ($cartItems as $item)
+                                    <tr class="cart-item" data-id="{{ $item->CartItemId }}">
+                                        <td class="checkbox"><input type="checkbox" class="remove-item"
+                                                data-id="{{ $item->CartItemId }}"></td>
+                                        <td>
+                                            <img src="{{ asset($item->product->image_url) }}" alt="{{ $item->product->name }}"
+                                                class="img-fluid" width="100">
+                                        </td>
+                                        <td>{{ $item->product->name }}</td>
+                                        <td class="product-price">
+                                            {{ number_format($item->product->price, 0, ',', '.') }}₫
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-outline-secondary quantity-btn decrease-btn">-</button>
+                                            <input type="text" class="form-control d-inline text-center quantity-input"
+                                                style="width: 60px;" value="{{ $item->quantity }}"
+                                                data-price="{{ $item->product->price }}" min="1"
+                                                data-max="{{ $item->product->quantity }}">
+                                            <button class="btn btn-outline-secondary quantity-btn increase-btn">+</button>
+                                        </td>
+                                        <td class="product_item">
+                                            {{ number_format($item->product->price * $item->quantity, 0, ',', '.') }}₫
+                                        </td>
+                                        <td>
+                                            <form action="{{ route('cart.destroy', $item->CartItemId) }}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button class="btn btn-outline-danger delete-btn">🗑️</button>
+                                                <div id="alert-box"
+                                                    style="display:none; position:fixed; top:20px; right:20px; z-index: 1050;"
+                                                    class="alert alert-success" role="alert"></div>
+                                            </form>
+                                        </td>
                                     </tr>
-                                @endif
-                            </tbody>
-                        </table>
-                    </div>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="7">Giỏ hàng của bạn hiện đang trống.</td>
+                                </tr>
+                            @endif
+                        </tbody>
+                    </table>
                 </div>
-                <div id="checkall"><input type="checkbox" id="selectAll" class="me-2" value="">Chọn tất cả sản phẩm
-                </div>
-                <form>
-                    <div class="cart-footer d-flex justify-content-between align-items-center mt-4">
-                        <button type="button" class="btn btn-outline-danger continue-shopping"
-                            onclick="window.location.href='{{ route('index') }}'">
-                            TIẾP TỤC MUA HÀNG
-                        </button>
-                        <button type="button" id="delete-selected" class="btn btn-danger">Xóa các mục đã chọn</button>
-                        <div class="total text-end">
-                            <label for="total" class="text-dark">Tổng tiền thanh toán: </label>
-                            <input type="text" id="total" class="form-control d-inline" readonly
-                                style="width: 150px;"><br>
-                            <button type="submit" class="btn btn-danger checkout">TIẾN HÀNH THANH TOÁN</button>
-                        </div>
-                    </div>
-                </form>
             </div>
+            <div id="checkall"><input type="checkbox" id="selectAll" class="me-2" value="">Chọn tất cả sản phẩm
+            </div>
+            <form>
+                <div class="cart-footer d-flex justify-content-between align-items-center mt-4">
+                    <button type="button" class="btn btn-outline-danger continue-shopping"
+                        onclick="window.location.href='{{ route('index') }}'">
+                        TIẾP TỤC MUA HÀNG
+                    </button>
+                    <button type="button" id="delete-selected" class="btn btn-danger">Xóa các mục đã chọn</button>
+                    <div class="total text-end">
+                        <label for="total" class="text-dark">Tổng tiền thanh toán: </label>
+                        <input type="text" id="total" class="form-control d-inline" readonly style="width: 150px;"><br>
+                        @if (auth()->user()->roles->contains('RoleName', 'payment'))
+                            <div class="alert alert-warning text-center">
+                                Bạn đã bị cấm thanh toán
+                            </div>
+                        @else
+                            <button type="submit" class="btn btn-danger checkout">TIẾN HÀNH THANH TOÁN</button>
+                        @endif
+                    </div>
+                </div>
+            </form>
+        </div>
+                    
         </div>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
+		<script>
             $(document).ready(function() {
                 $('.remove-item').on('change', function() {
                     updateTotal();
@@ -124,11 +126,6 @@
                     const quantityInput = row.find('.quantity-input');
                     let quantity = parseInt(quantityInput.val());
 
-                    // if ($(this).hasClass('increase-btn')) {
-                    //     quantity++;
-                    // } else if ($(this).hasClass('decrease-btn') && quantity > 1) {
-                    //     quantity--;
-                    // }
 
                     if ($(this).hasClass('increase-btn') && quantity < quantityInput.data('max')) {
                         quantity++;
@@ -201,6 +198,7 @@
                     });
                 }
 
+                
                 function updateTotal() {
                     let total = 0;
                     const selectedItems = $('.remove-item:checked');
@@ -278,7 +276,7 @@
                 });
             });
         </script>
-    </body>
+</body>
 
-    </html>
+</html>
 @endsection
