@@ -20,6 +20,26 @@
 @endif
 <div class="container bg-white p-4 shadow">
     <h1 class="h4 mb-4">Danh sách Đơn hàng</h1>
+    <div class="d-flex justify-content-between mb-3">
+    <form action="{{ route('orders.index') }}" method="GET" class="form-inline">
+        <div class="form-group mr-2">
+            <label for="sort_by" class="mr-2">Lọc</label>
+            <select name="sort_by" id="sort_by" class="form-control" onchange="this.form.submit()">
+                <option value="asc" {{ request('sort_by') == 'asc' ? 'selected' : '' }}>Ngày tăng dần</option>
+                <option value="desc" {{ request('sort_by') == 'desc' ? 'selected' : '' }}>Ngày giảm dần</option>
+            </select>
+        </div>
+    </form>
+
+    <form action="{{ route('orders.index') }}" method="GET" class="form-inline">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Tìm theo tên người dùng..." value="{{ request('search') }}">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">Tìm</button>
+            </div>
+        </div>
+    </form>
+</div>
 
     <a href="{{ route('orders.create') }}" class="btn btn-primary mb-3">Tạo Đơn Hàng</a>
 
@@ -76,8 +96,32 @@
     </table>
 
     <div class="d-flex justify-content-center mt-3">
-        {{ $orders->links() }}
-    </div>
+    <nav>
+        <ul class="pagination">
+            <!-- Nút Previous -->
+            <li class="page-item {{ $orders->onFirstPage() ? 'disabled' : '' }}">
+                <a class="page-link" href="{{ $orders->previousPageUrl() }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <!-- Hiển thị các trang -->
+            @foreach ($orders->getUrlRange(1, $orders->lastPage()) as $page => $url)
+                <li class="page-item {{ $page == $orders->currentPage() ? 'active' : '' }}">
+                    <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                </li>
+            @endforeach
+
+            <!-- Nút Next -->
+            <li class="page-item {{ $orders->hasMorePages() ? '' : 'disabled' }}">
+                <a class="page-link" href="{{ $orders->nextPageUrl() }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
 </div>
 
 @endsection

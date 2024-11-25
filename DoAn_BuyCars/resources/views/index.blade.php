@@ -3,24 +3,24 @@
 @section('main')
 <!-- Thông báo alert cho success -->
 @if (session()->has('success'))
-    <script>
-        window.onload = function () {
-            alert("{{ session('success') }}");
-        }
-    </script>
+<script>
+    window.onload = function() {
+        alert("{{ session('success') }}");
+    }
+</script>
 @endif
 
 <!-- Thông báo alert cho error -->
 @if (session()->has('error'))
-    <script>
-        window.onload = function () {
-            alert("{{ session('error') }}");
-        }
-    </script>
+<script>
+    window.onload = function() {
+        alert("{{ session('error') }}");
+    }
+</script>
 @endif
 <!-- Hiển thị thông tin người dùng -->
 @if (auth()->check())
-    <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+<input type="hidden" name="user_id" value="{{ auth()->id() }}">
 @endif
 <main class="main-banner">
     <video src="review.mp4" autoplay muted loop></video>
@@ -40,32 +40,32 @@
     <div class="container container-products">
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 section-products">
             @foreach ($products as $product)
-                <div class="col">
-                    <div class="product-card">
-                        <div class="item-img">
-                            <a href="{{ route('detail.index', ['id' => \App\Helpers\IdEncoder::encodeId($product->ProductId)]) }}">
-                                <img class="image-products" src="{{ ($product->image_url) }}" alt="{{$product->name}}">
-                            </a>
+            <div class="col">
+                <div class="product-card">
+                    <div class="item-img">
+                        <a href="{{ route('detail.index', ['id' => \App\Helpers\IdEncoder::encodeId($product->ProductId)]) }}">
+                            <img class="image-products" src="{{ ($product->image_url) }}" alt="{{$product->name}}">
+                        </a>
+                    </div>
+                    <div class="product-title">{{ $product->name }}</div>
+                    <div class="product-price">{{ number_format($product->price, 0, ',', '.') }} VND</div>
+                    <div class="icon-btn">
+                        <div class="icon-products">
+                            <i class="{{ $product->is_favorited ? 'fas fa-heart' : 'far fa-heart' }} favorite-btn"
+                                data-product-id="{{ $product->ProductId }}"></i>
                         </div>
-                        <div class="product-title">{{ $product->name }}</div>
-                        <div class="product-price">{{ number_format($product->price, 0, ',', '.') }} VND</div>
-                        <div class="icon-btn">
-                            <div class="icon-products">
-                                <i class="{{ $product->is_favorited ? 'fas fa-heart' : 'far fa-heart' }} favorite-btn"
-                                    data-product-id="{{ $product->ProductId }}"></i>
-                            </div>
-                            {{-- <button class="btn-add-to-cart">Thêm vào giỏ hàng</button> --}}
-                            <form action="{{ route('cart.add', $product->ProductId) }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="product_id" value="{{ $product->ProductId }}">
-                                @if (auth()->check())
-                                    <input type="hidden" name="user_id" value="{{ auth()->id() }}">
-                                @endif
-                                <button class="btn-add-to-cart" type="submit">Thêm vào giỏ hàng</button>
-                            </form>
-                        </div>
+                        {{-- <button class="btn-add-to-cart">Thêm vào giỏ hàng</button> --}}
+                        <form action="{{ route('cart.add', $product->ProductId) }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->ProductId }}">
+                            @if (auth()->check())
+                            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                            @endif
+                            <button class="btn-add-to-cart" type="submit">Thêm vào giỏ hàng</button>
+                        </form>
                     </div>
                 </div>
+            </div>
             @endforeach
         </div>
     </div>
@@ -74,26 +74,26 @@
     <div class="pagination product-pagination">
         <!-- đầu << -->
         @if ($products->onFirstPage())
-            <button class="pagination-button" disabled>
-                << </button>
-        @else
-            <a href="{{ $products->url(1) }}" class="pagination-button">
-                << </a>
-        @endif
+        <button class="pagination-button" disabled>
+            << </button>
+                @else
+                <a href="{{ $products->url(1) }}" class="pagination-button">
+                    << </a>
+                        @endif
                         <!-- giữa -->
                         @for ($i = 1; $i <= $products->lastPage(); $i++)
                             <a href="{{ $products->url($i) }}"
                                 class="pagination-button {{ $products->currentPage() == $i ? 'active' : '' }}">
                                 {{ $i }}
                             </a>
-                        @endfor
+                            @endfor
 
-                        <!-- cuối >> -->
-                        @if ($products->hasMorePages())
+                            <!-- cuối >> -->
+                            @if ($products->hasMorePages())
                             <a href="{{ $products->url($products->lastPage()) }}" class="pagination-button">>></a>
-                        @else
+                            @else
                             <button class="pagination-button" disabled>>></button>
-                        @endif
+                            @endif
     </div>
 </section>
 </section>
@@ -106,37 +106,37 @@
         </div>
         <div class="carousel-inner product-news">
             @foreach ($newProducts as $index => $products)
-                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                    <div class="row item-products">
-                        <div class="col-lg-7 col-md-6 col-sm-12">
-                            <img src="{{ $products->image_url }}" class="d-block  img-fluid" alt="Slide {{ $index + 1 }}">
+            <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                <div class="row item-products">
+                    <div class="col-lg-7 col-md-6 col-sm-12">
+                        <img src="{{ $products->image_url }}" class="d-block  img-fluid" alt="Slide {{ $index + 1 }}">
+                    </div>
+                    <div
+                        class="col-lg-5 col-md-6 col-sm-12 d-flex flex-column justify-content-center carousel-item-text">
+                        <div class="name-newProducts">
+                            <h1><a href="#">{{ $products->name }}</a></h1>
                         </div>
-                        <div
-                            class="col-lg-5 col-md-6 col-sm-12 d-flex flex-column justify-content-center carousel-item-text">
-                            <div class="name-newProducts">
-                                <h1><a href="#">{{ $products->name }}</a></h1>
-                            </div>
-                            <p>Giới thiệu sương sương</p>
+                        <p>Giới thiệu sương sương</p>
 
-                            <div class="price-newProducts">
-                                Giá: <a href="#">{{ $products->price }} VND</a>
-                            </div>
-                            <div class="description">
-                                <p>{{ $products->description }}</p>
-                            </div>
-                            <form action="{{ route('cart.add', $product->ProductId) }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="product_id" value="{{ $product->ProductId }}">
-
-                                @if (auth()->check())
-                                    <input type="hidden" name="user_id" value="{{ auth()->id() }}">
-                                @endif
-                                <button class="btn-add-to-cart" data-id="{{ $product->ProductId }}"
-                                    data-price="{{ $product->price }}">Thêm vào giỏ hàng</button>
-                            </form>
+                        <div class="price-newProducts">
+                            Giá: <a href="#">{{ $products->price }} VND</a>
                         </div>
+                        <div class="description">
+                            <p>{{ $products->description }}</p>
+                        </div>
+                        <form action="{{ route('cart.add', $product->ProductId) }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->ProductId }}">
+
+                            @if (auth()->check())
+                            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                            @endif
+                            <button class="btn-add-to-cart" data-id="{{ $product->ProductId }}"
+                                data-price="{{ $product->price }}">Thêm vào giỏ hàng</button>
+                        </form>
                     </div>
                 </div>
+            </div>
             @endforeach
             <!-- Bootstrap Carousel controls -->
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -235,18 +235,51 @@
                 </div>
 
                 <div class="col-lg-9">
-                    <form action="{{ route('subscribe') }}" method="POST">
+                    <form action="{{ route('subscribe') }}" method="POST" id="subscribe-form">
                         @csrf
                         <div class="d-flex align-items-center">
                             <p>Đăng Ký Nhận Tin<br>Nhận thông tin mới nhất về siêu xe và ưu đãi đặc biệt:</p>
-                            <input type="email" name="email" placeholder="Email của bạn" class="form-control mx-2"
-                                style="width: auto;" required>
-                            <button type="submit" class="btn btn-dark">ĐĂNG KÝ</button>
+                            <input type="email" name="email" id="email" placeholder="Email của bạn"
+                                class="form-control mx-2" style="width: auto;" required>
+                            <span id="email-status" class="text-danger mx-2"></span>
+                            <button type="submit" class="btn btn-dark" id="subscribe-button">ĐĂNG KÝ</button>
                         </div>
-
-
                     </form>
                 </div>
+
+                <script>
+                    document.getElementById('email').addEventListener('input', function() {
+                        const email = this.value; 
+                        const status = document.getElementById('email-status'); 
+                        const subscribeButton = document.getElementById('subscribe-button'); 
+
+                        console.log('Email nhập:', email); 
+
+                        if (email.trim() !== '') {
+                            fetch(`/check-email?email=${email}`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    console.log('Response:', data); 
+                                    if (data.exists) {
+                                        status.textContent = "Email này đã được đăng ký.";
+                                        subscribeButton.disabled = true; 
+                                    } else {
+                                        status.textContent = "";
+                                        subscribeButton.disabled = false; 
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Có lỗi xảy ra:', error);
+                                    status.textContent = "Không thể kiểm tra email.";
+                                    subscribeButton.disabled = true;
+                                });
+                        } else {
+                            status.textContent = "";
+                            subscribeButton.disabled = false;
+                        }
+                    });
+                </script>
+
             </div>
         </div>
 
