@@ -22,11 +22,16 @@ use App\Http\Controllers\CrudCommentController;
 use App\Http\Controllers\UserController;
 <<<<<<< HEAD
  use App\Http\Controllers\OrderController;
+<<<<<<< HEAD
 =======
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\OrderController;
 
 >>>>>>> 10x-laravel-31-OrderDetails
+=======
+ use App\Models\Subscription;
+ use Illuminate\Http\Request;
+>>>>>>> origin/main
 
 
 /*
@@ -77,8 +82,14 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('/chart', [ChartController::class,'index'])->name('admin.chart.index');
     Route::get('/count-users', [ChartController::class, 'countUsersWithRole'])->name('count.users');
 });
-
+//check mail
 Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('subscribe');
+Route::get('/check-email', function (Request $request) {
+    $email = $request->get('email');
+    $exists = Subscription::where('email', $email)->exists();
+
+    return response()->json(['exists' => $exists]);
+});
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/change-password', [ChangePasswordController::class, 'showChangePasswordForm'])->name('password.change');

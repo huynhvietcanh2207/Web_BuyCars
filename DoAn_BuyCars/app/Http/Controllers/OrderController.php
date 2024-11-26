@@ -17,12 +17,25 @@ class OrderController extends Controller
 <<<<<<< HEAD
     public function index()
     {
+        
         $users = \App\Models\User::all(); 
-
-        $orders = Order::paginate(10);
-        return view('admin.orders.index', compact('orders', 'users'));
+        $sortBy = request()->get('sort_by', 'asc'); 
+        $searchTerm = request()->get('search');    
+    
+    
+        $orders = Order::query()
+            ->when($searchTerm, function ($query, $searchTerm) {
+                $query->whereHas('user', function ($userQuery) use ($searchTerm) {
+                    $userQuery->where('name', 'like', '%' . $searchTerm . '%');
+                });
+            })
+            ->orderBy('OrderDate', $sortBy) 
+            ->paginate(4); 
+    
+        return view('admin.orders.index', compact('orders','users'));
     }
-
+   
+    
     public function show($id)
     {
         $order = Order::findOrFail($id);

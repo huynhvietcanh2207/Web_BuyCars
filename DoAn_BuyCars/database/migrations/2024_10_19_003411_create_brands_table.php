@@ -13,10 +13,18 @@ return new class extends Migration
             $table->string('image_url')->nullable();
             $table->timestamps();
         });
+
+        Schema::table('brands', function (Blueprint $table) {
+            $table->fullText('BrandName');
+        });
     }
 
     public function down(): void
     {
+        Schema::table('brands', function (Blueprint $table) {
+            $table->dropFullText('BrandName');
+        });
+
         Schema::dropIfExists('brands');
     }
 };

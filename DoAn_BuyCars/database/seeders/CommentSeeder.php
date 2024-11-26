@@ -15,16 +15,16 @@ class CommentSeeder extends Seeder
     {
         $comments = [];
 
-        for ($i = 1; $i <= 5000; $i++) { // Tạo 5000 bản ghi
+        for ($i = 1; $i <= 50; $i++) { // Tạo 5000 bản ghi
             $comments[] = [
-                'ProductId' => 1,
+                'ProductId' => 8,
                 'id' => 1,
                 'CommentText' => 'Sample comment text ' . $i,
                 'CreatedAt' => now(),
             ];
 
             // Chèn theo batch 500 để tránh quá tải
-            if ($i % 500 === 0) {
+            if ($i % 50 === 0) {
                 DB::table('comments')->insert($comments);
                 $comments = []; // Reset mảng sau mỗi lần chèn
             }

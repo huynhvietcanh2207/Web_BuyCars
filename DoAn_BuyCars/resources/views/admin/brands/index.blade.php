@@ -36,15 +36,29 @@
             <h1 class="h4">Quản lý Thương Hiệu</h1>
             <a href="{{ route('brands.create') }}" class="btn btn-primary">Thêm</a>
         </div>
-        <form action="{{ route('brands.index') }}" method="GET" class="mb-3">
-            <div class="form-group position-relative">
-                <label for="sort_by" class="font-weight-bold">Lọc</label>
-                <select name="sort_by" id="sort_by" class="form-control custom-select" onchange="this.form.submit()">
-                    <option value="asc" {{ request('sort_by') == 'asc' ? 'selected' : '' }}>Tăng dần</option>
-                    <option value="desc" {{ request('sort_by') == 'desc' ? 'selected' : '' }}>Giảm dần</option>
-                </select>
+        <div class="row">
+            <div class="col-lg-8">
+                <form action="{{ route('brands.index') }}" method="GET" class="mb-3">
+                    <div class="form-group position-relative">
+                        <label for="sort_by" class="font-weight-bold">Lọc</label>
+                        <select style="width:20%" ; name="sort_by" id="sort_by" class="form-control custom-select" onchange="this.form.submit()">
+                            <option value="asc" {{ request('sort_by') == 'asc' ? 'selected' : '' }}>Tăng dần</option>
+                            <option value="desc" {{ request('sort_by') == 'desc' ? 'selected' : '' }}>Giảm dần</option>
+                        </select>
+                    </div>
+                </form>
             </div>
-        </form>
+            <div class="col-lg-4">
+    <form action="{{ route('brands.index') }}" method="GET" class="mb-3">
+        <div class="form-group d-flex align-items-center">
+            <button type="submit" class="btn btn-primary mr-2">Tìm</button>
+            <input type="text" name="search" id="search" class="form-control" placeholder="Nhập tên thương hiệu..." value="{{ request('search') }}">
+        </div>
+    </form>
+</div>
+
+        </div>
+
 
         <table class="table table-bordered">
             <thead class="thead-light">
