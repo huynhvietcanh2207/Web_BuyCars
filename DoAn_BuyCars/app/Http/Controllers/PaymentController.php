@@ -1,21 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-<<<<<<< HEAD
 
 use App\Http\Controllers\Controller;
-=======
 use App\Models\Order;
 
->>>>>>> 10x-laravel-31-OrderDetails
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
-<<<<<<< HEAD
-    //
-}
-=======
     // public function index()
     // {
     //     // Xử lý logic thanh toán tại đây
@@ -162,4 +155,3 @@ class PaymentController extends Controller
     
 //     Tên đăng nhập: quynguoisieunhien2811@gmail.com
 //     Mật khẩu: Laiphuquy06120@
->>>>>>> 10x-laravel-31-OrderDetails
