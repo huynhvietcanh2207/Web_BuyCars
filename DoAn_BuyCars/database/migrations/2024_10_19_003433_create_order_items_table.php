@@ -12,15 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('order_items', function (Blueprint $table) {
+<<<<<<< HEAD
             $table->id('OrderItemId'); 
             $table->unsignedBigInteger('OrderId'); 
             $table->unsignedBigInteger('ProductId');  
+=======
+            $table->id();
+            $table->unsignedBigInteger('order_id');
+            $table->unsignedBigInteger('product_id');
+>>>>>>> 10x-laravel-31-OrderDetails
             $table->integer('quantity');
-            $table->decimal('price', 18, 2);
-        
-            // Khóa ngoại
-            $table->foreign('OrderId')->references('OrderId')->on('orders')->onDelete('cascade');
-            $table->foreign('ProductId')->references('ProductId')->on('products')->onDelete('cascade');
+            $table->decimal('price', 10, 2);
+            $table->timestamps();
         });
         
     }

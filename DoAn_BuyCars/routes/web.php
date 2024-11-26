@@ -20,7 +20,13 @@ use App\Http\Controllers\CrudVoucherController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\CrudCommentController;
 use App\Http\Controllers\UserController;
+<<<<<<< HEAD
  use App\Http\Controllers\OrderController;
+=======
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\OrderController;
+
+>>>>>>> 10x-laravel-31-OrderDetails
 
 
 /*
@@ -123,7 +129,22 @@ Route::resource('users', UserController::class);
 
     ]);
 });
+<<<<<<< HEAD
  
 
 //xây dựng tìm kiếm
 Route::get('/search', [ProductController::class, 'search'])->name('search');
+=======
+//goi ham thanh toan
+Route::post('/vnpay_payment', [PaymentController::class, 'vnpay_payment'])->name('vnpay.payment');
+Route::get('/vnpay_return', [PaymentController::class, 'vnpay_return'])->name('vnpay.return');
+
+//hien thi don hang
+Route::get('/order/{id}', [OrderController::class, 'show'])->name('order.info');
+
+//lich su thanh toan
+Route::get('/order-history', [OrderController::class, 'history'])->name('order.history');
+
+
+ 
+>>>>>>> 10x-laravel-31-OrderDetails
