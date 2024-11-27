@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('OrderStatus', 50);
         
             // Khóa ngoại
-            $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('OrderId')->references('OrderId')->on('orders')->onDelete('cascade');
+            // $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('OrderId')->references('OrderId')->on('orders')->onDelete('cascade');
         });
         
         

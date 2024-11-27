@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up()
 {
-    Schema::table('orders', function (Blueprint $table) {
-        $table->timestamp('payment_date')->nullable();
+    // Schema::table('orders', function (Blueprint $table) {
+    //     $table->timestamp('payment_date')->nullable();
         
-    });
+    // });
 }
 
 public function down()

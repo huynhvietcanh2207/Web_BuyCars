@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('PaymentStatus', 50);
         
             // Khóa ngoại
-            $table->foreign('OrderId')->references('OrderId')->on('orders')->onDelete('cascade');
+            // $table->foreign('OrderId')->references('OrderId')->on('orders')->onDelete('cascade');
         });
         
         
